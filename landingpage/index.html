@@ -3,7 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="WebCraft Pro — The all-in-one platform for building, deploying, and growing beautiful websites. Drag-and-drop builder, 200+ templates, one-click deploy." />
+  <meta name="theme-color" content="#4F46E5" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://webcraftpro.com/" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234F46E5'/><text x='50' y='68' font-size='60' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>W</text></svg>" />
+  <meta property="og:title" content="WebCraft Pro — Build Stunning Websites Faster" />
+  <meta property="og:description" content="The all-in-one platform that empowers teams to design, develop, and deploy beautiful websites without the complexity." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://webcraftpro.com/" />
+  <meta property="og:site_name" content="WebCraft Pro" />
+  <meta property="og:image" content="https://webcraftpro.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WebCraft Pro — Build Stunning Websites Faster" />
+  <meta name="twitter:description" content="The all-in-one platform for building, deploying, and growing beautiful websites." />
+  <meta name="twitter:image" content="https://webcraftpro.com/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <title>WebCraft Pro — Build Stunning Websites Faster</title>
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "WebCraft Pro",
+      "url": "https://webcraftpro.com",
+      "logo": "https://webcraftpro.com/logo.svg",
+      "description": "The all-in-one platform for building, deploying, and growing beautiful websites.",
+      "sameAs": [
+        "https://twitter.com/webcraftpro",
+        "https://github.com/webcraftpro",
+        "https://linkedin.com/company/webcraftpro"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "WebCraft Pro",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "offers": [
+        { "@type": "Offer", "price": "19", "priceCurrency": "USD", "description": "Starter plan" },
+        { "@type": "Offer", "price": "49", "priceCurrency": "USD", "description": "Professional plan" }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "2400",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need coding experience to use WebCraft Pro?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not at all! WebCraft Pro is designed for non-technical users with a fully visual drag-and-drop interface. However, if you do know code, you can access the code editor for advanced customization."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use my own domain name?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! You can connect any custom domain to your WebCraft Pro site. We also provide free SSL certificates and CDN configuration for optimal performance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens when my free trial ends?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After the 14-day free trial, you can choose to upgrade to any paid plan. Your sites and data are preserved for 30 days. No charges are made unless you explicitly upgrade."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export my website code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Professional and Enterprise plans include clean HTML/CSS/JS code export. You can download your entire project and host it anywhere you'd like."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer refunds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer a 30-day money-back guarantee on all paid plans. If you're not satisfied, contact our support team for a full refund — no questions asked."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -19,7 +119,7 @@
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
       --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     body { font-family: var(--font); color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; }
@@ -350,8 +450,9 @@
     .pricing__toggle { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
     .pricing__toggle-label { font-size: 15px; font-weight: 500; color: var(--text-s); }
     .pricing__toggle-label--active { color: var(--text); }
-    .pricing__toggle-switch { width: 52px; height: 28px; background: var(--primary); border-radius: 14px; position: relative; cursor: pointer; }
-    .pricing__toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: white; border-radius: 50%; transition: transform 0.2s; }
+    .pricing__toggle-switch { width: 52px; height: 28px; background: var(--primary); border-radius: 14px; position: relative; cursor: pointer; transition: background 0.2s; }
+    .pricing__toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: white; border-radius: 50%; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+    .pricing__toggle-switch.yearly::after { transform: translateX(24px); }
     .pricing__badge { display: inline-flex; padding: 4px 10px; background: #DCFCE7; color: #16A34A; border-radius: 100px; font-size: 12px; font-weight: 600; }
     .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: start; }
     .pricing-card {
@@ -407,7 +508,9 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 14px; color: var(--text-s); flex-shrink: 0; transition: transform 0.3s;
     }
-    .faq-item__answer { padding: 0 24px 20px; font-size: 15px; color: var(--text-s); line-height: 1.7; }
+    .faq-item__answer { padding: 0 24px; font-size: 15px; color: var(--text-s); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.16,1,0.3,1), padding 0.35s; padding-top: 0; padding-bottom: 0; }
+    .faq-item.active .faq-item__answer { max-height: 300px; padding: 0 24px 20px; }
+    .faq-item.active .faq-item__icon { transform: rotate(45deg); }
 
     /* ==================== CTA ==================== */
     .cta {
@@ -691,6 +794,18 @@
 
     body.overflow-hidden { overflow: hidden; }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .logos__track { animation: none; }
+      .mesh-gradient__blob { animation: none; }
+      .reveal, .reveal-scale { opacity: 1; transform: none; }
+    }
+
     @media (max-width: 768px) {
       .hamburger { display: flex; }
     }
@@ -745,6 +860,7 @@
     <div class="mascot__tooltip">Hi! Need help? Click me 👋</div>
   </div>
 
+  <main>
   <!-- Hero Section (EFFECT 3: 3D + EFFECT 4: Mesh Gradient + EFFECT 7: Particles + EFFECT 6: Text Kinetic) -->
   <section class="hero" id="hero">
     <!-- EFFECT 4: Mesh Gradient Background -->
@@ -798,8 +914,35 @@
         <div class="hero__mockup" id="heroMockup">
           <div class="hero__mockup-glow"></div>
           <div class="hero__mockup-inner">
-            <div class="hero__mockup-icon">🖥️</div>
-            <span>Dashboard Preview</span>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;opacity:0.4;width:100%;padding:0 20px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#EF4444;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#F59E0B;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#10B981;"></div>
+              <div style="flex:1;height:1px;background:var(--border);margin-left:8px;"></div>
+            </div>
+            <div style="display:flex;gap:16px;width:100%;padding:0 20px;box-sizing:border-box;">
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+                <div style="height:8px;width:60%;background:var(--border);border-radius:4px;"></div>
+                <div style="height:8px;width:40%;background:var(--border);border-radius:4px;"></div>
+                <div style="height:40px;background:linear-gradient(135deg,#EEF2FF,#E0F2FE);border-radius:6px;margin-top:4px;"></div>
+                <div style="display:flex;gap:6px;">
+                  <div style="flex:1;height:24px;background:#D1FAE5;border-radius:4px;"></div>
+                  <div style="flex:1;height:24px;background:#FEF3C7;border-radius:4px;"></div>
+                  <div style="flex:1;height:24px;background:#E0F2FE;border-radius:4px;"></div>
+                </div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+                <div style="height:8px;width:50%;background:var(--border);border-radius:4px;"></div>
+                <div style="height:60px;background:linear-gradient(135deg,#F8FAFC,#E2E8F0);border-radius:6px;display:flex;align-items:flex-end;padding:4px;gap:2px;">
+                  <div style="flex:1;height:40%;background:rgba(79,70,229,0.2);border-radius:2px 2px 0 0;"></div>
+                  <div style="flex:1;height:60%;background:rgba(79,70,229,0.3);border-radius:2px 2px 0 0;"></div>
+                  <div style="flex:1;height:45%;background:rgba(79,70,229,0.2);border-radius:2px 2px 0 0;"></div>
+                  <div style="flex:1;height:80%;background:rgba(79,70,229,0.4);border-radius:2px 2px 0 0;"></div>
+                  <div style="flex:1;height:55%;background:rgba(79,70,229,0.3);border-radius:2px 2px 0 0;"></div>
+                  <div style="flex:1;height:70%;background:rgba(79,70,229,0.35);border-radius:2px 2px 0 0;"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -975,16 +1118,16 @@
         <p class="section-desc">No hidden fees. No surprises. Pick the plan that works for your team.</p>
       </div>
       <div class="pricing__toggle reveal">
-        <span class="pricing__toggle-label pricing__toggle-label--active">Monthly</span>
-        <div class="pricing__toggle-switch"></div>
-        <span class="pricing__toggle-label">Yearly</span>
+        <span class="pricing__toggle-label pricing__toggle-label--active" id="toggleMonthly">Monthly</span>
+        <div class="pricing__toggle-switch" id="pricingToggle"></div>
+        <span class="pricing__toggle-label" id="toggleYearly">Yearly</span>
         <span class="pricing__badge">Save 20%</span>
       </div>
       <div class="pricing__grid">
         <div class="pricing-card reveal stagger-1">
           <h3 class="pricing-card__name">Starter</h3>
           <p class="pricing-card__desc">Perfect for individuals and small projects</p>
-          <div class="pricing-card__price"><span class="pricing-card__amount">$19</span><span class="pricing-card__period">/ month</span></div>
+          <div class="pricing-card__price"><span class="pricing-card__amount" data-monthly="$19" data-yearly="$15">$19</span><span class="pricing-card__period">/ month</span></div>
           <ul class="pricing-card__features">
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>3 published websites</li>
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>50+ templates</li>
@@ -998,7 +1141,7 @@
           <div class="pricing-card__popular">Most Popular</div>
           <h3 class="pricing-card__name">Professional</h3>
           <p class="pricing-card__desc">For growing teams and businesses</p>
-          <div class="pricing-card__price"><span class="pricing-card__amount">$49</span><span class="pricing-card__period">/ month</span></div>
+          <div class="pricing-card__price"><span class="pricing-card__amount" data-monthly="$49" data-yearly="$39">$49</span><span class="pricing-card__period">/ month</span></div>
           <ul class="pricing-card__features">
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Unlimited websites</li>
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>200+ premium templates</li>
@@ -1071,6 +1214,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -1130,12 +1274,9 @@
     document.querySelectorAll('.faq-item__question').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var item = btn.parentElement;
-        var answer = item.querySelector('.faq-item__answer');
-        var icon = btn.querySelector('.faq-item__icon');
-        var isOpen = answer.style.display === 'block';
-        document.querySelectorAll('.faq-item__answer').forEach(function(a) { a.style.display = 'none'; });
-        document.querySelectorAll('.faq-item__icon').forEach(function(i) { i.style.transform = 'rotate(0deg)'; i.textContent = '+'; });
-        if (!isOpen) { answer.style.display = 'block'; icon.style.transform = 'rotate(45deg)'; }
+        var wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(function(fi) { fi.classList.remove('active'); });
+        if (!wasActive) item.classList.add('active');
       });
     });
 
@@ -1319,6 +1460,24 @@
         else featuresGrid.classList.remove('list-view');
       });
     });
+
+    // ==================== PRICING TOGGLE ====================
+    var pricingToggle = document.getElementById('pricingToggle');
+    var toggleMonthly = document.getElementById('toggleMonthly');
+    var toggleYearly = document.getElementById('toggleYearly');
+    var priceAmounts = document.querySelectorAll('.pricing-card__amount[data-monthly]');
+    var isYearly = false;
+    if (pricingToggle) {
+      pricingToggle.addEventListener('click', function() {
+        isYearly = !isYearly;
+        pricingToggle.classList.toggle('yearly', isYearly);
+        toggleMonthly.classList.toggle('pricing__toggle-label--active', !isYearly);
+        toggleYearly.classList.toggle('pricing__toggle-label--active', isYearly);
+        priceAmounts.forEach(function(el) {
+          el.textContent = isYearly ? el.getAttribute('data-yearly') : el.getAttribute('data-monthly');
+        });
+      });
+    }
 
     // ==================== MOBILE MENU ====================
     var hamburger = document.getElementById('hamburger');
