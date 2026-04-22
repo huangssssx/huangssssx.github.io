@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>WebCraft Pro — Build Stunning Websites Faster</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #4F46E5; --primary-light: #6366F1; --primary-dark: #3730A3;
+      --primary-bg: #EEF2FF; --secondary: #0EA5E9; --accent: #F59E0B;
+      --text: #1E293B; --text-s: #64748B; --text-l: #94A3B8;
+      --bg: #FFFFFF; --bg-alt: #F8FAFC; --bg-dark: #0F172A;
+      --border: #E2E8F0; --success: #10B981;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --max-w: 1200px; --r: 12px; --r-lg: 20px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; }
+
+    /* ==================== EFFECT 1: LIQUID GLASS ==================== */
+    .glass {
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 8px 32px rgba(79,70,229,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .glass::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s ease;
+      pointer-events: none;
+    }
+    .glass:hover::after { left: 150%; }
+    .glass-card {
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 4px 24px rgba(79,70,229,0.06), inset 0 1px 0 rgba(255,255,255,0.5);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      background: rgba(255,255,255,0.65);
+      box-shadow: 0 12px 40px rgba(79,70,229,0.12), inset 0 1px 0 rgba(255,255,255,0.7);
+      transform: translateY(-4px);
+      border-color: rgba(79,70,229,0.2);
+    }
+
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s;
+      padding-top: env(safe-area-inset-top);
+    }
+    .navbar.scrolled {
+      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.8);
+    }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .navbar__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; color: var(--text); }
+    .navbar__logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 18px; font-weight: 800;
+    }
+    .navbar__links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .navbar__links a { color: var(--text-s); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .navbar__links a:hover { color: var(--primary); }
+    .navbar__actions { display: flex; align-items: center; gap: 12px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 24px; border-radius: 10px; font-size: 15px; font-weight: 600;
+      border: none; cursor: pointer; transition: all 0.25s; line-height: 1.4; font-family: inherit;
+    }
+    .btn--ghost { background: transparent; color: var(--text-s); }
+    .btn--ghost:hover { color: var(--primary); background: var(--primary-bg); }
+    .btn--primary { background: var(--primary); color: white; box-shadow: 0 1px 2px rgba(79,70,229,0.3); }
+    .btn--primary:hover { background: var(--primary-light); box-shadow: 0 4px 16px rgba(79,70,229,0.4); transform: translateY(-1px); }
+    .btn--secondary { background: white; color: var(--primary); border: 1.5px solid var(--border); }
+    .btn--secondary:hover { border-color: var(--primary); background: var(--primary-bg); }
+    .btn--large { padding: 14px 32px; font-size: 16px; border-radius: 12px; }
+    .btn--dark { background: var(--bg-dark); color: white; }
+    .btn--dark:hover { background: #1E293B; transform: translateY(-1px); }
+    .btn--white { background: white; color: var(--primary); font-weight: 700; }
+    .btn--white:hover { background: #F8FAFC; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+    .btn--outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.3); }
+    .btn--outline-white:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+    /* ==================== EFFECT 4: MESH GRADIENT BG ==================== */
+    .mesh-gradient {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      overflow: hidden; pointer-events: none; z-index: 0;
+    }
+    .mesh-gradient__blob {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5;
+      animation: meshMove 20s ease-in-out infinite;
+    }
+    .mesh-gradient__blob:nth-child(1) { width: 600px; height: 600px; background: rgba(79,70,229,0.3); top: -20%; left: -10%; animation-duration: 25s; }
+    .mesh-gradient__blob:nth-child(2) { width: 500px; height: 500px; background: rgba(14,165,233,0.25); top: 10%; right: -10%; animation-duration: 20s; animation-delay: -5s; }
+    .mesh-gradient__blob:nth-child(3) { width: 400px; height: 400px; background: rgba(124,58,237,0.2); bottom: -10%; left: 30%; animation-duration: 22s; animation-delay: -10s; }
+    .mesh-gradient__blob:nth-child(4) { width: 350px; height: 350px; background: rgba(245,158,11,0.15); top: 40%; left: -5%; animation-duration: 18s; animation-delay: -3s; }
+    @keyframes meshMove {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(80px, -60px) scale(1.1); }
+      50% { transform: translate(-40px, 80px) scale(0.95); }
+      75% { transform: translate(60px, 40px) scale(1.05); }
+    }
+
+    /* ==================== EFFECT 7: CANVAS PARTICLES ==================== */
+    #particleCanvas {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+
+    /* ==================== EFFECT 3: 3D PERSPECTIVE HERO ==================== */
+    .hero {
+      padding: 160px 0 100px; text-align: center; position: relative; overflow: hidden;
+      min-height: 100vh; display: flex; align-items: center;
+    }
+    .hero__content { position: relative; z-index: 2; }
+    .hero__grid-bg {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(79,70,229,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,70,229,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.5); border-radius: 100px;
+      font-size: 14px; font-weight: 500; color: var(--text-s); margin-bottom: 28px;
+    }
+    .hero__badge-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* ==================== EFFECT 6: TEXT KINETIC ==================== */
+    .hero__title {
+      font-size: 68px; font-weight: 800; line-height: 1.08; letter-spacing: -0.04em;
+      color: var(--text); margin-bottom: 24px; max-width: 800px; margin-left: auto; margin-right: auto;
+    }
+    .hero__title-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary), #7C3AED);
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    .kinetic-char {
+      display: inline-block;
+      opacity: 0; transform: translateY(40px) rotateX(-40deg);
+      animation: charReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes charReveal { to { opacity: 1; transform: translateY(0) rotateX(0deg); } }
+
+    .typewriter-cursor {
+      display: inline-block; width: 3px; height: 0.9em;
+      background: var(--primary); margin-left: 2px; vertical-align: text-bottom;
+      animation: cursorBlink 0.8s step-end infinite;
+    }
+    @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero__subtitle { font-size: 20px; color: var(--text-s); max-width: 600px; margin: 0 auto 40px; line-height: 1.6; }
+    .hero__cta { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; flex-wrap: wrap; }
+    .hero__note { font-size: 13px; color: var(--text-l); display: flex; align-items: center; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .hero__note span { display: flex; align-items: center; gap: 4px; }
+
+    /* ==================== EFFECT 3: 3D PRODUCT MOCKUP ==================== */
+    .hero__mockup-wrapper {
+      perspective: 1200px; max-width: 1000px; margin: 60px auto 0;
+    }
+    .hero__mockup {
+      position: relative; border-radius: var(--r-lg); overflow: hidden;
+      box-shadow: var(--shadow-xl), 0 0 0 1px var(--border);
+      transform-style: preserve-3d; transition: transform 0.15s ease-out;
+      transform: rotateX(8deg) rotateY(-4deg);
+    }
+    .hero__mockup-inner {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #F8FAFC, #E2E8F0);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--text-l);
+    }
+    .hero__mockup-icon {
+      width: 64px; height: 64px; border-radius: 16px; background: white;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md); font-size: 28px;
+    }
+    .hero__mockup-glow {
+      position: absolute; top: 50%; left: 50%; width: 60%; height: 60%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(79,70,229,0.15), transparent 70%);
+      pointer-events: none; filter: blur(40px);
+    }
+
+    /* ==================== EFFECT 2: SCROLL SVG PATH ==================== */
+    .scroll-svg-container {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .scroll-svg-container svg { width: 100%; height: 100%; }
+    .scroll-path {
+      fill: none; stroke: url(#pathGradient); stroke-width: 2;
+      stroke-dasharray: 3000; stroke-dashoffset: 3000;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+
+    /* ==================== LOGOS / MARQUEE ==================== */
+    .logos { padding: 64px 0; border-bottom: 1px solid var(--border); }
+    .logos__title { text-align: center; font-size: 14px; font-weight: 500; color: var(--text-l); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 40px; }
+    .logos__track-wrapper {
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    }
+    .logos__track { display: flex; gap: 60px; animation: marquee 30s linear infinite; width: max-content; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .logos__item { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 700; color: var(--text-l); opacity: 0.5; }
+    .logos__item-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--border); }
+
+    /* ==================== SECTION COMMON ==================== */
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .section-label { display: inline-block; font-size: 14px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    .section-title { font-size: 42px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    .section-desc { font-size: 18px; color: var(--text-s); line-height: 1.6; }
+
+    /* ==================== EFFECT 10: GRID SNAP ==================== */
+    .features { padding: 120px 0; position: relative; }
+    .features__grid {
+      display: grid; gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .features__grid.list-view { grid-template-columns: 1fr; }
+    .features__grid.list-view .feature-card { flex-direction: row; display: flex; align-items: center; gap: 24px; }
+    .features__grid.list-view .feature-card__desc { margin: 0; }
+    .grid-toggle { display: flex; gap: 8px; justify-content: center; margin-bottom: 40px; }
+    .grid-toggle__btn {
+      width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border);
+      background: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; color: var(--text-l); font-size: 16px;
+    }
+    .grid-toggle__btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    .feature-card {
+      padding: 32px; border-radius: var(--r-lg);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: default;
+    }
+    .feature-card:hover {
+      background: rgba(255,255,255,0.75);
+      box-shadow: 0 12px 40px rgba(79,70,229,0.1);
+      transform: translateY(-4px);
+      border-color: rgba(79,70,229,0.15);
+    }
+    .feature-card__icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 20px;
+    }
+    .feature-card__icon--purple { background: #EEF2FF; }
+    .feature-card__icon--blue { background: #E0F2FE; }
+    .feature-card__icon--green { background: #D1FAE5; }
+    .feature-card__icon--amber { background: #FEF3C7; }
+    .feature-card__icon--rose { background: #FFE4E6; }
+    .feature-card__icon--teal { background: #CCFBF1; }
+    .feature-card__title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .feature-card__desc { font-size: 15px; color: var(--text-s); line-height: 1.6; }
+
+    /* ==================== HOW IT WORKS ==================== */
+    .how-it-works { padding: 120px 0; background: var(--bg-alt); position: relative; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; position: relative; }
+    .step { text-align: center; position: relative; }
+    .step__number {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white; font-size: 22px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px; position: relative; z-index: 1;
+      box-shadow: 0 4px 20px rgba(79,70,229,0.3);
+    }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute; top: 28px; left: calc(50% + 36px);
+      width: calc(100% - 72px); height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--border));
+    }
+    .step__title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .step__desc { font-size: 15px; color: var(--text-s); line-height: 1.6; max-width: 280px; margin: 0 auto; }
+
+    /* ==================== STATS ==================== */
+    .stats { padding: 80px 0; background: var(--bg-dark); color: white; position: relative; overflow: hidden; }
+    .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+    .stat__number {
+      font-size: 52px; font-weight: 800; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #818CF8, #38BDF8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 8px;
+    }
+    .stat__label { font-size: 15px; color: #94A3B8; font-weight: 500; }
+
+    /* ==================== TESTIMONIALS ==================== */
+    .testimonials { padding: 120px 0; }
+    .testimonials__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .testimonial-card {
+      padding: 32px; border-radius: var(--r-lg);
+      background: rgba(255,255,255,0.5); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: all 0.4s;
+    }
+    .testimonial-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .testimonial-card__stars { display: flex; gap: 2px; margin-bottom: 16px; color: var(--accent); font-size: 16px; }
+    .testimonial-card__text { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 24px; }
+    .testimonial-card__author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-card__avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-bg), #E0F2FE);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: var(--primary);
+    }
+    .testimonial-card__name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .testimonial-card__role { font-size: 13px; color: var(--text-l); }
+
+    /* ==================== PRICING ==================== */
+    .pricing { padding: 120px 0; background: var(--bg-alt); }
+    .pricing__toggle { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
+    .pricing__toggle-label { font-size: 15px; font-weight: 500; color: var(--text-s); }
+    .pricing__toggle-label--active { color: var(--text); }
+    .pricing__toggle-switch { width: 52px; height: 28px; background: var(--primary); border-radius: 14px; position: relative; cursor: pointer; }
+    .pricing__toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: white; border-radius: 50%; transition: transform 0.2s; }
+    .pricing__badge { display: inline-flex; padding: 4px 10px; background: #DCFCE7; color: #16A34A; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: start; }
+    .pricing-card {
+      padding: 36px; border-radius: var(--r-lg); border: 1px solid var(--border);
+      background: white; position: relative; transition: all 0.4s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .pricing-card--featured {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), var(--shadow-xl);
+      transform: scale(1.04);
+      background: linear-gradient(135deg, white, var(--primary-bg));
+    }
+    .pricing-card--featured:hover { transform: scale(1.04) translateY(-4px); }
+    .pricing-card__popular {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      padding: 6px 20px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white; border-radius: 100px; font-size: 13px; font-weight: 600;
+    }
+    .pricing-card__name { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .pricing-card__desc { font-size: 14px; color: var(--text-l); margin-bottom: 24px; }
+    .pricing-card__price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 8px; }
+    .pricing-card__amount { font-size: 48px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+    .pricing-card__period { font-size: 15px; color: var(--text-l); }
+    .pricing-card__features { list-style: none; margin: 28px 0 32px; display: flex; flex-direction: column; gap: 14px; }
+    .pricing-card__feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-s); }
+    .pricing-card__check {
+      width: 20px; height: 20px; border-radius: 50%; background: #D1FAE5; color: var(--success);
+      display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;
+    }
+    .pricing-card .btn { width: 100%; }
+
+    /* ==================== EFFECT 9: SVG REVEAL ==================== */
+    .reveal-section { position: relative; }
+    .reveal-clip {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-clip.revealed { clip-path: inset(0 0% 0 0); }
+
+    /* ==================== FAQ ==================== */
+    .faq { padding: 120px 0; }
+    .faq__list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    .faq-item__question {
+      width: 100%; padding: 20px 24px; background: white; border: none; text-align: left;
+      font-size: 16px; font-weight: 600; color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: inherit;
+    }
+    .faq-item__question:hover { background: var(--bg-alt); }
+    .faq-item__icon {
+      width: 24px; height: 24px; border-radius: 50%; background: var(--bg-alt);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-s); flex-shrink: 0; transition: transform 0.3s;
+    }
+    .faq-item__answer { padding: 0 24px 20px; font-size: 15px; color: var(--text-s); line-height: 1.7; }
+
+    /* ==================== CTA ==================== */
+    .cta {
+      padding: 120px 0; color: white; text-align: center; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), #7C3AED);
+      background-size: 200% 200%; animation: ctaShift 8s ease infinite;
+    }
+    @keyframes ctaShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .cta::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+    .cta::after { content: ''; position: absolute; bottom: -150px; left: -150px; width: 500px; height: 500px; background: rgba(255,255,255,0.03); border-radius: 50%; }
+    .cta .container { position: relative; z-index: 1; }
+    .cta__title { font-size: 44px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .cta__desc { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 500px; margin: 0 auto 36px; line-height: 1.6; }
+    .cta__actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* ==================== FOOTER ==================== */
+    .footer { padding: 80px 0 40px; background: var(--bg-dark); color: #94A3B8; }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
+    .footer__brand-desc { font-size: 14px; line-height: 1.7; color: #64748B; margin-top: 16px; max-width: 280px; }
+    .footer__column-title { font-size: 14px; font-weight: 600; color: white; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer__links a { color: #64748B; font-size: 14px; transition: color 0.2s; }
+    .footer__links a:hover { color: white; }
+    .footer__bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid #1E293B; font-size: 13px; color: #475569; }
+    .footer__social { display: flex; gap: 16px; }
+    .footer__social a {
+      width: 36px; height: 36px; border-radius: 8px; background: #1E293B;
+      display: flex; align-items: center; justify-content: center;
+      color: #64748B; font-size: 14px; transition: all 0.2s;
+    }
+    .footer__social a:hover { background: var(--primary); color: white; }
+
+    /* ==================== EFFECT 5: FLOATING MASCOT ==================== */
+    .mascot {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(79,70,229,0.4);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      right: calc(24px + env(safe-area-inset-right));
+    }
+    .mascot:hover { transform: scale(1.15); }
+    .mascot__eyes {
+      position: absolute; top: 18px; display: flex; gap: 6px;
+    }
+    .mascot__eye {
+      width: 6px; height: 6px; background: white; border-radius: 50%;
+      transition: transform 0.1s;
+    }
+    .mascot__tooltip {
+      position: absolute; bottom: 68px; right: 0;
+      padding: 10px 16px; background: white; border-radius: 12px;
+      box-shadow: var(--shadow-lg); font-size: 13px; color: var(--text);
+      white-space: nowrap; opacity: 0; transform: translateY(8px);
+      transition: all 0.3s; pointer-events: none;
+    }
+    .mascot:hover .mascot__tooltip { opacity: 1; transform: translateY(0); }
+
+    /* ==================== EFFECT 8: PARALLAX LAYERS ==================== */
+    .parallax-container { position: relative; overflow: hidden; }
+    .parallax-layer { will-change: transform; transition: transform 0.1s linear; }
+
+    /* ==================== SCROLL REVEAL ==================== */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-scale.revealed { opacity: 1; transform: scale(1); }
+    .stagger-1 { transition-delay: 0.05s; } .stagger-2 { transition-delay: 0.1s; }
+    .stagger-3 { transition-delay: 0.15s; } .stagger-4 { transition-delay: 0.2s; }
+    .stagger-5 { transition-delay: 0.25s; } .stagger-6 { transition-delay: 0.3s; }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1024px) {
+      .hero__title { font-size: 48px; }
+      .features__grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+      .pricing-card--featured { transform: none; }
+      .pricing-card--featured:hover { transform: translateY(-4px); }
+      .footer__grid { grid-template-columns: repeat(2, 1fr); }
+      .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .hero__mockup-wrapper { max-width: 90%; }
+      .mesh-gradient__blob:nth-child(1) { width: 400px; height: 400px; }
+      .mesh-gradient__blob:nth-child(2) { width: 350px; height: 350px; }
+      .mesh-gradient__blob:nth-child(3) { width: 300px; height: 300px; }
+      .mesh-gradient__blob:nth-child(4) { width: 250px; height: 250px; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .navbar__links { display: none; }
+      .navbar__actions .btn--ghost { display: none; }
+      .navbar .hamburger { display: flex; }
+      .navbar .container { height: 60px; }
+      .mobile-menu { top: 60px; }
+
+      .hero { padding: 80px 0 48px; min-height: auto; }
+      .hero__title { font-size: 32px; letter-spacing: -0.02em; }
+      .hero__subtitle { font-size: 16px; margin: 0 auto 28px; }
+      .hero__cta { flex-direction: column; gap: 12px; margin-bottom: 32px; }
+      .hero__cta .btn { width: 100%; min-height: 50px; }
+      .hero__note { flex-direction: column; gap: 8px; font-size: 12px; }
+      .hero__mockup-wrapper { max-width: 100%; margin: 32px auto 0; }
+      .hero__mockup { transform: none !important; box-shadow: var(--shadow-lg); }
+      .hero__mockup-inner { aspect-ratio: 16/10; }
+
+      .mesh-gradient__blob { opacity: 0.3; }
+      .mesh-gradient__blob:nth-child(1) { width: 250px; height: 250px; }
+      .mesh-gradient__blob:nth-child(2) { width: 200px; height: 200px; }
+      .mesh-gradient__blob:nth-child(3) { width: 180px; height: 180px; }
+      .mesh-gradient__blob:nth-child(4) { display: none; }
+
+      .scroll-svg-container { display: none; }
+      #particleCanvas { opacity: 0.4; }
+
+      .section-header { margin-bottom: 40px; }
+      .section-title { font-size: 28px; }
+      .section-desc { font-size: 16px; }
+
+      .logos { padding: 40px 0; }
+      .logos__title { font-size: 12px; margin-bottom: 24px; }
+      .logos__track { gap: 32px; }
+      .logos__item { font-size: 16px; }
+      .logos__item-icon { width: 24px; height: 24px; }
+
+      .features { padding: 64px 0; }
+      .grid-toggle { display: none; }
+      .features__grid, .testimonials__grid, .steps { grid-template-columns: 1fr; gap: 16px; }
+      .feature-card { padding: 20px; }
+      .feature-card__icon { width: 44px; height: 44px; font-size: 20px; margin-bottom: 14px; }
+      .feature-card__title { font-size: 18px; }
+      .feature-card__desc { font-size: 14px; }
+
+      .how-it-works { padding: 64px 0; }
+      .step { padding: 0 16px; }
+      .step:not(:last-child)::after { display: none; }
+      .step__desc { font-size: 14px; }
+      .step__number { width: 48px; height: 48px; font-size: 20px; }
+      .steps { gap: 32px; }
+
+      .stats { padding: 48px 0; }
+      .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .stat__number { font-size: 36px; }
+      .stat__label { font-size: 13px; }
+
+      .testimonials { padding: 64px 0; }
+      .testimonial-card { padding: 20px; }
+      .testimonial-card__text { font-size: 14px; margin-bottom: 18px; }
+
+      .pricing { padding: 64px 0; }
+      .pricing__grid { gap: 20px; }
+      .pricing-card { padding: 24px; }
+      .pricing-card__amount { font-size: 40px; }
+      .pricing__toggle { margin-bottom: 36px; }
+
+      .faq { padding: 64px 0; }
+      .faq__list { gap: 10px; }
+      .faq-item__question { padding: 16px 18px; font-size: 15px; min-height: 52px; }
+      .faq-item__answer { padding: 0 18px 16px; font-size: 14px; }
+
+      .cta { padding: 64px 0; }
+      .cta__title { font-size: 28px; }
+      .cta__desc { font-size: 16px; }
+      .cta__actions { flex-direction: column; gap: 12px; }
+      .cta__actions .btn { width: 100%; min-height: 50px; }
+
+      .footer { padding: 48px 0 28px; }
+      .footer__grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer__bottom { flex-direction: column; gap: 16px; text-align: center; }
+
+      .mascot { bottom: 16px; right: 16px; width: 44px; height: 44px; font-size: 22px; }
+      .mascot__tooltip { display: none; }
+
+      .reveal { transform: translateY(24px); }
+
+      .btn { min-height: 44px; }
+      .faq-item__icon { width: 28px; height: 28px; font-size: 16px; }
+
+      .navbar__logo { font-size: 18px; gap: 8px; white-space: nowrap; }
+      .navbar__logo-icon { width: 30px; height: 30px; font-size: 15px; border-radius: 8px; }
+      .navbar__actions .btn--primary {
+        padding: 7px 12px; font-size: 13px; white-space: nowrap;
+        border-radius: 8px; min-height: 34px;
+      }
+      .navbar__actions { gap: 8px; }
+      .hamburger { padding: 6px; }
+      .hamburger span { width: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero__title { font-size: 26px; }
+      .hero__badge { font-size: 12px; padding: 5px 12px; }
+      .hero__subtitle { font-size: 15px; }
+      .section-title { font-size: 24px; }
+      .section-label { font-size: 12px; }
+      .stats__grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .stat__number { font-size: 30px; }
+      .btn--large { padding: 12px 24px; font-size: 15px; }
+      .footer__grid { gap: 24px; }
+      .footer__column-title { font-size: 13px; }
+
+      .navbar__logo { font-size: 16px; gap: 6px; }
+      .navbar__logo-icon { width: 28px; height: 28px; font-size: 14px; border-radius: 7px; }
+      .navbar__actions .btn--primary { padding: 6px 10px; font-size: 12px; }
+      .navbar__actions { gap: 6px; }
+      .hamburger span { width: 18px; }
+    }
+
+    @media (max-width: 360px) {
+      .navbar__logo { font-size: 15px; gap: 5px; }
+      .navbar__logo-icon { width: 26px; height: 26px; font-size: 13px; }
+      .navbar__actions .btn--primary { padding: 5px 8px; font-size: 11px; }
+    }
+
+    /* ==================== HAMBURGER MENU ==================== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 999;
+      padding: 32px 24px;
+      flex-direction: column;
+      gap: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+      display: flex;
+    }
+    .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu a {
+      display: block;
+      padding: 16px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--primary); }
+    .mobile-menu__cta {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mobile-menu__cta .btn { width: 100%; text-align: center; }
+
+    body.overflow-hidden { overflow: hidden; }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar (EFFECT 1: Liquid Glass) -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="navbar__logo">
+        <div class="navbar__logo-icon">W</div>
+        WebCraft Pro
+      </a>
+      <ul class="navbar__links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it Works</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="navbar__actions">
+        <a href="#" class="btn btn--ghost">Log in</a>
+        <a href="#" class="btn btn--primary">Start Free Trial</a>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features" class="mobile-menu__link">Features</a>
+    <a href="#how-it-works" class="mobile-menu__link">How it Works</a>
+    <a href="#testimonials" class="mobile-menu__link">Testimonials</a>
+    <a href="#pricing" class="mobile-menu__link">Pricing</a>
+    <a href="#faq" class="mobile-menu__link">FAQ</a>
+    <div class="mobile-menu__cta">
+      <a href="#" class="btn btn--primary btn--large">Start Free Trial</a>
+      <a href="#" class="btn btn--secondary btn--large">Log in</a>
+    </div>
+  </div>
+
+  <!-- EFFECT 5: Floating Mascot -->
+  <div class="mascot" id="mascot">
+    <div class="mascot__eyes">
+      <div class="mascot__eye" id="mascotEyeL"></div>
+      <div class="mascot__eye" id="mascotEyeR"></div>
+    </div>
+    🤖
+    <div class="mascot__tooltip">Hi! Need help? Click me 👋</div>
+  </div>
+
+  <!-- Hero Section (EFFECT 3: 3D + EFFECT 4: Mesh Gradient + EFFECT 7: Particles + EFFECT 6: Text Kinetic) -->
+  <section class="hero" id="hero">
+    <!-- EFFECT 4: Mesh Gradient Background -->
+    <div class="mesh-gradient">
+      <div class="mesh-gradient__blob"></div>
+      <div class="mesh-gradient__blob"></div>
+      <div class="mesh-gradient__blob"></div>
+      <div class="mesh-gradient__blob"></div>
+    </div>
+    <!-- EFFECT 7: Canvas Particles -->
+    <canvas id="particleCanvas"></canvas>
+    <div class="hero__grid-bg"></div>
+    <!-- EFFECT 2: Scroll SVG Path -->
+    <div class="scroll-svg-container">
+      <svg viewBox="0 0 1200 800" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:rgba(79,70,229,0.3)" />
+            <stop offset="50%" style="stop-color:rgba(14,165,233,0.3)" />
+            <stop offset="100%" style="stop-color:rgba(124,58,237,0.3)" />
+          </linearGradient>
+        </defs>
+        <path class="scroll-path" id="scrollPath" d="M0,400 C200,300 400,500 600,350 S900,200 1200,400" />
+      </svg>
+    </div>
+
+    <div class="container hero__content">
+      <div class="hero__badge reveal" style="transition-delay:0.1s">
+        <span class="hero__badge-dot"></span>
+        Now in public beta — Try it free today
+      </div>
+      <!-- EFFECT 6: Text Kinetic Typography -->
+      <h1 class="hero__title reveal" id="heroTitle" style="transition-delay:0.2s">
+        <span id="heroTitleStatic">Build Stunning Websites</span><br/>
+        <span class="hero__title-gradient" id="hero-typed"></span><span class="typewriter-cursor"></span>
+      </h1>
+      <p class="hero__subtitle reveal" style="transition-delay:0.3s">
+        The all-in-one platform that empowers teams to design, develop, and deploy beautiful websites without the complexity.
+      </p>
+      <div class="hero__cta reveal" style="transition-delay:0.4s">
+        <a href="#" class="btn btn--primary btn--large">Get Started Free →</a>
+        <a href="#" class="btn btn--secondary btn--large">Watch Demo</a>
+      </div>
+      <div class="hero__note reveal" style="transition-delay:0.5s">
+        <span>✓ No credit card required</span>
+        <span>✓ 14-day free trial</span>
+        <span>✓ Cancel anytime</span>
+      </div>
+      <!-- EFFECT 3: 3D Interactive Mockup -->
+      <div class="hero__mockup-wrapper reveal-scale" style="transition-delay:0.6s">
+        <div class="hero__mockup" id="heroMockup">
+          <div class="hero__mockup-glow"></div>
+          <div class="hero__mockup-inner">
+            <div class="hero__mockup-icon">🖥️</div>
+            <span>Dashboard Preview</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos / Marquee -->
+  <section class="logos">
+    <div class="container">
+      <p class="logos__title reveal">Trusted by 2,000+ companies worldwide</p>
+    </div>
+    <div class="logos__track-wrapper">
+      <div class="logos__track">
+        <div class="logos__item"><div class="logos__item-icon"></div>Acme Corp</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>TechFlow</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Quantum</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Peaka</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Aperture</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Chainlink</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Acme Corp</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>TechFlow</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Quantum</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Peaka</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Aperture</div>
+        <div class="logos__item"><div class="logos__item-icon"></div>Chainlink</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features (EFFECT 10: Grid Snap + EFFECT 1: Liquid Glass + EFFECT 8: Parallax) -->
+  <section class="features parallax-container" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Features</span>
+        <h2 class="section-title">Everything you need to ship faster</h2>
+        <p class="section-desc">A complete toolkit designed for modern web teams. From drag-and-drop editing to code export, we've got you covered.</p>
+      </div>
+      <!-- EFFECT 10: Grid Toggle -->
+      <div class="grid-toggle reveal">
+        <button class="grid-toggle__btn active" data-view="grid" title="Grid View">⊞</button>
+        <button class="grid-toggle__btn" data-view="list" title="List View">☰</button>
+      </div>
+      <div class="features__grid" id="featuresGrid">
+        <div class="feature-card glass-card reveal stagger-1 parallax-layer" data-speed="0.02">
+          <div class="feature-card__icon feature-card__icon--purple">⚡</div>
+          <h3 class="feature-card__title">Lightning-Fast Builder</h3>
+          <p class="feature-card__desc">Intuitive drag-and-drop interface that lets you build pixel-perfect pages in minutes, not hours.</p>
+        </div>
+        <div class="feature-card glass-card reveal stagger-2 parallax-layer" data-speed="0.03">
+          <div class="feature-card__icon feature-card__icon--blue">🎨</div>
+          <h3 class="feature-card__title">Design System</h3>
+          <p class="feature-card__desc">Maintain brand consistency with shared design tokens, reusable components, and global style controls.</p>
+        </div>
+        <div class="feature-card glass-card reveal stagger-3 parallax-layer" data-speed="0.01">
+          <div class="feature-card__icon feature-card__icon--green">📱</div>
+          <h3 class="feature-card__title">Responsive by Default</h3>
+          <p class="feature-card__desc">Every layout automatically adapts to mobile, tablet, and desktop — no extra configuration needed.</p>
+        </div>
+        <div class="feature-card glass-card reveal stagger-4 parallax-layer" data-speed="0.025">
+          <div class="feature-card__icon feature-card__icon--amber">🚀</div>
+          <h3 class="feature-card__title">One-Click Deploy</h3>
+          <p class="feature-card__desc">Publish to your custom domain or our hosted platform instantly with enterprise-grade CDN delivery.</p>
+        </div>
+        <div class="feature-card glass-card reveal stagger-5 parallax-layer" data-speed="0.015">
+          <div class="feature-card__icon feature-card__icon--rose">🔌</div>
+          <h3 class="feature-card__title">Powerful Integrations</h3>
+          <p class="feature-card__desc">Connect with your favorite tools — Stripe, HubSpot, Zapier, and 100+ more out of the box.</p>
+        </div>
+        <div class="feature-card glass-card reveal stagger-6 parallax-layer" data-speed="0.035">
+          <div class="feature-card__icon feature-card__icon--teal">📊</div>
+          <h3 class="feature-card__title">Built-in Analytics</h3>
+          <p class="feature-card__desc">Track visitor behavior, conversion rates, and page performance with our privacy-first analytics dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works (EFFECT 9: Reveal) -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">How it Works</span>
+        <h2 class="section-title">Up and running in 3 easy steps</h2>
+        <p class="section-desc">No complex setup. No steep learning curve. Get from idea to live website in under 10 minutes.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal stagger-1">
+          <div class="step__number">1</div>
+          <h3 class="step__title">Choose a Template</h3>
+          <p class="step__desc">Pick from 200+ professionally designed templates tailored for every industry and use case.</p>
+        </div>
+        <div class="step reveal stagger-2">
+          <div class="step__number">2</div>
+          <h3 class="step__title">Customize Everything</h3>
+          <p class="step__desc">Use our visual builder to tweak layouts, colors, content, and more — all without touching code.</p>
+        </div>
+        <div class="step reveal stagger-3">
+          <div class="step__number">3</div>
+          <h3 class="step__title">Publish & Grow</h3>
+          <p class="step__desc">Deploy your site with one click, connect your domain, and start growing your online presence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats (EFFECT 8: Parallax + Counter Animation) -->
+  <section class="stats parallax-container" id="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stat reveal stagger-1 parallax-layer" data-speed="0.02">
+          <div class="stat__number" data-target="2000" data-suffix="+">0</div>
+          <div class="stat__label">Companies Trust Us</div>
+        </div>
+        <div class="stat reveal stagger-2 parallax-layer" data-speed="0.03">
+          <div class="stat__number" data-target="50" data-suffix="K+">0</div>
+          <div class="stat__label">Websites Launched</div>
+        </div>
+        <div class="stat reveal stagger-3 parallax-layer" data-speed="0.01">
+          <div class="stat__number" data-target="99.9" data-suffix="%" data-decimal="true">0</div>
+          <div class="stat__label">Uptime Guaranteed</div>
+        </div>
+        <div class="stat reveal stagger-4 parallax-layer" data-speed="0.025">
+          <div class="stat__number" data-target="4.9" data-suffix="/5" data-decimal="true">0</div>
+          <div class="stat__label">Customer Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Testimonials</span>
+        <h2 class="section-title">Loved by teams everywhere</h2>
+        <p class="section-desc">See what our customers have to say about building with WebCraft Pro.</p>
+      </div>
+      <div class="testimonials__grid">
+        <div class="testimonial-card glass-card reveal stagger-1">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <p class="testimonial-card__text">"WebCraft Pro completely transformed how we build landing pages. What used to take our team a week now takes less than a day. The ROI has been incredible."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">SM</div>
+            <div><div class="testimonial-card__name">Sarah Mitchell</div><div class="testimonial-card__role">VP of Marketing, TechFlow</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card glass-card reveal stagger-2">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <p class="testimonial-card__text">"The best website builder I've ever used. The responsive design system saved us countless hours. Our conversion rates jumped 40% after switching."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">JC</div>
+            <div><div class="testimonial-card__name">James Chen</div><div class="testimonial-card__role">CTO, Quantum Labs</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card glass-card reveal stagger-3">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <p class="testimonial-card__text">"We replaced three different tools with WebCraft Pro. The built-in analytics and one-click deploy feature are game changers for our marketing team."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">ER</div>
+            <div><div class="testimonial-card__name">Emily Rodriguez</div><div class="testimonial-card__role">Head of Growth, Aperture</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Pricing</span>
+        <h2 class="section-title">Simple, transparent pricing</h2>
+        <p class="section-desc">No hidden fees. No surprises. Pick the plan that works for your team.</p>
+      </div>
+      <div class="pricing__toggle reveal">
+        <span class="pricing__toggle-label pricing__toggle-label--active">Monthly</span>
+        <div class="pricing__toggle-switch"></div>
+        <span class="pricing__toggle-label">Yearly</span>
+        <span class="pricing__badge">Save 20%</span>
+      </div>
+      <div class="pricing__grid">
+        <div class="pricing-card reveal stagger-1">
+          <h3 class="pricing-card__name">Starter</h3>
+          <p class="pricing-card__desc">Perfect for individuals and small projects</p>
+          <div class="pricing-card__price"><span class="pricing-card__amount">$19</span><span class="pricing-card__period">/ month</span></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>3 published websites</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>50+ templates</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Basic analytics</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Custom domain</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Email support</li>
+          </ul>
+          <a href="#" class="btn btn--secondary">Get Started</a>
+        </div>
+        <div class="pricing-card pricing-card--featured reveal stagger-2">
+          <div class="pricing-card__popular">Most Popular</div>
+          <h3 class="pricing-card__name">Professional</h3>
+          <p class="pricing-card__desc">For growing teams and businesses</p>
+          <div class="pricing-card__price"><span class="pricing-card__amount">$49</span><span class="pricing-card__period">/ month</span></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Unlimited websites</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>200+ premium templates</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Advanced analytics & A/B testing</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Team collaboration (up to 10)</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Priority support</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Custom code export</li>
+          </ul>
+          <a href="#" class="btn btn--primary">Start Free Trial</a>
+        </div>
+        <div class="pricing-card reveal stagger-3">
+          <h3 class="pricing-card__name">Enterprise</h3>
+          <p class="pricing-card__desc">For large organizations with custom needs</p>
+          <div class="pricing-card__price"><span class="pricing-card__amount">Custom</span></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Everything in Professional</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Unlimited team members</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>SSO & advanced security</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Custom integrations</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Dedicated account manager</li>
+            <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>99.99% SLA guarantee</li>
+          </ul>
+          <a href="#" class="btn btn--dark">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-desc">Can't find what you're looking for? Reach out to our support team.</p>
+      </div>
+      <div class="faq__list">
+        <div class="faq-item reveal stagger-1">
+          <button class="faq-item__question">Do I need coding experience to use WebCraft Pro?<span class="faq-item__icon">+</span></button>
+          <div class="faq-item__answer">Not at all! WebCraft Pro is designed for non-technical users with a fully visual drag-and-drop interface. However, if you do know code, you can access the code editor for advanced customization.</div>
+        </div>
+        <div class="faq-item reveal stagger-2">
+          <button class="faq-item__question">Can I use my own domain name?<span class="faq-item__icon">+</span></button>
+          <div class="faq-item__answer">Yes! You can connect any custom domain to your WebCraft Pro site. We also provide free SSL certificates and CDN configuration for optimal performance.</div>
+        </div>
+        <div class="faq-item reveal stagger-3">
+          <button class="faq-item__question">What happens when my free trial ends?<span class="faq-item__icon">+</span></button>
+          <div class="faq-item__answer">After the 14-day free trial, you can choose to upgrade to any paid plan. Your sites and data are preserved for 30 days. No charges are made unless you explicitly upgrade.</div>
+        </div>
+        <div class="faq-item reveal stagger-4">
+          <button class="faq-item__question">Can I export my website code?<span class="faq-item__icon">+</span></button>
+          <div class="faq-item__answer">Yes! Professional and Enterprise plans include clean HTML/CSS/JS code export. You can download your entire project and host it anywhere you'd like.</div>
+        </div>
+        <div class="faq-item reveal stagger-5">
+          <button class="faq-item__question">Do you offer refunds?<span class="faq-item__icon">+</span></button>
+          <div class="faq-item__answer">We offer a 30-day money-back guarantee on all paid plans. If you're not satisfied, contact our support team for a full refund — no questions asked.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">Ready to build something amazing?</h2>
+      <p class="cta__desc reveal" style="transition-delay:0.1s">Join thousands of teams already using WebCraft Pro to create stunning websites faster than ever.</p>
+      <div class="cta__actions reveal" style="transition-delay:0.2s">
+        <a href="#" class="btn btn--white btn--large">Start Building for Free →</a>
+        <a href="#" class="btn btn--outline-white btn--large">Schedule a Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <a href="#" class="navbar__logo" style="color:white"><div class="navbar__logo-icon">W</div>WebCraft Pro</a>
+          <p class="footer__brand-desc">The all-in-one platform for building, deploying, and growing beautiful websites. Made with ❤️ for modern teams.</p>
+        </div>
+        <div>
+          <h4 class="footer__column-title">Product</h4>
+          <ul class="footer__links"><li><a href="#">Features</a></li><li><a href="#">Templates</a></li><li><a href="#">Pricing</a></li><li><a href="#">Integrations</a></li><li><a href="#">Changelog</a></li></ul>
+        </div>
+        <div>
+          <h4 class="footer__column-title">Resources</h4>
+          <ul class="footer__links"><li><a href="#">Documentation</a></li><li><a href="#">Tutorials</a></li><li><a href="#">Blog</a></li><li><a href="#">Community</a></li><li><a href="#">Help Center</a></li></ul>
+        </div>
+        <div>
+          <h4 class="footer__column-title">Company</h4>
+          <ul class="footer__links"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Press Kit</a></li><li><a href="#">Contact</a></li><li><a href="#">Partners</a></li></ul>
+        </div>
+        <div>
+          <h4 class="footer__column-title">Legal</h4>
+          <ul class="footer__links"><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">GDPR</a></li><li><a href="#">Security</a></li></ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 WebCraft Pro. All rights reserved.</span>
+        <div class="footer__social">
+          <a href="#" title="Twitter">𝕏</a><a href="#" title="GitHub">GH</a><a href="#" title="LinkedIn">in</a><a href="#" title="YouTube">▶</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    var heroEl = document.getElementById('hero');
+
+    // ==================== NAVBAR SCROLL ====================
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // ==================== SMOOTH SCROLL ====================
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (href === '#' || href.length < 2) return;
+        var t = document.querySelector(href);
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // ==================== FAQ ACCORDION ====================
+    document.querySelectorAll('.faq-item__question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.parentElement;
+        var answer = item.querySelector('.faq-item__answer');
+        var icon = btn.querySelector('.faq-item__icon');
+        var isOpen = answer.style.display === 'block';
+        document.querySelectorAll('.faq-item__answer').forEach(function(a) { a.style.display = 'none'; });
+        document.querySelectorAll('.faq-item__icon').forEach(function(i) { i.style.transform = 'rotate(0deg)'; i.textContent = '+'; });
+        if (!isOpen) { answer.style.display = 'block'; icon.style.transform = 'rotate(45deg)'; }
+      });
+    });
+
+    // ==================== SCROLL REVEAL ====================
+    var revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('revealed'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function(el) { revealObs.observe(el); });
+
+    // ==================== EFFECT 6: TYPEWRITER ====================
+    var typedEl = document.getElementById('hero-typed');
+    var words = ['10x Faster', 'With No Code', 'Like a Pro', 'In Minutes'];
+    var wordIdx = 0, charIdx = 0, isDeleting = false, typeSpd = 100;
+    function typeWriter() {
+      var w = words[wordIdx];
+      if (isDeleting) { typedEl.textContent = w.substring(0, charIdx - 1); charIdx--; typeSpd = 50; }
+      else { typedEl.textContent = w.substring(0, charIdx + 1); charIdx++; typeSpd = 120; }
+      if (!isDeleting && charIdx === w.length) { typeSpd = 2000; isDeleting = true; }
+      else if (isDeleting && charIdx === 0) { isDeleting = false; wordIdx = (wordIdx + 1) % words.length; typeSpd = 400; }
+      setTimeout(typeWriter, typeSpd);
+    }
+    typeWriter();
+
+    // ==================== EFFECT 6: KINETIC TEXT ====================
+    var staticTitle = document.getElementById('heroTitleStatic');
+    if (staticTitle) {
+      var text = staticTitle.textContent;
+      staticTitle.innerHTML = '';
+      text.split('').forEach(function(ch, i) {
+        var span = document.createElement('span');
+        span.className = 'kinetic-char';
+        span.style.animationDelay = (0.3 + i * 0.03) + 's';
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        staticTitle.appendChild(span);
+      });
+    }
+
+    // ==================== COUNTER ANIMATION ====================
+    var statsSection = document.getElementById('stats');
+    var countersStarted = false;
+    function animateCounters() {
+      if (countersStarted) return; countersStarted = true;
+      document.querySelectorAll('.stat__number[data-target]').forEach(function(el) {
+        var target = parseFloat(el.getAttribute('data-target'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        var isDecimal = el.getAttribute('data-decimal') === 'true';
+        var duration = 2000, startTime = null;
+        function update(ts) {
+          if (!startTime) startTime = ts;
+          var p = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 4);
+          var current = eased * target;
+          el.textContent = isDecimal ? current.toFixed(1) + suffix : Math.floor(current).toLocaleString() + suffix;
+          if (p < 1) requestAnimationFrame(update);
+          else el.textContent = isDecimal ? target.toFixed(1) + suffix : target.toLocaleString() + suffix;
+        }
+        requestAnimationFrame(update);
+      });
+    }
+    var statsObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) animateCounters();
+    }, { threshold: 0.3 });
+    statsObs.observe(statsSection);
+
+    // ==================== EFFECT 3: 3D MOCKUP MOUSE TRACK ====================
+    var mockup = document.getElementById('heroMockup');
+    if (mockup && heroEl) {
+      heroEl.addEventListener('mousemove', function(e) {
+        var rect = heroEl.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+        mockup.style.transform = 'perspective(1200px) rotateX(' + (8 - y * 16) + 'deg) rotateY(' + (x * 16 - 4) + 'deg)';
+      });
+      heroEl.addEventListener('mouseleave', function() {
+        mockup.style.transform = 'perspective(1200px) rotateX(8deg) rotateY(-4deg)';
+      });
+    }
+
+    // ==================== EFFECT 5: MASCOT EYE TRACK ====================
+    var eyeL = document.getElementById('mascotEyeL');
+    var eyeR = document.getElementById('mascotEyeR');
+    document.addEventListener('mousemove', function(e) {
+      if (eyeL && eyeR) {
+        var dx = (e.clientX / window.innerWidth - 0.5) * 4;
+        var dy = (e.clientY / window.innerHeight - 0.5) * 4;
+        eyeL.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+        eyeR.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+      }
+    });
+
+    // ==================== EFFECT 8: PARALLAX LAYERS ====================
+    var parallaxLayers = document.querySelectorAll('.parallax-layer');
+    window.addEventListener('scroll', function() {
+      parallaxLayers.forEach(function(layer) {
+        var speed = parseFloat(layer.getAttribute('data-speed')) || 0.02;
+        var rect = layer.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          var y = (rect.top - window.innerHeight / 2) * speed;
+          layer.style.transform = 'translateY(' + y + 'px)';
+        }
+      });
+    });
+
+    // ==================== EFFECT 2: SCROLL SVG PATH ====================
+    var scrollPath = document.getElementById('scrollPath');
+    if (scrollPath) {
+      var pathLength = scrollPath.getTotalLength();
+      scrollPath.style.strokeDasharray = pathLength;
+      scrollPath.style.strokeDashoffset = pathLength;
+      window.addEventListener('scroll', function() {
+        var heroH = heroEl ? heroEl.offsetHeight : window.innerHeight;
+        var progress = Math.min(window.scrollY / heroH, 1);
+        scrollPath.style.strokeDashoffset = pathLength * (1 - progress);
+      });
+    }
+
+    // ==================== EFFECT 7: CANVAS PARTICLES ====================
+    var canvas = document.getElementById('particleCanvas');
+    if (canvas) {
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var mouseX = 0, mouseY = 0;
+      function resizeCanvas() {
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = canvas.parentElement.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      for (var i = 0; i < 60; i++) {
+        particles.push({
+          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
+          r: Math.random() * 2 + 1, o: Math.random() * 0.5 + 0.2
+        });
+      }
+      if (heroEl) {
+        heroEl.addEventListener('mousemove', function(e) {
+          var rect = canvas.getBoundingClientRect();
+          mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+        });
+      }
+      function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(function(p) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+          var dx = mouseX - p.x, dy = mouseY - p.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) { p.x -= dx * 0.01; p.y -= dy * 0.01; }
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(79,70,229,' + p.o + ')'; ctx.fill();
+        });
+        for (var i = 0; i < particles.length; i++) {
+          for (var j = i + 1; j < particles.length; j++) {
+            var dx = particles[i].x - particles[j].x;
+            var dy = particles[i].y - particles[j].y;
+            var d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 120) {
+              ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = 'rgba(79,70,229,' + (0.1 * (1 - d / 120)) + ')';
+              ctx.lineWidth = 0.5; ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(drawParticles);
+      }
+      drawParticles();
+    }
+
+    // ==================== EFFECT 10: GRID TOGGLE ====================
+    var gridBtns = document.querySelectorAll('.grid-toggle__btn');
+    var featuresGrid = document.getElementById('featuresGrid');
+    gridBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        gridBtns.forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        if (btn.getAttribute('data-view') === 'list') featuresGrid.classList.add('list-view');
+        else featuresGrid.classList.remove('list-view');
+      });
+    });
+
+    // ==================== MOBILE MENU ====================
+    var hamburger = document.getElementById('hamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    var mobileMenuLinks = document.querySelectorAll('.mobile-menu__link');
+    function closeMobileMenu() {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.classList.remove('overflow-hidden');
+    }
+    function openMobileMenu() {
+      hamburger.classList.add('active');
+      mobileMenu.classList.add('open');
+      document.body.classList.add('overflow-hidden');
+    }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function() {
+        if (mobileMenu.classList.contains('open')) closeMobileMenu();
+        else openMobileMenu();
+      });
+      mobileMenuLinks.forEach(function(link) {
+        link.addEventListener('click', function() { closeMobileMenu(); });
+      });
+      document.querySelectorAll('.mobile-menu__cta .btn').forEach(function(btn) {
+        btn.addEventListener('click', function() { closeMobileMenu(); });
+      });
+    }
+
+    // ==================== RESPONSIVE: MOBILE EFFECTS DOWNGRADE ====================
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+    var isTablet = window.matchMedia('(max-width: 1024px)').matches;
+
+    // ==================== EFFECT 7: CANVAS PARTICLES (MOBILE DOWNGRADE) ====================
+    // Already handled above - particle count is set during init
+    // Override: reduce particles on mobile for performance
+    if (canvas && isMobile && particles.length > 0) {
+      // Remove excess particles on mobile (keep only 20)
+      while (particles.length > 20) { particles.pop(); }
+    }
+
+    // ==================== RESIZE HANDLER ====================
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        isMobile = window.matchMedia('(max-width: 768px)').matches;
+        isTablet = window.matchMedia('(max-width: 1024px)').matches;
+        // Close mobile menu if resizing to desktop
+        if (!isMobile && mobileMenu && mobileMenu.classList.contains('open')) {
+          closeMobileMenu();
+        }
+      }, 150);
+    });
+  })();
+  </script>
+</body>
+</html>
