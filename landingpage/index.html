@@ -119,7 +119,13 @@
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
       --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
     }
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; scrollbar-width: thin; scrollbar-color: rgba(100,116,139,0) transparent; }
+    html.scrolling { scrollbar-color: rgba(100,116,139,0.25) transparent; }
+    html::-webkit-scrollbar { width: 6px; }
+    html::-webkit-scrollbar-track { background: transparent; }
+    html::-webkit-scrollbar-thumb { background: transparent; border-radius: 3px; transition: background 0.4s; }
+    html.scrolling::-webkit-scrollbar-thumb { background: rgba(100,116,139,0.25); }
+    html.scrolling::-webkit-scrollbar-thumb:hover { background: rgba(100,116,139,0.4); }
     body { font-family: var(--font); color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; }
@@ -792,7 +798,7 @@
     }
     .mobile-menu__cta .btn { width: 100%; text-align: center; }
 
-    body.overflow-hidden { overflow: hidden; }
+    body.overflow-hidden { overflow-y: scroll; position: fixed; width: 100%; }
 
     /* ==================== MODAL ==================== */
     .modal-overlay {
@@ -1480,8 +1486,14 @@
 
     // ==================== NAVBAR SCROLL ====================
     var navbar = document.getElementById('navbar');
+    var scrollTimeout;
     window.addEventListener('scroll', function() {
       navbar.classList.toggle('scrolled', window.scrollY > 10);
+      document.documentElement.classList.add('scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(function() {
+        document.documentElement.classList.remove('scrolling');
+      }, 3000);
     });
 
     // ==================== SMOOTH SCROLL ====================
@@ -1707,12 +1719,19 @@
     var hamburger = document.getElementById('hamburger');
     var mobileMenu = document.getElementById('mobileMenu');
     var mobileMenuLinks = document.querySelectorAll('.mobile-menu__link');
+    var _mobileScrollY = 0;
     function closeMobileMenu() {
       hamburger.classList.remove('active');
       mobileMenu.classList.remove('open');
       document.body.classList.remove('overflow-hidden');
+      document.body.style.top = '';
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, _mobileScrollY);
+      document.documentElement.style.scrollBehavior = '';
     }
     function openMobileMenu() {
+      _mobileScrollY = window.scrollY;
+      document.body.style.top = '-' + _mobileScrollY + 'px';
       hamburger.classList.add('active');
       mobileMenu.classList.add('open');
       document.body.classList.add('overflow-hidden');
@@ -1826,9 +1845,12 @@
       }
     };
 
+    var _savedScrollY = 0;
     function openModal(id) {
       var overlay = document.getElementById(id);
       if (overlay) {
+        _savedScrollY = window.scrollY;
+        document.body.style.top = '-' + _savedScrollY + 'px';
         overlay.classList.add('active');
         document.body.classList.add('overflow-hidden');
       }
@@ -1838,6 +1860,10 @@
       if (overlay) {
         overlay.classList.remove('active');
         document.body.classList.remove('overflow-hidden');
+        document.body.style.top = '';
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, _savedScrollY);
+        document.documentElement.style.scrollBehavior = '';
       }
     }
     function closeAllModals() {
@@ -1845,6 +1871,10 @@
         m.classList.remove('active');
       });
       document.body.classList.remove('overflow-hidden');
+      document.body.style.top = '';
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, _savedScrollY);
+      document.documentElement.style.scrollBehavior = '';
     }
 
     document.querySelectorAll('.modal__close').forEach(function(btn) {
