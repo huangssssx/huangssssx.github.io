@@ -22,8 +22,13 @@
   <meta name="twitter:image" content="https://webcraftpro.com/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
   <title>WebCraft Pro — Build Stunning Websites Faster</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <script type="application/ld+json">
   [
     {
@@ -270,6 +275,7 @@
       background-size: 200% 200%;
       animation: gradientShift 4s ease infinite;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      will-change: background-position;
     }
     @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
@@ -341,7 +347,7 @@
     }
     .logos__track { display: flex; gap: 60px; animation: marquee 30s linear infinite; width: max-content; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .logos__item { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 700; color: var(--text-l); opacity: 0.5; }
+    .logos__item { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 700; color: #5F6B7A; }
     .logos__item-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--border); }
 
     /* ==================== SECTION COMMON ==================== */
@@ -522,7 +528,11 @@
     .cta {
       padding: 120px 0; color: white; text-align: center; position: relative; overflow: hidden;
       background: linear-gradient(135deg, var(--primary-dark), var(--primary), #7C3AED);
-      background-size: 200% 200%; animation: ctaShift 8s ease infinite;
+      background-size: 200% 200%;
+      will-change: background-position;
+    }
+    .cta--animated {
+      animation: ctaShift 8s ease infinite;
     }
     @keyframes ctaShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .cta::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; }
@@ -533,19 +543,19 @@
     .cta__actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
     /* ==================== FOOTER ==================== */
-    .footer { padding: 80px 0 40px; background: var(--bg-dark); color: #94A3B8; }
+    .footer { padding: 80px 0 40px; background: var(--bg-dark); color: #CBD5E1; }
     .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
-    .footer__brand-desc { font-size: 14px; line-height: 1.7; color: #64748B; margin-top: 16px; max-width: 280px; }
+    .footer__brand-desc { font-size: 14px; line-height: 1.7; color: #94A3B8; margin-top: 16px; max-width: 280px; }
     .footer__column-title { font-size: 14px; font-weight: 600; color: white; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
     .footer__links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .footer__links a { color: #64748B; font-size: 14px; transition: color 0.2s; }
+    .footer__links a { color: #94A3B8; font-size: 14px; transition: color 0.2s; }
     .footer__links a:hover { color: white; }
-    .footer__bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid #1E293B; font-size: 13px; color: #475569; }
+    .footer__bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid #1E293B; font-size: 13px; color: #94A3B8; }
     .footer__social { display: flex; gap: 16px; }
     .footer__social a {
       width: 36px; height: 36px; border-radius: 8px; background: #1E293B;
       display: flex; align-items: center; justify-content: center;
-      color: #64748B; font-size: 14px; transition: all 0.2s;
+      color: #94A3B8; font-size: 14px; transition: all 0.2s;
     }
     .footer__social a:hover { background: var(--primary); color: white; }
 
@@ -581,6 +591,18 @@
     /* ==================== EFFECT 8: PARALLAX LAYERS ==================== */
     .parallax-container { position: relative; overflow: hidden; }
     .parallax-layer { will-change: transform; transition: transform 0.1s linear; }
+
+    /* ==================== HERO INSTANT REVEAL ==================== */
+    .hero-reveal {
+      opacity: 0; transform: translateY(20px);
+      animation: heroFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-reveal--d1 { animation-delay: 0.05s; }
+    .hero-reveal--d2 { animation-delay: 0.1s; }
+    .hero-reveal--d3 { animation-delay: 0.15s; }
+    .hero-reveal--d4 { animation-delay: 0.2s; }
+    .hero-reveal--d5 { animation-delay: 0.25s; }
+    @keyframes heroFadeUp { to { opacity: 1; transform: translateY(0); } }
 
     /* ==================== SCROLL REVEAL ==================== */
     .reveal {
@@ -891,7 +913,10 @@
       }
       .logos__track { animation: none; }
       .mesh-gradient__blob { animation: none; }
+      .hero-reveal { opacity: 1; transform: none; animation: none; }
       .reveal, .reveal-scale { opacity: 1; transform: none; }
+      .cta--animated { animation: none; }
+      #particleCanvas { display: none; }
     }
 
     @media (max-width: 768px) {
@@ -904,7 +929,7 @@
   <!-- Navbar (EFFECT 1: Liquid Glass) -->
   <nav class="navbar" id="navbar">
     <div class="container">
-      <a href="#" class="navbar__logo">
+      <a href="/" class="navbar__logo">
         <div class="navbar__logo-icon">W</div>
         WebCraft Pro
       </a>
@@ -916,8 +941,8 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
       <div class="navbar__actions">
-        <a href="#" class="btn btn--ghost">Log in</a>
-        <a href="#" class="btn btn--primary">Start Free Trial</a>
+        <a href="#login" class="btn btn--ghost" data-modal="loginModal">Log in</a>
+        <a href="#signup" class="btn btn--primary" data-modal="signupModal">Start Free Trial</a>
         <button class="hamburger" id="hamburger" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
@@ -933,8 +958,8 @@
     <a href="#pricing" class="mobile-menu__link">Pricing</a>
     <a href="#faq" class="mobile-menu__link">FAQ</a>
     <div class="mobile-menu__cta">
-      <a href="#" class="btn btn--primary btn--large">Start Free Trial</a>
-      <a href="#" class="btn btn--secondary btn--large">Log in</a>
+      <a href="#signup" class="btn btn--primary btn--large" data-modal="signupModal">Start Free Trial</a>
+      <a href="#login" class="btn btn--secondary btn--large" data-modal="loginModal">Log in</a>
     </div>
   </div>
 
@@ -976,29 +1001,29 @@
     </div>
 
     <div class="container hero__content">
-      <div class="hero__badge reveal" style="transition-delay:0.1s">
+      <div class="hero__badge hero-reveal hero-reveal--d1">
         <span class="hero__badge-dot"></span>
         Now in public beta — Try it free today
       </div>
       <!-- EFFECT 6: Text Kinetic Typography -->
-      <h1 class="hero__title reveal" id="heroTitle" style="transition-delay:0.2s">
+      <h1 class="hero__title hero-reveal hero-reveal--d2" id="heroTitle">
         <span id="heroTitleStatic">Build Stunning Websites</span><br/>
         <span class="hero__title-gradient" id="hero-typed"></span><span class="typewriter-cursor"></span>
       </h1>
-      <p class="hero__subtitle reveal" style="transition-delay:0.3s">
+      <p class="hero__subtitle hero-reveal hero-reveal--d3">
         The all-in-one platform that empowers teams to design, develop, and deploy beautiful websites without the complexity.
       </p>
-      <div class="hero__cta reveal" style="transition-delay:0.4s">
-        <a href="#" class="btn btn--primary btn--large">Get Started Free →</a>
-        <a href="#" class="btn btn--secondary btn--large">Watch Demo</a>
+      <div class="hero__cta hero-reveal hero-reveal--d4">
+        <a href="#signup" class="btn btn--primary btn--large" data-modal="signupModal">Get Started Free →</a>
+        <a href="#demo" class="btn btn--secondary btn--large" data-modal="demoModal">Watch Demo</a>
       </div>
-      <div class="hero__note reveal" style="transition-delay:0.5s">
+      <div class="hero__note hero-reveal hero-reveal--d5">
         <span>✓ No credit card required</span>
         <span>✓ 14-day free trial</span>
         <span>✓ Cancel anytime</span>
       </div>
       <!-- EFFECT 3: 3D Interactive Mockup -->
-      <div class="hero__mockup-wrapper reveal-scale" style="transition-delay:0.6s">
+      <div class="hero__mockup-wrapper hero-reveal hero-reveal--d5">
         <div class="hero__mockup" id="heroMockup">
           <div class="hero__mockup-glow"></div>
           <div class="hero__mockup-inner">
@@ -1223,7 +1248,7 @@
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Custom domain</li>
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Email support</li>
           </ul>
-          <a href="#" class="btn btn--secondary">Get Started</a>
+          <a href="#signup" class="btn btn--secondary" data-modal="signupModal">Get Started</a>
         </div>
         <div class="pricing-card pricing-card--featured reveal stagger-2">
           <div class="pricing-card__popular">Most Popular</div>
@@ -1238,7 +1263,7 @@
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Priority support</li>
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Custom code export</li>
           </ul>
-          <a href="#" class="btn btn--primary">Start Free Trial</a>
+          <a href="#signup" class="btn btn--primary" data-modal="signupModal">Start Free Trial</a>
         </div>
         <div class="pricing-card reveal stagger-3">
           <h3 class="pricing-card__name">Enterprise</h3>
@@ -1252,7 +1277,7 @@
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>Dedicated account manager</li>
             <li class="pricing-card__feature"><span class="pricing-card__check">✓</span>99.99% SLA guarantee</li>
           </ul>
-          <a href="#" class="btn btn--dark">Contact Sales</a>
+          <a href="#contact" class="btn btn--dark" data-modal="contactModal">Contact Sales</a>
         </div>
       </div>
     </div>
@@ -1292,13 +1317,13 @@
   </section>
 
   <!-- CTA -->
-  <section class="cta">
+  <section class="cta" id="ctaSection">
     <div class="container">
       <h2 class="cta__title reveal">Ready to build something amazing?</h2>
       <p class="cta__desc reveal" style="transition-delay:0.1s">Join thousands of teams already using WebCraft Pro to create stunning websites faster than ever.</p>
       <div class="cta__actions reveal" style="transition-delay:0.2s">
-        <a href="#" class="btn btn--white btn--large">Start Building for Free →</a>
-        <a href="#" class="btn btn--outline-white btn--large">Schedule a Demo</a>
+        <a href="#signup" class="btn btn--white btn--large" data-modal="signupModal">Start Building for Free →</a>
+        <a href="#demo" class="btn btn--outline-white btn--large" data-modal="demoModal">Schedule a Demo</a>
       </div>
     </div>
   </section>
@@ -1309,30 +1334,30 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <a href="#" class="navbar__logo" style="color:white"><div class="navbar__logo-icon">W</div>WebCraft Pro</a>
+          <a href="/" class="navbar__logo" style="color:white"><div class="navbar__logo-icon">W</div>WebCraft Pro</a>
           <p class="footer__brand-desc">The all-in-one platform for building, deploying, and growing beautiful websites. Made with ❤️ for modern teams.</p>
         </div>
         <div>
-          <h4 class="footer__column-title">Product</h4>
-          <ul class="footer__links"><li><a href="#">Features</a></li><li><a href="#">Templates</a></li><li><a href="#">Pricing</a></li><li><a href="#">Integrations</a></li><li><a href="#">Changelog</a></li></ul>
-        </div>
-        <div>
-          <h4 class="footer__column-title">Resources</h4>
-          <ul class="footer__links"><li><a href="#">Documentation</a></li><li><a href="#">Tutorials</a></li><li><a href="#">Blog</a></li><li><a href="#">Community</a></li><li><a href="#">Help Center</a></li></ul>
-        </div>
-        <div>
-          <h4 class="footer__column-title">Company</h4>
-          <ul class="footer__links"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Press Kit</a></li><li><a href="#">Contact</a></li><li><a href="#">Partners</a></li></ul>
-        </div>
-        <div>
-          <h4 class="footer__column-title">Legal</h4>
-          <ul class="footer__links"><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">GDPR</a></li><li><a href="#">Security</a></li></ul>
+          <h3 class="footer__column-title">Product</h3>
+          <ul class="footer__links"><li><a href="#features">Features</a></li><li><a href="#templates">Templates</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#integrations">Integrations</a></li><li><a href="#changelog">Changelog</a></li></ul>
+         </div>
+         <div>
+           <h3 class="footer__column-title">Resources</h3>
+           <ul class="footer__links"><li><a href="#documentation">Documentation</a></li><li><a href="#tutorials">Tutorials</a></li><li><a href="#blog">Blog</a></li><li><a href="#community">Community</a></li><li><a href="#help-center">Help Center</a></li></ul>
+         </div>
+         <div>
+           <h3 class="footer__column-title">Company</h3>
+           <ul class="footer__links"><li><a href="#about">About</a></li><li><a href="#careers">Careers</a></li><li><a href="#press-kit">Press Kit</a></li><li><a href="#contact" data-modal="contactModal">Contact</a></li><li><a href="#partners">Partners</a></li></ul>
+         </div>
+         <div>
+           <h3 class="footer__column-title">Legal</h3>
+           <ul class="footer__links"><li><a href="#privacy-policy">Privacy Policy</a></li><li><a href="#terms-of-service">Terms of Service</a></li><li><a href="#cookie-policy">Cookie Policy</a></li><li><a href="#gdpr">GDPR</a></li><li><a href="#security">Security</a></li></ul>
         </div>
       </div>
       <div class="footer__bottom">
         <span>© 2026 WebCraft Pro. All rights reserved.</span>
         <div class="footer__social">
-          <a href="#" title="Twitter">𝕏</a><a href="#" title="GitHub">GH</a><a href="#" title="LinkedIn">in</a><a href="#" title="YouTube">▶</a>
+          <a href="https://twitter.com/webcraftpro" title="Twitter" target="_blank" rel="noopener">𝕏</a><a href="https://github.com/webcraftpro" title="GitHub" target="_blank" rel="noopener">GH</a><a href="https://linkedin.com/company/webcraftpro" title="LinkedIn" target="_blank" rel="noopener">in</a><a href="https://youtube.com/@webcraftpro" title="YouTube" target="_blank" rel="noopener">▶</a>
         </div>
       </div>
     </div>
@@ -1365,11 +1390,11 @@
             <input type="checkbox" id="rememberMe" />
             <label for="rememberMe">Remember me</label>
           </div>
-          <a href="#" style="font-size:13px;color:var(--primary);text-decoration:none;font-weight:500;">Forgot password?</a>
+          <a href="#forgot-password" style="font-size:13px;color:var(--primary);text-decoration:none;font-weight:500;">Forgot password?</a>
         </div>
         <button class="modal__submit modal__submit--primary">Log in</button>
         <div class="modal__footer" style="margin-top:16px;">
-          Don't have an account? <a data-modal="signupModal">Sign up free</a>
+          Don't have an account? <a href="#signup" data-modal="signupModal">Sign up free</a>
         </div>
       </div>
     </div>
@@ -1403,11 +1428,11 @@
         </div>
         <div class="modal__check">
           <input type="checkbox" id="agreeTerms" />
-          <label for="agreeTerms">I agree to the <a href="#" data-footer-page="terms" style="color:var(--primary);">Terms of Service</a> and <a href="#" data-footer-page="privacy" style="color:var(--primary);">Privacy Policy</a></label>
+          <label for="agreeTerms">I agree to the <a href="#terms-of-service" data-footer-page="terms" style="color:var(--primary);">Terms of Service</a> and <a href="#privacy-policy" data-footer-page="privacy" style="color:var(--primary);">Privacy Policy</a></label>
         </div>
         <button class="modal__submit modal__submit--primary">Start Free Trial</button>
         <div class="modal__footer" style="margin-top:16px;">
-          Already have an account? <a data-modal="loginModal">Log in</a>
+          Already have an account? <a href="#login" data-modal="loginModal">Log in</a>
         </div>
       </div>
     </div>
@@ -1462,7 +1487,7 @@
         </div>
         <p style="font-size:14px;color:var(--text-s);text-align:center;line-height:1.6;">🎬 This is a demo placeholder. In production, embed your product demo video here (YouTube, Vimeo, or self-hosted).</p>
         <div style="margin-top:16px;text-align:center;">
-          <a href="#" data-modal="signupModal" style="font-size:14px;color:var(--primary);font-weight:600;text-decoration:none;">Ready to try it yourself? Sign up free →</a>
+          <a href="#signup" data-modal="signupModal" style="font-size:14px;color:var(--primary);font-weight:600;text-decoration:none;">Ready to try it yourself? Sign up free →</a>
         </div>
       </div>
     </div>
@@ -1494,7 +1519,7 @@
       scrollTimeout = setTimeout(function() {
         document.documentElement.classList.remove('scrolling');
       }, 3000);
-    });
+    }, { passive: true });
 
     // ==================== SMOOTH SCROLL ====================
     document.querySelectorAll('a[href^="#"]').forEach(function(a) {
@@ -1615,19 +1640,27 @@
           layer.style.transform = 'translateY(' + y + 'px)';
         }
       });
-    });
+    }, { passive: true });
 
     // ==================== EFFECT 2: SCROLL SVG PATH ====================
     var scrollPath = document.getElementById('scrollPath');
+    var pathLength = 0;
     if (scrollPath) {
-      var pathLength = scrollPath.getTotalLength();
-      scrollPath.style.strokeDasharray = pathLength;
-      scrollPath.style.strokeDashoffset = pathLength;
+      window.addEventListener('load', function() {
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            pathLength = scrollPath.getTotalLength();
+            scrollPath.style.strokeDasharray = pathLength;
+            scrollPath.style.strokeDashoffset = pathLength;
+          });
+        });
+      });
       window.addEventListener('scroll', function() {
+        if (!pathLength) return;
         var heroH = heroEl ? heroEl.offsetHeight : window.innerHeight;
         var progress = Math.min(window.scrollY / heroH, 1);
         scrollPath.style.strokeDashoffset = pathLength * (1 - progress);
-      });
+      }, { passive: true });
     }
 
     // ==================== EFFECT 7: CANVAS PARTICLES ====================
@@ -1636,15 +1669,32 @@
       var ctx = canvas.getContext('2d');
       var particles = [];
       var mouseX = 0, mouseY = 0;
+      var canvasVisible = false;
+      var canvasW = 0, canvasH = 0;
+      var canvasReady = false;
       function resizeCanvas() {
-        canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = canvas.parentElement.offsetHeight;
+        if (!canvasReady) return;
+        var rect = canvas.parentElement.getBoundingClientRect();
+        canvasW = rect.width; canvasH = rect.height;
+        canvas.width = canvasW; canvas.height = canvasH;
       }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-      for (var i = 0; i < 60; i++) {
+      window.addEventListener('load', function() {
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            canvasReady = true;
+            resizeCanvas();
+          });
+        });
+      });
+      var resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resizeCanvas, 100);
+      });
+      var particleCount = isMobile ? 15 : 40;
+      for (var i = 0; i < particleCount; i++) {
         particles.push({
-          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+          x: Math.random() * 800, y: Math.random() * 600,
           vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
           r: Math.random() * 2 + 1, o: Math.random() * 0.5 + 0.2
         });
@@ -1654,32 +1704,46 @@
           var rect = canvas.getBoundingClientRect();
           mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
         });
+        var canvasObs = new IntersectionObserver(function(entries) {
+          canvasVisible = entries[0].isIntersecting;
+          if (canvasVisible && !canvas._rafRunning) { canvas._rafRunning = true; drawParticles(); }
+        }, { threshold: 0.05 });
+        canvasObs.observe(canvas);
+        canvasVisible = true;
       }
+      var connectionDistSq = 120 * 120;
       function drawParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(function(p) {
+        if (!canvasVisible) { canvas._rafRunning = false; return; }
+        var w = canvasW || canvas.width, h = canvasH || canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        var len = particles.length;
+        for (var i = 0; i < len; i++) {
+          var p = particles[i];
           p.x += p.vx; p.y += p.vy;
-          if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
-          if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+          if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+          if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
           var dx = mouseX - p.x, dy = mouseY - p.y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) { p.x -= dx * 0.01; p.y -= dy * 0.01; }
-          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          var dist = dx * dx + dy * dy;
+          if (dist < 22500) { p.x -= dx * 0.01; p.y -= dy * 0.01; }
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
           ctx.fillStyle = 'rgba(79,70,229,' + p.o + ')'; ctx.fill();
-        });
-        for (var i = 0; i < particles.length; i++) {
-          for (var j = i + 1; j < particles.length; j++) {
+        }
+        ctx.beginPath();
+        for (var i = 0; i < len; i++) {
+          for (var j = i + 1; j < len; j++) {
             var dx = particles[i].x - particles[j].x;
             var dy = particles[i].y - particles[j].y;
-            var d = Math.sqrt(dx * dx + dy * dy);
-            if (d < 120) {
-              ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+            var dSq = dx * dx + dy * dy;
+            if (dSq < connectionDistSq) {
+              var alpha = 0.1 * (1 - Math.sqrt(dSq) / 120);
+              ctx.strokeStyle = 'rgba(79,70,229,' + alpha + ')';
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = 'rgba(79,70,229,' + (0.1 * (1 - d / 120)) + ')';
-              ctx.lineWidth = 0.5; ctx.stroke();
             }
           }
         }
+        ctx.stroke();
         requestAnimationFrame(drawParticles);
       }
       drawParticles();
@@ -1752,14 +1816,6 @@
     // ==================== RESPONSIVE: MOBILE EFFECTS DOWNGRADE ====================
     var isMobile = window.matchMedia('(max-width: 768px)').matches;
     var isTablet = window.matchMedia('(max-width: 1024px)').matches;
-
-    // ==================== EFFECT 7: CANVAS PARTICLES (MOBILE DOWNGRADE) ====================
-    // Already handled above - particle count is set during init
-    // Override: reduce particles on mobile for performance
-    if (canvas && isMobile && particles.length > 0) {
-      // Remove excess particles on mobile (keep only 20)
-      while (particles.length > 20) { particles.pop(); }
-    }
 
     // ==================== MODAL SYSTEM ====================
     var footerPages = {
@@ -2015,6 +2071,18 @@
       });
     });
 
+    // ==================== CTA LAZY ANIMATION ====================
+    var ctaSection = document.getElementById('ctaSection');
+    if (ctaSection) {
+      var ctaObs = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          ctaSection.classList.add('cta--animated');
+          ctaObs.unobserve(ctaSection);
+        }
+      }, { threshold: 0.1 });
+      ctaObs.observe(ctaSection);
+    }
+
     // ==================== RESIZE HANDLER ====================
     var resizeTimer;
     window.addEventListener('resize', function() {
@@ -2028,7 +2096,14 @@
         }
       }, 150);
     });
-  })();
+    })();
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').catch(function() {});
+      });
+    }
   </script>
 </body>
 </html>

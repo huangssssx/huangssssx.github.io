@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+
+Sitemap: https://webcraftpro.com/sitemap.xml
