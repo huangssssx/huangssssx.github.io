@@ -362,21 +362,25 @@ var _savedScrollY = 0;
 function openModal(id) {
 var overlay = document.getElementById(id);
 if (overlay) {
+if (!document.querySelector('.modal-overlay.active')) {
 _savedScrollY = window.scrollY;
 document.body.style.top = '-' + _savedScrollY + 'px';
-overlay.classList.add('active');
 document.body.classList.add('overflow-hidden');
+}
+overlay.classList.add('active');
 }
 }
 function closeModal(id) {
 var overlay = document.getElementById(id);
 if (overlay) {
 overlay.classList.remove('active');
+if (!document.querySelector('.modal-overlay.active')) {
 document.body.classList.remove('overflow-hidden');
 document.body.style.top = '';
 document.documentElement.style.scrollBehavior = 'auto';
 window.scrollTo(0, _savedScrollY);
 document.documentElement.style.scrollBehavior = '';
+}
 }
 }
 function closeAllModals() {
@@ -389,6 +393,18 @@ document.documentElement.style.scrollBehavior = 'auto';
 window.scrollTo(0, _savedScrollY);
 document.documentElement.style.scrollBehavior = '';
 }
+function closeTopModal() {
+var modals = document.querySelectorAll('.modal-overlay.active');
+if (modals.length) {
+var top = modals[0];
+modals.forEach(function(m) {
+var z = parseInt(getComputedStyle(m).zIndex) || 0;
+var zt = parseInt(getComputedStyle(top).zIndex) || 0;
+if (z > zt) top = m;
+});
+closeModal(top.id);
+}
+}
 document.querySelectorAll('.modal__close').forEach(function(btn) {
 btn.addEventListener('click', function() {
 var id = btn.getAttribute('data-close');
@@ -397,11 +413,11 @@ if (id) closeModal(id);
 });
 document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
 overlay.addEventListener('click', function(e) {
-if (e.target === overlay) closeAllModals();
+if (e.target === overlay) closeTopModal();
 });
 });
 document.addEventListener('keydown', function(e) {
-if (e.key === 'Escape') closeAllModals();
+if (e.key === 'Escape') closeTopModal();
 });
 document.querySelectorAll('[data-modal]').forEach(function(el) {
 el.addEventListener('click', function(e) {
@@ -413,12 +429,12 @@ openModal(el.getAttribute('data-modal'));
 document.querySelectorAll('[data-footer-page]').forEach(function(el) {
 el.addEventListener('click', function(e) {
 e.preventDefault();
+e.stopPropagation();
 var key = el.getAttribute('data-footer-page');
 var page = footerPages[key];
 if (page) {
 document.getElementById('pageModalTitle').textContent = page.title;
 document.getElementById('pageModalBody').innerHTML = page.body;
-closeAllModals();
 openModal('pageModal');
 }
 });
