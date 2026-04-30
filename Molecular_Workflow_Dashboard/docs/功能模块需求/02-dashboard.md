@@ -34,13 +34,13 @@
 
 **功能需求：**
 
-| 区域 | 功能 | 技术实现 |
-|---|---|---|
-| Org Switcher | 切换当前组织上下文 | Client Component, URL 参数或 Context |
-| Stats Cards | 展示关键指标数字，支持动画计数 | Server Component, Suspense boundary |
-| 近期项目 | 展示最近访问/创建的项目卡片 | Server Component + React Query prefetch |
-| 活动图表 | 7天/30天计算任务趋势 | Recharts AreaChart, Client Component |
-| Activity Feed | 团队近期操作日志 | Server Component, 流式加载 |
+| 区域          | 功能                           | 技术实现                                |
+| ------------- | ------------------------------ | --------------------------------------- |
+| Org Switcher  | 切换当前组织上下文             | Client Component, URL 参数或 Context    |
+| Stats Cards   | 展示关键指标数字，支持动画计数 | Server Component, Suspense boundary     |
+| 近期项目      | 展示最近访问/创建的项目卡片    | Server Component + React Query prefetch |
+| 活动图表      | 7天/30天计算任务趋势           | Recharts AreaChart, Client Component    |
+| Activity Feed | 团队近期操作日志               | Server Component, 流式加载              |
 
 **数据结构：**
 
@@ -57,7 +57,12 @@ interface Activity {
   userId: string
   userName: string
   userAvatar: string
-  action: 'created_project' | 'ran_pipeline' | 'uploaded_molecule' | 'added_comment' | 'completed_run'
+  action:
+    | 'created_project'
+    | 'ran_pipeline'
+    | 'uploaded_molecule'
+    | 'added_comment'
+    | 'completed_run'
   target: string
   timestamp: Date
 }
@@ -67,28 +72,31 @@ interface Activity {
 
 ## 3. API 接口
 
-| 方法 | 路径 | 说明 | 实现方式 |
-|---|---|---|---|
-| GET | `/api/dashboard/stats` | 获取统计数据 | Server Component 直接调用 |
-| GET | `/api/dashboard/recent-projects` | 获取近期项目 | React Query |
-| GET | `/api/dashboard/activity-chart` | 获取图表数据 | React Query |
-| GET | `/api/dashboard/activity-feed` | 获取活动流 | React Query infinite scroll |
+| 方法 | 路径                             | 说明         | 实现方式                    |
+| ---- | -------------------------------- | ------------ | --------------------------- |
+| GET  | `/api/dashboard/stats`           | 获取统计数据 | Server Component 直接调用   |
+| GET  | `/api/dashboard/recent-projects` | 获取近期项目 | React Query                 |
+| GET  | `/api/dashboard/activity-chart`  | 获取图表数据 | React Query                 |
+| GET  | `/api/dashboard/activity-feed`   | 获取活动流   | React Query infinite scroll |
 
 ---
 
 ## 4. 交互细节
 
 ### 4.1 Stats Cards
+
 - 数字加载时有 **计数动画**（从 0 到目标值）
 - 使用 `Suspense` 包裹，加载时显示 Skeleton
 - hover 时有微妙的阴影变化
 
 ### 4.2 Org Switcher
+
 - 下拉选择器，展示用户所属的所有组织
 - 切换后整个 Dashboard 数据刷新（React Query invalidation）
 - 当前组织名称显示在 Header 中
 
 ### 4.3 Activity Feed
+
 - 无限滚动加载更多
 - 相对时间显示（"2 分钟前"）
 - 点击可跳转到对应资源
@@ -97,11 +105,11 @@ interface Activity {
 
 ## 5. 响应式设计
 
-| 断点 | 布局变化 |
-|---|---|
+| 断点     | 布局变化                          |
+| -------- | --------------------------------- |
 | ≥ 1280px | 侧边栏展开 + 4列 Stats + 双列内容 |
-| ≥ 768px | 侧边栏收缩为图标 + 2列 Stats |
-| < 768px | 侧边栏隐藏（汉堡菜单）+ 单列布局 |
+| ≥ 768px  | 侧边栏收缩为图标 + 2列 Stats      |
+| < 768px  | 侧边栏隐藏（汉堡菜单）+ 单列布局  |
 
 ---
 

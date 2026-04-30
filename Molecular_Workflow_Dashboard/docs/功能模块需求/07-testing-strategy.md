@@ -16,13 +16,13 @@
 
 ### 测试覆盖率目标
 
-| 层级 | 覆盖率目标 | 说明 |
-|---|---|---|
-| 总体 | > 70% | 行覆盖率 |
-| `lib/` 工具函数 | > 90% | 纯函数，易于测试 |
-| `lib/hooks/` | > 80% | 自定义 Hooks |
-| `components/` | > 60% | UI 组件核心交互 |
-| `app/` 页面 | E2E 覆盖 | 通过 E2E 测试覆盖 |
+| 层级            | 覆盖率目标 | 说明              |
+| --------------- | ---------- | ----------------- |
+| 总体            | > 70%      | 行覆盖率          |
+| `lib/` 工具函数 | > 90%      | 纯函数，易于测试  |
+| `lib/hooks/`    | > 80%      | 自定义 Hooks      |
+| `components/`   | > 60%      | UI 组件核心交互   |
+| `app/` 页面     | E2E 覆盖   | 通过 E2E 测试覆盖 |
 
 ---
 
@@ -31,6 +31,7 @@
 ### 2.1 测试范围
 
 **必须测试：**
+
 - `lib/utils/` 所有工具函数
 - `lib/validations/` 所有 Zod schema
 - `lib/hooks/` 所有自定义 Hooks
@@ -67,10 +68,9 @@ import { usePipelineStatus } from './use-pipeline-status'
 
 describe('usePipelineStatus', () => {
   it('fetches pipeline status', async () => {
-    const { result } = renderHook(
-      () => usePipelineStatus('pipeline-1'),
-      { wrapper }
-    )
+    const { result } = renderHook(() => usePipelineStatus('pipeline-1'), {
+      wrapper,
+    })
 
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
@@ -193,14 +193,14 @@ describe('InviteMemberDialog', () => {
 
 ### 4.1 关键路径测试
 
-| 测试用例 | 覆盖路径 |
-|---|---|
-| 用户登录 → 查看仪表盘 | 基础导航 |
+| 测试用例                   | 覆盖路径   |
+| -------------------------- | ---------- |
+| 用户登录 → 查看仪表盘      | 基础导航   |
 | 创建项目 → 创建管线 → 运行 | 核心工作流 |
-| 邀请成员 → 修改角色 | 团队管理 |
-| 查看结果 → 打开 3D 查看器 | 数据可视化 |
-| 搜索项目 → 筛选结果 | 搜索与筛选 |
-| 评论 → 回复 → 点赞 | 协作功能 |
+| 邀请成员 → 修改角色        | 团队管理   |
+| 查看结果 → 打开 3D 查看器  | 数据可视化 |
+| 搜索项目 → 筛选结果        | 搜索与筛选 |
+| 评论 → 回复 → 点赞         | 协作功能   |
 
 ### 4.2 示例
 
@@ -232,7 +232,9 @@ test('complete pipeline workflow', async ({ page }) => {
   await page.click('button:has-text("Confirm")')
 
   // 验证运行状态变化
-  await expect(page.locator('[data-status="running"]')).toBeVisible({ timeout: 5000 })
+  await expect(page.locator('[data-status="running"]')).toBeVisible({
+    timeout: 5000,
+  })
 })
 ```
 
@@ -310,13 +312,13 @@ export const wrapper = ({ children }: { children: React.ReactNode }) => {
 
 ### PR 合并前必须通过
 
-| 检查 | 标准 |
-|---|---|
-| TypeScript | `tsc --noEmit` 零错误 |
-| ESLint | `eslint .` 零 error |
-| 单元测试 | `vitest run` 全部通过 |
-| 覆盖率 | 不低于主分支 |
-| E2E 测试 | `playwright test` 全部通过 |
+| 检查       | 标准                        |
+| ---------- | --------------------------- |
+| TypeScript | `tsc --noEmit` 零错误       |
+| ESLint     | `eslint .` 零 error         |
+| 单元测试   | `vitest run` 全部通过       |
+| 覆盖率     | 不低于主分支                |
+| E2E 测试   | `playwright test` 全部通过  |
 | Lighthouse | Performance > 90, A11y > 90 |
 
 ### CI 流程（GitHub Actions）

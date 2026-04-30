@@ -34,12 +34,14 @@
 **功能：**
 
 #### A. 成员列表
+
 - 展示团队成员列表（头像、姓名、邮箱、角色、加入时间）
 - 搜索成员
 - 按角色筛选
 - 分页
 
 #### B. 邀请成员
+
 - 点击 "邀请成员" 打开 Dialog
 - 输入邮箱 + 选择角色
 - 使用 React Hook Form + Zod 校验
@@ -47,17 +49,20 @@
 - 成功后乐观更新列表（React Query `optimistic update`）
 
 #### C. 管理角色
+
 - 下拉菜单切换角色（admin / editor / viewer）
 - 权限校验：只有 admin 可以修改角色
 - 使用 **Server Action** 提交
 
 #### D. 移除成员
+
 - 确认弹窗（AlertDialog）
 - 使用 **Server Action** 提交
 
 ### 2.2 组织设置 `/settings/organization`
 
 **功能：**
+
 - 组织名称/Logo 编辑
 - 计划与用量（Mock 数据）
 - 危险操作区（删除组织）
@@ -65,6 +70,7 @@
 ### 2.3 个人设置 `/settings/profile`
 
 **功能：**
+
 - 个人信息编辑（姓名、头像）
 - 通知偏好设置
 - API Key 管理（Mock 展示）
@@ -74,6 +80,7 @@
 ## 3. 评论系统
 
 ### 3.1 位置
+
 - 项目详情页底部
 - 分子详情页底部
 - 管线运行日志面板中
@@ -104,6 +111,7 @@
 ```
 
 **功能清单：**
+
 - 评论列表（按时间倒序）
 - 回复（支持 1 级嵌套）
 - @mention（输入 @ 弹出成员列表）
@@ -131,14 +139,14 @@
 
 ### 4.2 通知类型
 
-| 类型 | 说明 | 操作 |
-|---|---|---|
-| pipeline_completed | 管线运行完成 | 跳转到结果页 |
-| pipeline_failed | 管线运行失败 | 跳转到日志 |
-| member_invited | 新成员加入 | 无 |
-| comment_reply | 评论被回复 | 跳转到评论 |
-| mention | 被 @提及 | 跳转到对应位置 |
-| role_changed | 角色变更 | 跳转到团队页 |
+| 类型               | 说明         | 操作           |
+| ------------------ | ------------ | -------------- |
+| pipeline_completed | 管线运行完成 | 跳转到结果页   |
+| pipeline_failed    | 管线运行失败 | 跳转到日志     |
+| member_invited     | 新成员加入   | 无             |
+| comment_reply      | 评论被回复   | 跳转到评论     |
+| mention            | 被 @提及     | 跳转到对应位置 |
+| role_changed       | 角色变更     | 跳转到团队页   |
 
 ---
 
@@ -180,7 +188,13 @@ interface Comment {
 
 interface Notification {
   id: string
-  type: 'pipeline_completed' | 'pipeline_failed' | 'member_invited' | 'comment_reply' | 'mention' | 'role_changed'
+  type:
+    | 'pipeline_completed'
+    | 'pipeline_failed'
+    | 'member_invited'
+    | 'comment_reply'
+    | 'mention'
+    | 'role_changed'
   title: string
   description: string
   read: boolean
@@ -195,27 +209,27 @@ interface Notification {
 
 ### 团队管理
 
-| 方法 | 路径 | 说明 | 实现方式 |
-|---|---|---|---|
-| GET | `/api/team/members` | 成员列表 | React Query |
-| POST | `/api/team/invite` | 邀请成员 | Server Action |
-| PATCH | `/api/team/members/:id/role` | 修改角色 | Server Action |
-| DELETE | `/api/team/members/:id` | 移除成员 | Server Action |
+| 方法   | 路径                         | 说明     | 实现方式      |
+| ------ | ---------------------------- | -------- | ------------- |
+| GET    | `/api/team/members`          | 成员列表 | React Query   |
+| POST   | `/api/team/invite`           | 邀请成员 | Server Action |
+| PATCH  | `/api/team/members/:id/role` | 修改角色 | Server Action |
+| DELETE | `/api/team/members/:id`      | 移除成员 | Server Action |
 
 ### 评论
 
-| 方法 | 路径 | 说明 |
-|---|---|---|
-| GET | `/api/comments?resource=:type&id=:id` | 评论列表 |
-| POST | `/api/comments` | 发表评论 |
-| DELETE | `/api/comments/:id` | 删除评论 |
-| POST | `/api/comments/:id/reactions` | 添加反应 |
+| 方法   | 路径                                  | 说明     |
+| ------ | ------------------------------------- | -------- |
+| GET    | `/api/comments?resource=:type&id=:id` | 评论列表 |
+| POST   | `/api/comments`                       | 发表评论 |
+| DELETE | `/api/comments/:id`                   | 删除评论 |
+| POST   | `/api/comments/:id/reactions`         | 添加反应 |
 
 ### 通知
 
-| 方法 | 路径 | 说明 |
-|---|---|---|
-| GET | `/api/notifications` | 通知列表 |
+| 方法  | 路径                          | 说明     |
+| ----- | ----------------------------- | -------- |
+| GET   | `/api/notifications`          | 通知列表 |
 | PATCH | `/api/notifications/:id/read` | 标记已读 |
 | PATCH | `/api/notifications/read-all` | 全部已读 |
 
@@ -223,18 +237,18 @@ interface Notification {
 
 ## 7. 权限矩阵
 
-| 操作 | Admin | Editor | Viewer |
-|---|---|---|---|
-| 邀请成员 | ✓ | ✗ | ✗ |
-| 修改角色 | ✓ | ✗ | ✗ |
-| 移除成员 | ✓ | ✗ | ✗ |
-| 创建项目 | ✓ | ✓ | ✗ |
-| 编辑管线 | ✓ | ✓ | ✗ |
-| 运行管线 | ✓ | ✓ | ✗ |
-| 查看结果 | ✓ | ✓ | ✓ |
-| 发表评论 | ✓ | ✓ | ✓ |
-| 删除自己的评论 | ✓ | ✓ | ✓ |
-| 删除他人评论 | ✓ | ✗ | ✗ |
+| 操作           | Admin | Editor | Viewer |
+| -------------- | ----- | ------ | ------ |
+| 邀请成员       | ✓     | ✗      | ✗      |
+| 修改角色       | ✓     | ✗      | ✗      |
+| 移除成员       | ✓     | ✗      | ✗      |
+| 创建项目       | ✓     | ✓      | ✗      |
+| 编辑管线       | ✓     | ✓      | ✗      |
+| 运行管线       | ✓     | ✓      | ✗      |
+| 查看结果       | ✓     | ✓      | ✓      |
+| 发表评论       | ✓     | ✓      | ✓      |
+| 删除自己的评论 | ✓     | ✓      | ✓      |
+| 删除他人评论   | ✓     | ✗      | ✗      |
 
 ---
 

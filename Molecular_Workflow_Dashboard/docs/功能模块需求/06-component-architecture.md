@@ -28,15 +28,16 @@
 
 ### 2.1 默认规则
 
-| 规则 | 说明 |
-|---|---|
-| 默认 Server Component | 所有组件默认为 Server Component |
-| 需要交互才转 Client | 只有需要 `useState`、`useEffect`、事件处理的才加 `"use client"` |
-| 最小化 Client 边界 | `"use client"` 放在尽可能深的组件上 |
+| 规则                  | 说明                                                            |
+| --------------------- | --------------------------------------------------------------- |
+| 默认 Server Component | 所有组件默认为 Server Component                                 |
+| 需要交互才转 Client   | 只有需要 `useState`、`useEffect`、事件处理的才加 `"use client"` |
+| 最小化 Client 边界    | `"use client"` 放在尽可能深的组件上                             |
 
 ### 2.2 具体分配
 
 **Server Components（数据获取、静态渲染）：**
+
 - 页面布局（Sidebar, Header）
 - Stats Cards
 - 项目列表（首屏）
@@ -44,6 +45,7 @@
 - 分子详情的属性面板
 
 **Client Components（交互、动态）：**
+
 - Org Switcher（下拉选择）
 - 图表组件（Recharts）
 - 管线编辑器（React Flow）
@@ -127,18 +129,18 @@ npx shadcn@latest add sidebar
 
 在 `components/shared/` 下封装业务组件：
 
-| 组件 | 基于 | 说明 |
-|---|---|---|
-| `ConfirmDialog` | AlertDialog | 通用确认弹窗 |
-| `DataTable` | Table + TanStack Table | 通用数据表格（排序/筛选/分页） |
-| `EmptyState` | Card | 空状态占位 |
-| `LoadingState` | Skeleton | 加载状态 |
-| `ErrorState` | Alert | 错误状态 |
-| `PageHeader` | 自定义 | 页面标题 + 面包屑 + 操作按钮 |
-| `StatusBadge` | Badge | 状态标签（颜色映射） |
-| `UserAvatar` | Avatar + Tooltip | 用户头像 + 名称 |
-| `SearchInput` | Input + Command | 搜索输入框 |
-| `DateDisplay` | 自定义 | 相对时间/绝对时间显示 |
+| 组件            | 基于                   | 说明                           |
+| --------------- | ---------------------- | ------------------------------ |
+| `ConfirmDialog` | AlertDialog            | 通用确认弹窗                   |
+| `DataTable`     | Table + TanStack Table | 通用数据表格（排序/筛选/分页） |
+| `EmptyState`    | Card                   | 空状态占位                     |
+| `LoadingState`  | Skeleton               | 加载状态                       |
+| `ErrorState`    | Alert                  | 错误状态                       |
+| `PageHeader`    | 自定义                 | 页面标题 + 面包屑 + 操作按钮   |
+| `StatusBadge`   | Badge                  | 状态标签（颜色映射）           |
+| `UserAvatar`    | Avatar + Tooltip       | 用户头像 + 名称                |
+| `SearchInput`   | Input + Command        | 搜索输入框                     |
+| `DateDisplay`   | 自定义                 | 相对时间/绝对时间显示          |
 
 ---
 
@@ -186,30 +188,31 @@ npx shadcn@latest add sidebar
 
 ### 4.2 科学主题配色
 
-| 用途 | 颜色 | 说明 |
-|---|---|---|
-| 蛋白质/受体 | `#6366f1` (indigo) | 主色调 |
-| 配体/分子 | `#06b6d4` (cyan) | 辅助色 |
-| 成功/Pass | `#22c55e` (green) | 筛选通过 |
-| 失败/Fail | `#ef4444` (red) | 筛选失败 |
-| 警告 | `#f59e0b` (amber) | 需要关注 |
-| 运行中 | `#3b82f6` (blue) | 动态状态 |
+| 用途        | 颜色               | 说明     |
+| ----------- | ------------------ | -------- |
+| 蛋白质/受体 | `#6366f1` (indigo) | 主色调   |
+| 配体/分子   | `#06b6d4` (cyan)   | 辅助色   |
+| 成功/Pass   | `#22c55e` (green)  | 筛选通过 |
+| 失败/Fail   | `#ef4444` (red)    | 筛选失败 |
+| 警告        | `#f59e0b` (amber)  | 需要关注 |
+| 运行中      | `#3b82f6` (blue)   | 动态状态 |
 
 ---
 
 ## 5. 排版规范
 
-| 元素 | 字号 | 字重 | 行高 |
-|---|---|---|---|
-| H1 | 2.25rem (36px) | 700 | 1.2 |
-| H2 | 1.875rem (30px) | 600 | 1.3 |
-| H3 | 1.5rem (24px) | 600 | 1.4 |
-| H4 | 1.25rem (20px) | 500 | 1.4 |
-| Body | 0.875rem (14px) | 400 | 1.6 |
-| Small | 0.75rem (12px) | 400 | 1.5 |
-| Caption | 0.625rem (10px) | 500 | 1.4 |
+| 元素    | 字号            | 字重 | 行高 |
+| ------- | --------------- | ---- | ---- |
+| H1      | 2.25rem (36px)  | 700  | 1.2  |
+| H2      | 1.875rem (30px) | 600  | 1.3  |
+| H3      | 1.5rem (24px)   | 600  | 1.4  |
+| H4      | 1.25rem (20px)  | 500  | 1.4  |
+| Body    | 0.875rem (14px) | 400  | 1.6  |
+| Small   | 0.75rem (12px)  | 400  | 1.5  |
+| Caption | 0.625rem (10px) | 500  | 1.4  |
 
 **字体：**
+
 - 主字体：Inter（Google Fonts）
 - 等宽字体：JetBrains Mono（代码/日志展示）
 
@@ -219,28 +222,29 @@ npx shadcn@latest add sidebar
 
 基于 Tailwind 默认 4px 网格：
 
-| Token | 值 | 用途 |
-|---|---|---|
-| `1` | 4px | 紧凑间距 |
-| `2` | 8px | 图标与文字间距 |
-| `3` | 12px | 表单元素间距 |
-| `4` | 16px | 卡片内边距 |
-| `6` | 24px | 区块间距 |
-| `8` | 32px | 大区块间距 |
-| `12` | 48px | 页面级间距 |
+| Token | 值   | 用途           |
+| ----- | ---- | -------------- |
+| `1`   | 4px  | 紧凑间距       |
+| `2`   | 8px  | 图标与文字间距 |
+| `3`   | 12px | 表单元素间距   |
+| `4`   | 16px | 卡片内边距     |
+| `6`   | 24px | 区块间距       |
+| `8`   | 32px | 大区块间距     |
+| `12`  | 48px | 页面级间距     |
 
 ---
 
 ## 7. 动效规范
 
-| 动效类型 | 时长 | 缓动 | 使用场景 |
-|---|---|---|---|
-| 微交互 | 150ms | ease-out | hover, focus |
-| 过渡 | 200ms | ease-in-out | 展开/收起 |
-| 动画 | 300ms | ease-in-out | 页面切换 |
+| 动效类型 | 时长  | 缓动        | 使用场景             |
+| -------- | ----- | ----------- | -------------------- |
+| 微交互   | 150ms | ease-out    | hover, focus         |
+| 过渡     | 200ms | ease-in-out | 展开/收起            |
+| 动画     | 300ms | ease-in-out | 页面切换             |
 | 强调动画 | 500ms | ease-in-out | 状态变化（节点运行） |
 
 **禁止：**
+
 - 无限循环动画（除非状态指示器）
 - 过度的弹跳效果
 - 大面积的闪烁
@@ -249,11 +253,11 @@ npx shadcn@latest add sidebar
 
 ## 8. 可访问性（a11y）规范
 
-| 要求 | 实现方式 |
-|---|---|
-| 键盘导航 | 所有交互元素可通过 Tab/Enter/Escape 操作 |
-| ARIA 标签 | 图标按钮必须有 `aria-label` |
-| 颜色对比度 | 文字对比度 ≥ 4.5:1 (WCAG AA) |
-| Focus 管理 | Dialog 打开后 focus trap, 关闭后还原 |
-| 屏幕阅读器 | 使用 `sr-only` 提供隐藏描述 |
-| 减少动效 | `prefers-reduced-motion` 媒体查询支持 |
+| 要求       | 实现方式                                 |
+| ---------- | ---------------------------------------- |
+| 键盘导航   | 所有交互元素可通过 Tab/Enter/Escape 操作 |
+| ARIA 标签  | 图标按钮必须有 `aria-label`              |
+| 颜色对比度 | 文字对比度 ≥ 4.5:1 (WCAG AA)             |
+| Focus 管理 | Dialog 打开后 focus trap, 关闭后还原     |
+| 屏幕阅读器 | 使用 `sr-only` 提供隐藏描述              |
+| 减少动效   | `prefers-reduced-motion` 媒体查询支持    |
