@@ -1,1 +1,0 @@
-cd Molecular_Workflow_Dashboard && pnpm exec lint-staged
