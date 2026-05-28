@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Northstar</title>
+    <meta name="description" content="Get in touch with Northstar. Book a free design consultation or ask about our collections." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <a class="brand" href="./index.html">Northstar</a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./how-it-works.html">Our Process</a>
+          <a href="./terms.html">Terms</a>
+          <a class="active" href="./contact.html">Contact</a>
+        </nav>
+        <a class="button button-sm" href="./contact.html">Get in Touch</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="subhero section">
+        <div class="container narrow">
+          <span class="eyebrow">Contact Us</span>
+          <h1>Let's talk about your space.</h1>
+          <p class="lead">
+            Whether you have a question about a specific piece, need help with a room layout, or
+            want to book a free design consultation &mdash; we're here to help.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container contact-grid">
+          <aside class="contact-panel">
+            <img class="panel-img" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=80" alt="Northstar studio" loading="lazy" />
+            <h2>What to expect</h2>
+            <p>
+              A real person will read your message and respond within one business day.
+              No automated replies, no sales pressure.
+            </p>
+            <div class="contact-points">
+              <div>
+                <strong>Response time</strong>
+                <p>Within 1 business day.</p>
+              </div>
+              <div>
+                <strong>We can help with</strong>
+                <p>Product questions, custom orders, room consultations, and trade inquiries.</p>
+              </div>
+              <div>
+                <strong>Email</strong>
+                <p>hello@northstar-home.com</p>
+              </div>
+            </div>
+          </aside>
+
+          <section class="form-card">
+            <form id="contactForm" novalidate>
+              <div class="form-row two-col">
+                <label>
+                  <span>Full Name</span>
+                  <input type="text" name="name" placeholder="Your name" required />
+                  <small class="error"></small>
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input type="email" name="email" placeholder="you@example.com" required />
+                  <small class="error"></small>
+                </label>
+              </div>
+
+              <div class="form-row two-col">
+                <label>
+                  <span>Phone (optional)</span>
+                  <input type="text" name="company" placeholder="+1 (555) 000-0000" />
+                  <small class="error"></small>
+                </label>
+                <label>
+                  <span>What can we help with?</span>
+                  <select name="inquiryType">
+                    <option value="General inquiry">General inquiry</option>
+                    <option value="Product question">Product question</option>
+                    <option value="Custom order">Custom order</option>
+                    <option value="Room consultation">Room consultation</option>
+                    <option value="Trade inquiry">Trade inquiry</option>
+                  </select>
+                  <small class="error"></small>
+                </label>
+              </div>
+
+              <div class="form-row">
+                <label>
+                  <span>Subject</span>
+                  <input type="text" name="subject" placeholder="What would you like to discuss?" required />
+                  <small class="error"></small>
+                </label>
+              </div>
+
+              <div class="form-row">
+                <label>
+                  <span>Message</span>
+                  <textarea name="message" rows="6" placeholder="Tell us about your project, space, or question..." required></textarea>
+                  <small class="error"></small>
+                </label>
+              </div>
+
+              <input class="hidden-field" type="text" name="website" tabindex="-1" autocomplete="off" />
+
+              <div class="form-actions">
+                <button class="button" type="submit">Send Message</button>
+                <p class="form-hint">We'll never share your information with third parties.</p>
+              </div>
+
+              <div id="formStatus" class="form-status" aria-live="polite"></div>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="brand" href="./index.html">Northstar</a>
+          <p class="muted footer-copy">Premium furniture and d&eacute;cor for spaces that feel intentional.</p>
+        </div>
+        <div class="footer-links">
+          <a href="./index.html">Home</a>
+          <a href="./how-it-works.html">Our Process</a>
+          <a href="./terms.html">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
