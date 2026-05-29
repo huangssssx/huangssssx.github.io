@@ -17,6 +17,21 @@ const form = document.getElementById("contactForm");
   }
 })();
 
+(function () {
+  var mainImg = document.querySelector(".product-main-img");
+  var thumbs = document.querySelectorAll(".product-thumb");
+  if (!mainImg || !thumbs.length) return;
+
+  thumbs.forEach(function (thumb) {
+    thumb.addEventListener("click", function () {
+      var src = thumb.getAttribute("src");
+      mainImg.src = src;
+      thumbs.forEach(function (t) { t.classList.remove("active"); });
+      thumb.classList.add("active");
+    });
+  });
+})();
+
 if (form) {
   const status = document.getElementById("formStatus");
   const submitButton = form.querySelector('button[type="submit"]');
