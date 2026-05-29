@@ -15,6 +15,9 @@
     />
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="./styles.css" />
+    <script>
+      (function(){var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark')}})();
+    </script>
   </head>
   <body>
     <header class="topbar">
@@ -26,7 +29,13 @@
           <a href="./terms.html">Terms</a>
           <a href="./contact.html">Contact</a>
         </nav>
-        <a class="button button-sm" href="./contact.html">Get in Touch</a>
+        <div class="nav-actions">
+          <button class="theme-toggle" aria-label="Toggle dark mode" type="button">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+          <a class="button button-sm" href="./contact.html">Get in Touch</a>
+        </div>
       </div>
     </header>
 
@@ -79,9 +88,9 @@
               <div class="showcase-visual">
                 <div class="showcase-panel showcase-panel-primary carousel">
                   <div class="carousel-track">
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Northstar showroom" width="324" height="200" decoding="async" fetchpriority="high" />
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Artisan workshop" width="324" height="200" loading="lazy" decoding="async" fetchpriority="low" />
-                    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=600&q=80" alt="Styled interior" width="324" height="200" loading="lazy" decoding="async" fetchpriority="low" />
+                    <img src="./assets/images/showroom-600.webp" alt="Northstar showroom" width="324" height="200" decoding="async" fetchpriority="high" />
+                    <img src="./assets/images/workshop-600.webp" alt="Artisan workshop" width="324" height="200" loading="lazy" decoding="async" />
+                    <img src="./assets/images/interior-600.webp" alt="Styled interior" width="324" height="200" loading="lazy" decoding="async" />
                   </div>
                   <div class="carousel-dots">
                     <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
@@ -97,7 +106,7 @@
                     </div>
                     <div class="mini-card-body">
                       <p class="mini-name">Ember Lounge Chair</p>
-                      <p class="mini-detail">Walnut &amp; Boucle &mdash; Natural Oak</p>
+                      <p class="mini-detail">Walnut &amp; Boucl&eacute; &mdash; Natural Oak</p>
                       <div class="mini-badge">Ships in 2 Weeks</div>
                     </div>
                   </div>
@@ -120,7 +129,7 @@
               <div class="signal-row">
                 <div class="mini-stat">
                   <strong>Free Shipping</strong>
-                  <span>On orders over &dollar;500</span>
+                  <span>On orders over $500</span>
                 </div>
                 <div class="mini-stat">
                   <strong>5-Year Warranty</strong>
@@ -144,19 +153,19 @@
           </div>
           <div class="feature-grid">
             <article class="feature-card">
-              <img class="card-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80" alt="Artisan workshop" width="400" height="180" loading="lazy" decoding="async" />
+              <img class="card-img" src="./assets/images/workshop-400.webp" alt="Artisan workshop" width="400" height="180" loading="lazy" decoding="async" />
               <span class="feature-icon">01</span>
               <h3>Artisan Craftsmanship</h3>
               <p>Every piece is handcrafted by skilled makers using traditional joinery and finishing techniques.</p>
             </article>
             <article class="feature-card">
-              <img class="card-img" src="https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=400&q=80" alt="Natural material samples" width="400" height="180" loading="lazy" decoding="async" />
+              <img class="card-img" src="./assets/images/materials-400.webp" alt="Natural material samples" width="400" height="180" loading="lazy" decoding="async" />
               <span class="feature-icon">02</span>
               <h3>Honest Materials</h3>
               <p>Solid hardwood, natural stone, and premium textiles &mdash; no particle board, no shortcuts.</p>
             </article>
             <article class="feature-card">
-              <img class="card-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=400&q=80" alt="Design consultation" width="400" height="180" loading="lazy" decoding="async" />
+              <img class="card-img" src="./assets/images/consultation-400.webp" alt="Design consultation" width="400" height="180" loading="lazy" decoding="async" />
               <span class="feature-icon">03</span>
               <h3>Personal Guidance</h3>
               <p>Our design advisors help you choose pieces that fit your space, style, and budget.</p>
@@ -174,7 +183,7 @@
               Whether you know exactly what you want or need a little guidance, we make the process
               straightforward and enjoyable.
             </p>
-            <img class="overview-img" src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80" alt="Curated living room interior" width="600" height="220" loading="lazy" decoding="async" />
+            <img class="overview-img" src="./assets/images/livingroom-600.webp" alt="Curated living room interior" width="600" height="220" loading="lazy" decoding="async" />
           </div>
           <div class="steps-list">
             <article>
@@ -211,7 +220,7 @@
           <div class="testimonial-grid">
             <article class="quote-card">
               <div class="quote-header">
-                <img class="quote-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80" alt="Marcus T." width="80" height="80" loading="lazy" decoding="async" />
+                <img class="quote-avatar" src="./assets/images/avatar-marcus.webp" alt="Marcus T." width="80" height="80" loading="lazy" decoding="async" />
                 <strong>Marcus T., Brooklyn</strong>
               </div>
               <p>
@@ -221,7 +230,7 @@
             </article>
             <article class="quote-card">
               <div class="quote-header">
-                <img class="quote-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80" alt="Elena R." width="80" height="80" loading="lazy" decoding="async" />
+                <img class="quote-avatar" src="./assets/images/avatar-elena.webp" alt="Elena R." width="80" height="80" loading="lazy" decoding="async" />
                 <strong>Elena R., San Francisco</strong>
               </div>
               <p>
@@ -231,7 +240,7 @@
             </article>
             <article class="quote-card">
               <div class="quote-header">
-                <img class="quote-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=80&h=80&q=80" alt="Priya K." width="80" height="80" loading="lazy" decoding="async" />
+                <img class="quote-avatar" src="./assets/images/avatar-priya.webp" alt="Priya K." width="80" height="80" loading="lazy" decoding="async" />
                 <strong>Priya K., London</strong>
               </div>
               <p>

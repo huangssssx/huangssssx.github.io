@@ -1,5 +1,22 @@
 const form = document.getElementById("contactForm");
 
+(function () {
+  var toggle = document.querySelector(".theme-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      var html = document.documentElement;
+      var isDark = html.getAttribute("data-theme") === "dark";
+      if (isDark) {
+        html.removeAttribute("data-theme");
+        localStorage.setItem("theme", "light");
+      } else {
+        html.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+      }
+    });
+  }
+})();
+
 if (form) {
   const status = document.getElementById("formStatus");
   const submitButton = form.querySelector('button[type="submit"]');
@@ -90,6 +107,8 @@ if (form) {
 }
 
 (function () {
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const topbar = document.querySelector(".topbar");
   if (topbar) {
     let ticking = false;
@@ -104,29 +123,32 @@ if (form) {
     });
   }
 
-  const reveals = document.querySelectorAll(
-    ".section > .container, .section > .container > *"
-  );
-  reveals.forEach((el) => el.classList.add("reveal"));
+  if (!prefersReducedMotion) {
+    const reveals = document.querySelectorAll(
+      ".section > .container, .section > .container > *"
+    );
+    reveals.forEach((el) => el.classList.add("reveal"));
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
 
-  reveals.forEach((el) => observer.observe(el));
+    reveals.forEach((el) => observer.observe(el));
+  }
 })();
 
 (function () {
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const carousel = document.querySelector(".carousel");
-  if (!carousel) return;
+  if (!carousel || prefersReducedMotion) return;
 
   const track = carousel.querySelector(".carousel-track");
   const dots = carousel.querySelectorAll(".carousel-dot");
