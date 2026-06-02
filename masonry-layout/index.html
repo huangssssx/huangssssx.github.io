@@ -128,12 +128,11 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
+      transition: box-shadow var(--transition), background-color var(--transition);
       will-change: transform;
     }
 
     .masonry-item:hover {
-      transform: translateY(-0.25rem);
       box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
     }
 
@@ -708,6 +707,10 @@
         return window.innerWidth < 640 ? 8 : 16;
       }
 
+      function getIsotopeLayoutMode(layoutMode) {
+        return layoutMode === 'grid' ? 'fitRows' : layoutMode;
+      }
+
       function getColumnWidth() {
         var slider = document.getElementById('columnSlider');
         var cols = parseInt(slider.value, 10);
@@ -726,6 +729,25 @@
         items.forEach(function (item) {
           grid.appendChild(window.createItemElement(item));
         });
+      }
+
+      function applyLayoutState() {
+        grid.classList.remove('layout-masonry', 'layout-fitRows', 'layout-grid');
+        grid.classList.add('layout-' + currentLayout);
+
+        var items = grid.querySelectorAll('.masonry-item');
+        if (currentLayout === 'grid') {
+          items.forEach(function (el) { el.classList.add('grid-mode'); });
+        } else {
+          items.forEach(function (el) { el.classList.remove('grid-mode'); });
+        }
+      }
+
+      function syncIsotopeOptions() {
+        if (!iso) return;
+        iso.options.layoutMode = getIsotopeLayoutMode(currentLayout);
+        iso.options.masonry.gutter = getGap();
+        iso.options.fitRows.gutter = getGap();
       }
 
       function updateColumnWidth() {
@@ -747,22 +769,27 @@
 
         var width = Math.floor((availableWidth - gap * (cols - 1)) / cols);
 
-        var isMasonry = currentLayout === 'masonry';
         items.forEach(function (el) {
           el.style.width = width + 'px';
-          el.style.marginBottom = isMasonry ? gap + 'px' : '0';
+          el.style.marginBottom = gap + 'px';
         });
-        if (iso) iso.layout();
       }
 
       function initIsotope() {
         renderGrid(getFilteredItems(currentContent));
+        applyLayoutState();
         updateColumnWidth();
 
         imagesLoaded(grid, function () {
+          if (iso) {
+            iso.reloadItems();
+            syncIsotopeOptions();
+            iso.arrange();
+            return;
+          }
           iso = new Isotope(grid, {
             itemSelector: '.masonry-item',
-            layoutMode: currentLayout,
+            layoutMode: getIsotopeLayoutMode(currentLayout),
             masonry: {
               columnWidth: '.masonry-item',
               gutter: getGap()
@@ -785,6 +812,8 @@
         getColumnWidth: getColumnWidth,
         getFilteredItems: getFilteredItems,
         renderGrid: renderGrid,
+        applyLayoutState: applyLayoutState,
+        syncIsotopeOptions: syncIsotopeOptions,
         updateColumnWidth: updateColumnWidth,
         initIsotope: initIsotope,
         setContent: function (c) { currentContent = c; },
@@ -806,31 +835,7 @@
           var mode = btn.getAttribute('data-content');
           var app = window.MasonryApp;
           app.setContent(mode);
-
-          var items = app.getFilteredItems(mode);
-          app.renderGrid(items);
-          app.updateColumnWidth();
-
-          imagesLoaded(app.grid, function () {
-            var iso = app.iso();
-            if (iso) {
-              iso.destroy();
-            }
-            var newIso = new Isotope(app.grid, {
-              itemSelector: '.masonry-item',
-              layoutMode: app.getCurrentLayout(),
-              masonry: {
-                columnWidth: '.masonry-item',
-                gutter: window.innerWidth < 640 ? 8 : 16
-              },
-              fitRows: {
-                gutter: window.innerWidth < 640 ? 8 : 16
-              },
-              percentPosition: false,
-              transitionDuration: '0.4s'
-            });
-            app.setIso(newIso);
-          });
+          app.initIsotope();
         });
       });
     })();
@@ -843,6 +848,11 @@
         valueDisplay.textContent = slider.value;
         var app = window.MasonryApp;
         app.updateColumnWidth();
+        var iso = app.iso();
+        if (iso) {
+          app.syncIsotopeOptions();
+          iso.arrange();
+        }
       });
     })();
 
@@ -857,37 +867,13 @@
           var layoutMode = btn.getAttribute('data-layout');
           var app = window.MasonryApp;
           app.setLayout(layoutMode);
-
-          app.grid.classList.remove('layout-masonry', 'layout-fitrows', 'layout-grid');
-          app.grid.classList.add('layout-' + layoutMode);
-
-          var items = app.grid.querySelectorAll('.masonry-item');
-          if (layoutMode === 'grid') {
-            items.forEach(function (el) { el.classList.add('grid-mode'); });
-          } else {
-            items.forEach(function (el) { el.classList.remove('grid-mode'); });
-          }
-
+          app.applyLayoutState();
+          app.updateColumnWidth();
+          app.syncIsotopeOptions();
           var iso = app.iso();
           if (iso) {
-            iso.destroy();
+            iso.arrange();
           }
-
-          var isotopeLayout = layoutMode === 'grid' ? 'fitRows' : layoutMode;
-          var newIso = new Isotope(app.grid, {
-            itemSelector: '.masonry-item',
-            layoutMode: isotopeLayout,
-            masonry: {
-              columnWidth: '.masonry-item',
-              gutter: window.innerWidth < 640 ? 8 : 16
-            },
-            fitRows: {
-              gutter: window.innerWidth < 640 ? 8 : 16
-            },
-            percentPosition: false,
-            transitionDuration: '0.4s'
-          });
-          app.setIso(newIso);
         });
       });
     })();
@@ -897,7 +883,10 @@
   function handleResize() {
     app.updateColumnWidth();
     var iso = app.iso();
-    if (iso) iso.layout();
+    if (iso) {
+      app.syncIsotopeOptions();
+      iso.arrange();
+    }
   }
 
   var resizeTimer;
