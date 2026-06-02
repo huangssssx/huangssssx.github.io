@@ -112,13 +112,13 @@
 
     @media (max-width: 1023px) {
       .masonry-item {
-        width: calc(50% - 8px);
+        width: calc(50% - 8px) !important;
       }
     }
 
     @media (max-width: 639px) {
       .masonry-item {
-        width: 100%;
+        width: 100% !important;
       }
       .masonry-grid {
         padding: 70px 12px 12px;
@@ -768,6 +768,21 @@
         });
       });
     })();
+    (function () {
+  var app = window.MasonryApp;
+
+  function handleResize() {
+    app.updateColumnWidth();
+    var iso = app.iso();
+    if (iso) iso.layout();
+  }
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(handleResize, 200);
+  });
+})();
   </script>
 </body>
 </html>
