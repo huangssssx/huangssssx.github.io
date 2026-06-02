@@ -186,6 +186,10 @@
       }
     }
 
+    .masonry-item.image-card picture {
+      display: block;
+    }
+
     .masonry-item.image-card img {
       width: 100%;
       display: block;
@@ -661,6 +665,33 @@
     })();
 
     (function () {
+      function getResponsiveImageSources(imageUrl) {
+        var lastDot = imageUrl.lastIndexOf('.');
+        var basePath = imageUrl.slice(0, lastDot);
+        var fileName = basePath.slice(basePath.lastIndexOf('/') + 1);
+        var responsiveBase = 'assets/images/responsive/' + fileName;
+        return {
+          avif800: responsiveBase + '-800.avif',
+          avif1200: responsiveBase + '-1200.avif',
+          webp800: responsiveBase + '-800.webp',
+          webp1200: responsiveBase + '-1200.webp',
+          jpg800: responsiveBase + '-800.jpg',
+          jpg1200: responsiveBase + '-1200.jpg'
+        };
+      }
+
+      function createResponsiveImageMarkup(item) {
+        var sources = getResponsiveImageSources(item.imageUrl);
+        var sizes = '(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 25vw';
+        return (
+          '<picture>' +
+            '<source type="image/avif" srcset="' + sources.avif800 + ' 800w, ' + sources.avif1200 + ' 1200w" sizes="' + sizes + '">' +
+            '<source type="image/webp" srcset="' + sources.webp800 + ' 800w, ' + sources.webp1200 + ' 1200w" sizes="' + sizes + '">' +
+            '<img src="' + sources.jpg1200 + '" srcset="' + sources.jpg800 + ' 800w, ' + sources.jpg1200 + ' 1200w" sizes="' + sizes + '" alt="' + item.title + '" loading="lazy" decoding="async">' +
+          '</picture>'
+        );
+      }
+
       function createItemElement(item) {
         var article = document.createElement('article');
         article.className = 'masonry-item ' + (item.type === 'image' ? 'image-card' : 'text-card');
@@ -669,7 +700,7 @@
 
         if (item.type === 'image') {
           article.innerHTML =
-            '<img src="' + item.imageUrl + '" alt="' + item.title + '" loading="lazy" decoding="async">' +
+            createResponsiveImageMarkup(item) +
             '<div class="image-overlay">' +
             '<h3>' + item.title + '</h3>' +
             '<span class="tag">' + item.category + '</span>' +
