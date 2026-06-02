@@ -413,67 +413,7 @@
     <h1>Masonry Layout Showcase</h1>
   </header>
 
-  <main class="masonry-grid" id="masonryGrid">
-    <article class="masonry-item image-card" data-type="image" data-category="nature">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=300&fit=crop" alt="Mountain landscape" loading="lazy" decoding="async">
-      <div class="image-overlay">
-        <h3>Mountain Vista</h3>
-        <span class="tag">Nature</span>
-      </div>
-    </article>
-    <article class="masonry-item text-card" data-type="card" data-category="design">
-      <h3>Brand Identity System</h3>
-      <p>A complete visual identity system designed for a luxury hospitality brand, including logo, typography, color palette, and brand guidelines.</p>
-      <div class="card-meta">
-        <span class="tag">Design</span>
-        <span class="date">Mar 2025</span>
-      </div>
-    </article>
-    <article class="masonry-item image-card" data-type="image" data-category="architecture">
-      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=500&fit=crop" alt="Modern building" loading="lazy" decoding="async">
-      <div class="image-overlay">
-        <h3>Urban Geometry</h3>
-        <span class="tag">Architecture</span>
-      </div>
-    </article>
-    <article class="masonry-item text-card" data-type="card" data-category="development">
-      <h3>E-Commerce Platform</h3>
-      <p>Full-stack e-commerce solution with real-time inventory management, payment processing, and analytics dashboard.</p>
-      <div class="card-meta">
-        <span class="tag">Development</span>
-        <span class="date">Jan 2025</span>
-      </div>
-    </article>
-    <article class="masonry-item image-card" data-type="image" data-category="people">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Portrait" loading="lazy" decoding="async">
-      <div class="image-overlay">
-        <h3>Portrait Study</h3>
-        <span class="tag">People</span>
-      </div>
-    </article>
-    <article class="masonry-item text-card" data-type="card" data-category="branding">
-      <h3>Startup Rebrand</h3>
-      <p>Complete rebranding for a tech startup transitioning from B2C to B2B market positioning. New visual language, tone of voice, and messaging framework.</p>
-      <div class="card-meta">
-        <span class="tag">Branding</span>
-        <span class="date">Feb 2025</span>
-      </div>
-    </article>
-    <article class="masonry-item image-card" data-type="image" data-category="food">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=350&fit=crop" alt="Food photography" loading="lazy" decoding="async">
-      <div class="image-overlay">
-        <h3>Culinary Art</h3>
-        <span class="tag">Food</span>
-      </div>
-    </article>
-    <article class="masonry-item image-card" data-type="image" data-category="travel">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=260&fit=crop" alt="Beach sunset" loading="lazy" decoding="async">
-      <div class="image-overlay">
-        <h3>Coastal Serenity</h3>
-        <span class="tag">Travel</span>
-      </div>
-    </article>
-  </main>
+  <main class="masonry-grid" id="masonryGrid"></main>
 
   <button class="control-toggle" id="controlToggle" aria-label="Toggle control panel">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -606,6 +546,149 @@
           ticking = true;
         }
       });
+    })();
+
+    (function () {
+      var DATA = [
+        { id: 'img-1', type: 'image', title: 'Mountain Vista', category: 'Nature', date: '2025-05-10', imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&h=400&fit=crop' },
+        { id: 'img-2', type: 'image', title: 'Urban Geometry', category: 'Architecture', date: '2025-04-22', imageUrl: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=750&fit=crop' },
+        { id: 'img-3', type: 'image', title: 'Portrait Study', category: 'People', date: '2025-03-15', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop' },
+        { id: 'img-4', type: 'image', title: 'Culinary Art', category: 'Food', date: '2025-02-28', imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=450&fit=crop' },
+        { id: 'img-5', type: 'image', title: 'Coastal Serenity', category: 'Travel', date: '2025-01-14', imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=380&fit=crop' },
+        { id: 'img-6', type: 'image', title: 'Forest Canopy', category: 'Nature', date: '2024-12-20', imageUrl: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&h=500&fit=crop' },
+        { id: 'img-7', type: 'image', title: 'Glass Tower', category: 'Architecture', date: '2024-11-08', imageUrl: 'https://images.unsplash.com/photo-1487958449943-2422127b0935?w=600&h=900&fit=crop' },
+        { id: 'img-8', type: 'image', title: 'Street Moments', category: 'People', date: '2024-10-30', imageUrl: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=350&fit=crop' },
+        { id: 'img-9', type: 'image', title: 'Artisan Bread', category: 'Food', date: '2024-09-12', imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=550&fit=crop' },
+        { id: 'img-10', type: 'image', title: 'Alpine Sunrise', category: 'Travel', date: '2024-08-25', imageUrl: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=700&fit=crop' },
+        { id: 'img-11', type: 'image', title: 'Autumn Path', category: 'Nature', date: '2024-07-18', imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=420&fit=crop' },
+        { id: 'img-12', type: 'image', title: 'Skyline Dusk', category: 'Architecture', date: '2024-06-05', imageUrl: 'https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=600&h=400&fit=crop' },
+        { id: 'card-1', type: 'card', title: 'Brand Identity System', category: 'Design', date: '2025-03-20', description: 'A complete visual identity system designed for a luxury hospitality brand, including logo, typography, color palette, and comprehensive brand guidelines.' },
+        { id: 'card-2', type: 'card', title: 'E-Commerce Platform', category: 'Development', date: '2025-01-15', description: 'Full-stack e-commerce solution with real-time inventory management, secure payment processing, and a powerful analytics dashboard for business insights.' },
+        { id: 'card-3', type: 'card', title: 'Startup Rebrand', category: 'Branding', date: '2025-02-10', description: 'Complete rebranding for a tech startup transitioning from B2C to B2B market. New visual language, tone of voice, and messaging framework across all touchpoints.' },
+        { id: 'card-4', type: 'card', title: 'Mobile Banking App', category: 'Development', date: '2024-12-01', description: 'Intuitive mobile banking experience with biometric authentication, real-time transaction tracking, and smart savings goals. Built with accessibility-first principles.' },
+        { id: 'card-5', type: 'card', title: 'Photography Portfolio', category: 'Design', date: '2024-11-20', description: 'Minimalist portfolio website for a professional photographer. Features smooth transitions, lazy-loaded galleries, and a custom CMS for easy content management.' },
+        { id: 'card-6', type: 'card', title: 'Restaurant Branding', category: 'Branding', date: '2024-10-08', description: 'Holistic brand experience for a modern Asian fusion restaurant. Menu design, signage, packaging, and social media templates unified under one cohesive visual system.' },
+        { id: 'card-7', type: 'card', title: 'Weather Dashboard', category: 'Development', date: '2024-09-15', description: 'Real-time weather dashboard with interactive maps, 7-day forecasts, and severe weather alerts. Responsive design with offline capability via service worker.' },
+        { id: 'card-8', type: 'card', title: 'Annual Report Design', category: 'Design', date: '2024-08-22', description: 'Data-driven annual report combining infographics, photography, and clean typography. Designed for both print and interactive PDF formats.' },
+        { id: 'card-9', type: 'card', title: 'Fitness Brand Launch', category: 'Branding', date: '2024-07-10', description: 'Full brand launch for a premium fitness brand. Strategy, visual identity, packaging design, and go-to-market campaign materials for digital and physical channels.' },
+        { id: 'card-10', type: 'card', title: 'Task Management Tool', category: 'Development', date: '2024-06-28', description: 'Collaborative project management tool with Kanban boards, time tracking, and team analytics. Drag-and-drop interface with real-time sync across devices.' },
+        { id: 'card-11', type: 'card', title: 'Music Festival Poster', category: 'Design', date: '2024-05-15', description: 'Vibrant poster series for an international music festival. Bold typography meets psychedelic illustration, inspired by vintage concert posters with a modern twist.' },
+        { id: 'card-12', type: 'card', title: 'SaaS Product Naming', category: 'Branding', date: '2024-04-03', description: 'Strategic naming and brand positioning for a B2B SaaS product. Market research, competitor analysis, name generation, and trademark screening.' }
+      ];
+
+      window.MasonryData = DATA;
+    })();
+
+    (function () {
+      function createItemElement(item) {
+        var article = document.createElement('article');
+        article.className = 'masonry-item ' + (item.type === 'image' ? 'image-card' : 'text-card');
+        article.setAttribute('data-type', item.type);
+        article.setAttribute('data-category', item.category.toLowerCase());
+
+        if (item.type === 'image') {
+          article.innerHTML =
+            '<img src="' + item.imageUrl + '" alt="' + item.title + '" loading="lazy" decoding="async">' +
+            '<div class="image-overlay">' +
+            '<h3>' + item.title + '</h3>' +
+            '<span class="tag">' + item.category + '</span>' +
+            '</div>';
+        } else {
+          article.innerHTML =
+            '<h3>' + item.title + '</h3>' +
+            '<p>' + item.description + '</p>' +
+            '<div class="card-meta">' +
+            '<span class="tag">' + item.category + '</span>' +
+            '<span class="date">' + formatDate(item.date) + '</span>' +
+            '</div>';
+        }
+
+        return article;
+      }
+
+      function formatDate(dateStr) {
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var parts = dateStr.split('-');
+        return months[parseInt(parts[1], 10) - 1] + ' ' + parts[0];
+      }
+
+      window.createItemElement = createItemElement;
+    })();
+
+    (function () {
+      var grid = document.getElementById('masonryGrid');
+      var data = window.MasonryData;
+      var iso = null;
+      var currentContent = 'gallery';
+      var currentLayout = 'masonry';
+
+      function getColumnWidth() {
+        var slider = document.getElementById('columnSlider');
+        var cols = parseInt(slider.value, 10);
+        var gap = 16;
+        return (grid.offsetWidth - gap * (cols - 1)) / cols;
+      }
+
+      function getFilteredItems(mode) {
+        if (mode === 'gallery') return data.filter(function (d) { return d.type === 'image'; });
+        if (mode === 'cards') return data.filter(function (d) { return d.type === 'card'; });
+        return data;
+      }
+
+      function renderGrid(items) {
+        grid.innerHTML = '';
+        items.forEach(function (item) {
+          grid.appendChild(window.createItemElement(item));
+        });
+      }
+
+      function updateColumnWidth() {
+        var slider = document.getElementById('columnSlider');
+        var cols = parseInt(slider.value, 10);
+        var items = grid.querySelectorAll('.masonry-item');
+        var gap = 16;
+        var width = (grid.offsetWidth - gap * (cols - 1)) / cols;
+        items.forEach(function (el) {
+          el.style.width = width + 'px';
+        });
+        if (iso) iso.layout();
+      }
+
+      function initIsotope() {
+        renderGrid(getFilteredItems(currentContent));
+        updateColumnWidth();
+
+        imagesLoaded(grid, function () {
+          iso = new Isotope(grid, {
+            itemSelector: '.masonry-item',
+            layoutMode: currentLayout,
+            masonry: {
+              columnWidth: '.masonry-item',
+              gutter: 16
+            },
+            percentPosition: false,
+            transitionDuration: '0.4s'
+          });
+        });
+      }
+
+      window.MasonryApp = {
+        iso: function () { return iso; },
+        grid: grid,
+        data: data,
+        getCurrentContent: function () { return currentContent; },
+        getCurrentLayout: function () { return currentLayout; },
+        getColumnWidth: getColumnWidth,
+        getFilteredItems: getFilteredItems,
+        renderGrid: renderGrid,
+        updateColumnWidth: updateColumnWidth,
+        initIsotope: initIsotope,
+        setContent: function (c) { currentContent = c; },
+        setLayout: function (l) { currentLayout = l; },
+        setIso: function (i) { iso = i; }
+      };
+
+      initIsotope();
     })();
   </script>
 </body>
