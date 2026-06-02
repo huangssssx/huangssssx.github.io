@@ -661,6 +661,10 @@
       var currentContent = 'gallery';
       var currentLayout = 'masonry';
 
+      function getGap() {
+        return window.innerWidth < 640 ? 0 : 16;
+      }
+
       function getColumnWidth() {
         var slider = document.getElementById('columnSlider');
         var cols = parseInt(slider.value, 10);
@@ -685,7 +689,7 @@
         var slider = document.getElementById('columnSlider');
         var cols = parseInt(slider.value, 10);
         var items = grid.querySelectorAll('.masonry-item');
-        var gap = 16;
+        var gap = getGap();
 
         if (window.innerWidth < 640) {
           cols = 1;
@@ -698,7 +702,7 @@
         var gridPadRight = parseFloat(gridStyle.paddingRight);
         var availableWidth = grid.offsetWidth - gridPadLeft - gridPadRight;
 
-        var width = (availableWidth - gap * (cols - 1)) / cols;
+        var width = Math.floor((availableWidth - gap * (cols - 1)) / cols);
         items.forEach(function (el) {
           el.style.width = width + 'px';
         });
@@ -715,7 +719,7 @@
             layoutMode: currentLayout,
             masonry: {
               columnWidth: '.masonry-item',
-              gutter: 16
+              gutter: getGap()
             },
             percentPosition: false,
             transitionDuration: '0.4s'
@@ -768,7 +772,7 @@
               layoutMode: app.getCurrentLayout(),
               masonry: {
                 columnWidth: '.masonry-item',
-                gutter: 16
+                gutter: window.innerWidth < 640 ? 0 : 16
               },
               percentPosition: false,
               transitionDuration: '0.4s'
@@ -808,7 +812,7 @@
               transitionDuration: '0.4s'
             };
             if (layoutMode === 'masonry') {
-              opts.masonry = { columnWidth: '.masonry-item', gutter: 16 };
+              opts.masonry = { columnWidth: '.masonry-item', gutter: getGap() };
             }
             iso.arrange(opts);
             if (iso.options) {
