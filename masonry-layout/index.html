@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Masonry Layout Showcase</title>
   <meta name="description" content="A responsive masonry layout showcase built with Isotope.js, featuring dark/light themes, multiple content types, and interactive controls.">
-  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/js/isotope.pkgd.min.js"></script>
+  <script src="assets/js/imagesloaded.pkgd.min.js"></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -571,18 +571,18 @@
 
     (function () {
       var DATA = [
-        { id: 'img-1', type: 'image', title: 'Mountain Vista', category: 'Nature', date: '2025-05-10', imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&h=400&fit=crop' },
-        { id: 'img-2', type: 'image', title: 'Urban Geometry', category: 'Architecture', date: '2025-04-22', imageUrl: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=750&fit=crop' },
-        { id: 'img-3', type: 'image', title: 'Portrait Study', category: 'People', date: '2025-03-15', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop' },
-        { id: 'img-4', type: 'image', title: 'Culinary Art', category: 'Food', date: '2025-02-28', imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=450&fit=crop' },
-        { id: 'img-5', type: 'image', title: 'Coastal Serenity', category: 'Travel', date: '2025-01-14', imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=380&fit=crop' },
-        { id: 'img-6', type: 'image', title: 'Forest Canopy', category: 'Nature', date: '2024-12-20', imageUrl: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&h=500&fit=crop' },
-        { id: 'img-7', type: 'image', title: 'Glass Tower', category: 'Architecture', date: '2024-11-08', imageUrl: 'https://images.unsplash.com/photo-1487958449943-2422127b0935?w=600&h=900&fit=crop' },
-        { id: 'img-8', type: 'image', title: 'Street Moments', category: 'People', date: '2024-10-30', imageUrl: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=350&fit=crop' },
-        { id: 'img-9', type: 'image', title: 'Artisan Bread', category: 'Food', date: '2024-09-12', imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=550&fit=crop' },
-        { id: 'img-10', type: 'image', title: 'Alpine Sunrise', category: 'Travel', date: '2024-08-25', imageUrl: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=700&fit=crop' },
-        { id: 'img-11', type: 'image', title: 'Autumn Path', category: 'Nature', date: '2024-07-18', imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=420&fit=crop' },
-        { id: 'img-12', type: 'image', title: 'Skyline Dusk', category: 'Architecture', date: '2024-06-05', imageUrl: 'https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=600&h=400&fit=crop' },
+        { id: 'img-1', type: 'image', title: 'Mountain Vista', category: 'Nature', date: '2025-05-10', imageUrl: 'assets/images/img-1.jpg' },
+        { id: 'img-2', type: 'image', title: 'Urban Geometry', category: 'Architecture', date: '2025-04-22', imageUrl: 'assets/images/img-2.jpg' },
+        { id: 'img-3', type: 'image', title: 'Portrait Study', category: 'People', date: '2025-03-15', imageUrl: 'assets/images/img-3.jpg' },
+        { id: 'img-4', type: 'image', title: 'Culinary Art', category: 'Food', date: '2025-02-28', imageUrl: 'assets/images/img-4.jpg' },
+        { id: 'img-5', type: 'image', title: 'Coastal Serenity', category: 'Travel', date: '2025-01-14', imageUrl: 'assets/images/img-5.jpg' },
+        { id: 'img-6', type: 'image', title: 'Forest Canopy', category: 'Nature', date: '2024-12-20', imageUrl: 'assets/images/img-6.jpg' },
+        { id: 'img-7', type: 'image', title: 'Glass Tower', category: 'Architecture', date: '2024-11-08', imageUrl: 'assets/images/img-7.jpg' },
+        { id: 'img-8', type: 'image', title: 'Street Moments', category: 'People', date: '2024-10-30', imageUrl: 'assets/images/img-8.jpg' },
+        { id: 'img-9', type: 'image', title: 'Artisan Bread', category: 'Food', date: '2024-09-12', imageUrl: 'assets/images/img-9.jpg' },
+        { id: 'img-10', type: 'image', title: 'Alpine Sunrise', category: 'Travel', date: '2024-08-25', imageUrl: 'assets/images/img-10.jpg' },
+        { id: 'img-11', type: 'image', title: 'Autumn Path', category: 'Nature', date: '2024-07-18', imageUrl: 'assets/images/img-11.jpg' },
+        { id: 'img-12', type: 'image', title: 'Skyline Dusk', category: 'Architecture', date: '2024-06-05', imageUrl: 'assets/images/img-12.jpg' },
         { id: 'card-1', type: 'card', title: 'Brand Identity System', category: 'Design', date: '2025-03-20', description: 'A complete visual identity system designed for a luxury hospitality brand, including logo, typography, color palette, and comprehensive brand guidelines.' },
         { id: 'card-2', type: 'card', title: 'E-Commerce Platform', category: 'Development', date: '2025-01-15', description: 'Full-stack e-commerce solution with real-time inventory management, secure payment processing, and a powerful analytics dashboard for business insights.' },
         { id: 'card-3', type: 'card', title: 'Startup Rebrand', category: 'Branding', date: '2025-02-10', description: 'Complete rebranding for a tech startup transitioning from B2C to B2B market. New visual language, tone of voice, and messaging framework across all touchpoints.' },
