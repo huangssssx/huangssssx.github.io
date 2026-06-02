@@ -15,6 +15,7 @@
     }
 
     :root {
+      color-scheme: light dark;
       --bg-primary: #ffffff;
       --bg-secondary: #f5f5f5;
       --bg-card: #ffffff;
@@ -408,9 +409,9 @@
   </style>
 </head>
 <body>
-  <div class="title-overlay" id="titleOverlay">
+  <header class="title-overlay" id="titleOverlay">
     <h1>Masonry Layout Showcase</h1>
-  </div>
+  </header>
 
   <main class="masonry-grid" id="masonryGrid">
     <article class="masonry-item image-card" data-type="image" data-category="nature">
@@ -561,9 +562,27 @@
       var panel = document.getElementById('controlPanel');
       var isOpen = false;
 
-      toggle.addEventListener('click', function () {
+      function closePanel() {
+        isOpen = false;
+        panel.classList.remove('open');
+      }
+
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
         isOpen = !isOpen;
         panel.classList.toggle('open', isOpen);
+      });
+
+      panel.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      document.addEventListener('click', function () {
+        if (isOpen) closePanel();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && isOpen) closePanel();
       });
     })();
 
