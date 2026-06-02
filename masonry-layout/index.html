@@ -690,6 +690,84 @@
 
       initIsotope();
     })();
+
+    (function () {
+      var pills = document.querySelectorAll('#contentPills .pill-btn');
+
+      pills.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          pills.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          var mode = btn.getAttribute('data-content');
+          var app = window.MasonryApp;
+          app.setContent(mode);
+
+          var items = app.getFilteredItems(mode);
+          app.renderGrid(items);
+          app.updateColumnWidth();
+
+          imagesLoaded(app.grid, function () {
+            var iso = app.iso();
+            if (iso) {
+              iso.destroy();
+            }
+            var newIso = new Isotope(app.grid, {
+              itemSelector: '.masonry-item',
+              layoutMode: app.getCurrentLayout(),
+              masonry: {
+                columnWidth: '.masonry-item',
+                gutter: 16
+              },
+              percentPosition: false,
+              transitionDuration: '0.4s'
+            });
+            app.setIso(newIso);
+          });
+        });
+      });
+    })();
+
+    (function () {
+      var slider = document.getElementById('columnSlider');
+      var valueDisplay = document.getElementById('columnValue');
+
+      slider.addEventListener('input', function () {
+        valueDisplay.textContent = slider.value;
+        var app = window.MasonryApp;
+        app.updateColumnWidth();
+      });
+    })();
+
+    (function () {
+      var pills = document.querySelectorAll('#layoutPills .pill-btn');
+
+      pills.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          pills.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          var layoutMode = btn.getAttribute('data-layout');
+          var app = window.MasonryApp;
+          app.setLayout(layoutMode);
+
+          var iso = app.iso();
+          if (iso) {
+            var opts = {
+              transitionDuration: '0.4s'
+            };
+            if (layoutMode === 'masonry') {
+              opts.masonry = { columnWidth: '.masonry-item', gutter: 16 };
+            }
+            iso.arrange(opts);
+            if (iso.options) {
+              iso.options.layoutMode = layoutMode;
+            }
+            iso.layout();
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
