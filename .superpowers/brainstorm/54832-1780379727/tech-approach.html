@@ -1,0 +1,31 @@
+<h2>Masonry 技术实现方式</h2>
+<p class="subtitle">视觉风格确认：支持 dark/light 主题切换</p>
+
+<div class="section">
+  <h3>Masonry 布局用什么技术实现？</h3>
+  <p class="subtitle">这直接影响页面的技术展示效果和兼容性</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="css" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>纯 CSS (columns / grid)</h3>
+      <p>使用 CSS <code>columns</code> 或 <code>grid-template-rows: masonry</code>。无 JS 依赖，性能最好。但 <code>masonry</code> 属性目前只有 Firefox 支持，<code>columns</code> 排列顺序是从上到下再从左到右（不是自然的从左到右阅读顺序）。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="js" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>原生 JS 实现 (推荐)</h3>
+      <p>用 JS 计算每个元素位置，绝对定位排列。完全控制布局逻辑，支持动画过渡、动态添加/删除、列数变化平滑过渡。展示纯 JS 能力，无外部依赖。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="lib" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>使用库 (Masonry.js / Isotope)</h3>
+      <p>成熟的 masonry 库，功能完善。但作为展示实力的页面，用库显得技术含量不高，而且增加外部依赖。</p>
+    </div>
+  </div>
+</div>

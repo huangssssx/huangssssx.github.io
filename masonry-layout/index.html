@@ -54,6 +54,28 @@
       scroll-behavior: smooth;
     }
 
+    html::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    html::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    html::-webkit-scrollbar-thumb {
+      background: rgba(128, 128, 128, 0.3);
+      border-radius: 3px;
+    }
+
+    html::-webkit-scrollbar-thumb:hover {
+      background: rgba(128, 128, 128, 0.5);
+    }
+
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(128, 128, 128, 0.3) transparent;
+    }
+
     body {
       font-family: var(--font-sans);
       background-color: var(--bg-primary);
@@ -100,7 +122,7 @@
 
     .masonry-item {
       width: calc(25% - 0.75rem);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       border-radius: var(--radius);
       overflow: hidden;
       background: var(--bg-card);
@@ -115,7 +137,34 @@
       box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
     }
 
+    .masonry-item.grid-mode {
+      height: 220px;
+    }
+
+    .masonry-item.grid-mode.image-card img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .masonry-item.grid-mode.text-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .masonry-item.grid-mode.text-card p {
+      flex: 1;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
     @media (max-width: 639px) {
+      .masonry-item.grid-mode {
+        height: 180px;
+      }
+
       .masonry-grid {
         padding: 4.375rem 0.75rem 0.75rem;
         overflow: hidden;
@@ -486,7 +535,7 @@
       <div class="pill-group" id="layoutPills">
         <button class="pill-btn active" data-layout="masonry">Masonry</button>
         <button class="pill-btn" data-layout="fitRows">FitRows</button>
-        <button class="pill-btn" data-layout="fitWidth">Grid</button>
+        <button class="pill-btn" data-layout="grid">Grid</button>
       </div>
     </div>
   </div>
@@ -656,7 +705,7 @@
       var currentLayout = 'masonry';
 
       function getGap() {
-        return window.innerWidth < 640 ? 0 : 16;
+        return window.innerWidth < 640 ? 8 : 16;
       }
 
       function getColumnWidth() {
@@ -686,7 +735,7 @@
         var gap = getGap();
 
         if (window.innerWidth < 640) {
-          cols = 1;
+          cols = 2;
         } else if (window.innerWidth < 1024) {
           cols = 2;
         }
@@ -697,8 +746,11 @@
         var availableWidth = grid.offsetWidth - gridPadLeft - gridPadRight;
 
         var width = Math.floor((availableWidth - gap * (cols - 1)) / cols);
+
+        var isMasonry = currentLayout === 'masonry';
         items.forEach(function (el) {
           el.style.width = width + 'px';
+          el.style.marginBottom = isMasonry ? gap + 'px' : '0';
         });
         if (iso) iso.layout();
       }
@@ -713,6 +765,9 @@
             layoutMode: currentLayout,
             masonry: {
               columnWidth: '.masonry-item',
+              gutter: getGap()
+            },
+            fitRows: {
               gutter: getGap()
             },
             percentPosition: false,
@@ -766,7 +821,10 @@
               layoutMode: app.getCurrentLayout(),
               masonry: {
                 columnWidth: '.masonry-item',
-                gutter: window.innerWidth < 640 ? 0 : 16
+                gutter: window.innerWidth < 640 ? 8 : 16
+              },
+              fitRows: {
+                gutter: window.innerWidth < 640 ? 8 : 16
               },
               percentPosition: false,
               transitionDuration: '0.4s'
@@ -800,20 +858,36 @@
           var app = window.MasonryApp;
           app.setLayout(layoutMode);
 
+          app.grid.classList.remove('layout-masonry', 'layout-fitrows', 'layout-grid');
+          app.grid.classList.add('layout-' + layoutMode);
+
+          var items = app.grid.querySelectorAll('.masonry-item');
+          if (layoutMode === 'grid') {
+            items.forEach(function (el) { el.classList.add('grid-mode'); });
+          } else {
+            items.forEach(function (el) { el.classList.remove('grid-mode'); });
+          }
+
           var iso = app.iso();
           if (iso) {
-            var opts = {
-              transitionDuration: '0.4s'
-            };
-            if (layoutMode === 'masonry') {
-              opts.masonry = { columnWidth: '.masonry-item', gutter: getGap() };
-            }
-            iso.arrange(opts);
-            if (iso.options) {
-              iso.options.layoutMode = layoutMode;
-            }
-            iso.layout();
+            iso.destroy();
           }
+
+          var isotopeLayout = layoutMode === 'grid' ? 'fitRows' : layoutMode;
+          var newIso = new Isotope(app.grid, {
+            itemSelector: '.masonry-item',
+            layoutMode: isotopeLayout,
+            masonry: {
+              columnWidth: '.masonry-item',
+              gutter: window.innerWidth < 640 ? 8 : 16
+            },
+            fitRows: {
+              gutter: window.innerWidth < 640 ? 8 : 16
+            },
+            percentPosition: false,
+            transitionDuration: '0.4s'
+          });
+          app.setIso(newIso);
         });
       });
     })();

@@ -1,0 +1,31 @@
+<h2>Masonry Layout 页面结构</h2>
+<p class="subtitle">这个页面需要展示多种内容类型，用 switch 切换不同模式</p>
+
+<div class="section">
+  <h3>页面整体布局方案</h3>
+  <p class="subtitle">选择一个最适合展示实力的布局方案</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>顶部 Tab 切换 + Masonry 内容区</h3>
+      <p>页面顶部是 hero 标题区，下面是一排 pill 形状的 Tab 按钮（图片画廊 / 卡片内容 / 混合内容），点击切换不同的 masonry 内容。简洁直接，重点突出 masonry 布局本身。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>侧边栏筛选 + Masonry 内容区</h3>
+      <p>左侧有筛选面板（内容类型、列数、间距等可调参数），右侧实时展示 masonry 效果。更有技术感，展示你对布局的掌控力，但页面较复杂。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>全屏 Showcase + 控制面板浮层</h3>
+      <p>masonry 内容占满全屏，右下角有一个可展开的控制面板浮层，可以切换内容类型、调整列数、间距等。沉浸感强，像真实产品而不是技术 demo。</p>
+    </div>
+  </div>
+</div>
