@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Northstar E-Commerce — README</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      (function(){var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark')}})();
+    </script>
+    <style>
+      .readme { max-width: 52rem; }
+      .readme h1 { margin-bottom: 0.75rem; }
+      .readme > p:first-of-type { font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem; }
+      .readme-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+      .readme-links a {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.5rem 1.25rem; border-radius: var(--radius-md);
+        border: 1px solid var(--line); color: var(--text);
+        text-decoration: none; font-size: 0.85rem; font-weight: 500;
+        transition: border-color var(--transition-fast), background var(--transition-fast);
+      }
+      .readme-links a:hover { border-color: var(--accent); background: var(--accent-subtle); }
+      .readme-links a svg { width: 1rem; height: 1rem; }
+      .readme h2 {
+        font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600;
+        margin-top: 2.5rem; margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .readme ul { list-style: none; padding: 0; }
+      .readme ul li {
+        position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem;
+        font-size: 0.925rem; line-height: 1.7; color: var(--muted);
+      }
+      .readme ul li::before {
+        content: ''; position: absolute; left: 0; top: 0.55em;
+        width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--accent);
+      }
+      .readme ul li strong { color: var(--text); font-weight: 500; }
+      .readme p { font-size: 0.925rem; line-height: 1.7; color: var(--muted); margin-bottom: 0.75rem; }
+      .readme table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.875rem; }
+      .readme th, .readme td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--line); }
+      .readme th { color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.7rem; }
+      .readme td { color: var(--text); }
+      .readme td code { color: var(--accent); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; }
+      .readme pre {
+        background: var(--bg-accent); border: 1px solid var(--line);
+        border-radius: var(--radius-md); padding: 1rem 1.25rem;
+        overflow-x: auto; margin-bottom: 1rem; font-size: 0.8rem;
+        line-height: 1.7; color: var(--muted);
+        font-family: 'SF Mono', 'Fira Code', monospace;
+      }
+      @media (max-width: 639px) {
+        .readme { padding: 2rem 1rem 3rem; }
+        .readme-links { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <a class="brand" href="./index.html">Northstar</a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./how-it-works.html">Our Process</a>
+          <a href="./terms.html">Terms</a>
+          <a href="./contact.html">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" aria-label="Toggle dark mode" type="button">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+          <a class="nav-icon-link" href="./README.html" title="README">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </a>
+          <a class="nav-icon-link" href="https://github.com/huangssssx/huangssssx.github.io" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a class="button button-sm" href="./contact.html">Get in Touch</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container narrow readme">
+        <span class="eyebrow">Documentation</span>
+        <h1>Northstar E-Commerce Website</h1>
+        <p>
+          A premium furniture e-commerce website built with vanilla HTML, CSS, and JavaScript.
+          Features a light/dark theme toggle, responsive design, scroll-reveal animations,
+          a product detail page with image gallery, a multi-step contact form with validation,
+          and a clean editorial design inspired by Scandinavian minimalism.
+        </p>
+
+        <nav class="readme-links">
+          <a href="./index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live Demo
+          </a>
+          <a href="https://github.com/huangssssx/huangssssx.github.io" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub Repository
+          </a>
+        </nav>
+
+        <h2>Features</h2>
+        <ul>
+          <li><strong>Light / Dark theme toggle</strong> with <code>localStorage</code> persistence and <code>prefers-color-scheme</code> detection</li>
+          <li><strong>Responsive layout</strong> — mobile-first design with fluid typography and flexible grids</li>
+          <li><strong>Scroll-reveal animations</strong> via <code>IntersectionObserver</code> with <code>prefers-reduced-motion</code> support</li>
+          <li><strong>Product detail page</strong> with image gallery, thumbnail switching, material showcases, and lifestyle images</li>
+          <li><strong>Contact form</strong> with client-side validation, honeypot spam protection, and accessible error messages</li>
+          <li><strong>Hero carousel</strong> with auto-advance, dot navigation, and touch/swipe support</li>
+          <li><strong>Sticky header</strong> with scroll-aware background transition</li>
+          <li><strong>Typography</strong> using Cormorant (serif headings) and Montserrat (body text) via self-hosted fonts</li>
+          <li><strong>No build step</strong> — pure HTML, CSS, and vanilla JavaScript</li>
+        </ul>
+
+        <h2>Pages</h2>
+        <table>
+          <thead><tr><th>Page</th><th>File</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Home</td><td><code>index.html</code></td><td>Hero, features, testimonials, CTA sections</td></tr>
+            <tr><td>Product</td><td><code>product.html</code></td><td>Product detail with gallery, materials, lifestyle</td></tr>
+            <tr><td>Our Process</td><td><code>how-it-works.html</code></td><td>Timeline-style process walkthrough</td></tr>
+            <tr><td>Terms</td><td><code>terms.html</code></td><td>Terms and conditions</td></tr>
+            <tr><td>Contact</td><td><code>contact.html</code></td><td>Contact form with validation</td></tr>
+            <tr><td>README</td><td><code>README.html</code></td><td>This documentation page</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Project Structure</h2>
+<pre>e-commerce-websit/
+├── index.html
+├── product.html
+├── how-it-works.html
+├── terms.html
+├── contact.html
+├── README.html
+├── script.js
+├── styles.css
+└── assets/
+    ├── fonts/
+    │   ├── fonts.css
+    │   ├── Cormorant-*.ttf
+    │   └── Montserrat-*.ttf
+    └── images/
+        ├── showroom-600.webp
+        ├── workshop-600.webp
+        ├── interior-600.webp
+        ├── product-hero-900.png
+        ├── product-thumb-*.png
+        ├── product-detail-*.png
+        ├── material-*.jpg
+        ├── lifestyle-*.jpg
+        ├── avatar-*.webp
+        └── ...</pre>
+
+        <h2>Design System</h2>
+        <table>
+          <thead><tr><th>Token</th><th>Light</th><th>Dark</th></tr></thead>
+          <tbody>
+            <tr><td>Background</td><td><code>#FAFAF9</code></td><td><code>#0C0A09</code></td></tr>
+            <tr><td>Text</td><td><code>#0C0A09</code></td><td><code>#FAFAF9</code></td></tr>
+            <tr><td>Muted</td><td><code>#57534E</code></td><td><code>#A8A29E</code></td></tr>
+            <tr><td>Accent</td><td><code>#CA8A04</code></td><td><code>#EAB308</code></td></tr>
+            <tr><td>Border</td><td><code>rgba(12,10,9,0.07)</code></td><td><code>rgba(255,255,255,0.07)</code></td></tr>
+          </tbody>
+        </table>
+
+        <h2>Accessibility</h2>
+        <ul>
+          <li>Semantic HTML with <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code></li>
+          <li><code>aria-label</code> on interactive elements</li>
+          <li><code>aria-live="polite"</code> on form status messages</li>
+          <li><code>prefers-reduced-motion</code> disables scroll-reveal animations</li>
+          <li>Keyboard-accessible navigation and form controls</li>
+          <li>Color contrast meets WCAG AA guidelines</li>
+        </ul>
+
+        <h2>License</h2>
+        <p>This project is for portfolio demonstration purposes. All images are placeholder assets.</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="brand" href="./index.html">Northstar</a>
+          <p class="muted footer-copy">Premium furniture and d&eacute;cor for spaces that feel intentional.</p>
+        </div>
+        <div class="footer-links">
+          <a href="./index.html">Home</a>
+          <a href="./how-it-works.html">Our Process</a>
+          <a href="./terms.html">Terms</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+      </div>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>

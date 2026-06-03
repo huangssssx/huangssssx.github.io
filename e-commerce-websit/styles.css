@@ -293,6 +293,35 @@ button {
   gap: 10px;
 }
 
+.nav-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  text-decoration: none;
+}
+
+.nav-icon-link:hover {
+  color: var(--text);
+  background: rgba(12, 10, 9, 0.04);
+}
+
+[data-theme="dark"] .nav-icon-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-icon-link svg {
+  width: 18px;
+  height: 18px;
+}
+
 /* ── Buttons ── */
 
 .button {
