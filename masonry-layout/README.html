@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masonry Layout Showcase — README</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      color-scheme: dark;
+      --bg: #000000;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-hover: rgba(255, 255, 255, 0.07);
+      --text: #ffffff;
+      --text-secondary: #6d6d6d;
+      --text-muted: #636363;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+      --accent: #a0e0ab;
+      --gradient: linear-gradient(90deg, rgb(160, 224, 171), rgb(255, 172, 46) 50%, rgb(165, 45, 37));
+      --font: 'Roobert', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--gradient);
+      opacity: 0.12;
+      z-index: -2;
+      animation: shift 20s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(160, 224, 171, 0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(255, 172, 46, 0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 90%, rgba(165, 45, 37, 0.06) 0%, transparent 50%);
+      z-index: -1;
+      animation: orbs 25s ease-in-out infinite alternate;
+    }
+
+    @keyframes shift { 0% { opacity: 0.12; } 50% { opacity: 0.2; } 100% { opacity: 0.15; } }
+    @keyframes orbs { 0% { transform: translate(0,0); } 100% { transform: translate(-10px,10px); } }
+
+    article {
+      max-width: 48rem;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    h1 + p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: 75px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .links a:hover {
+      border-color: var(--accent);
+      background: rgba(160, 224, 171, 0.08);
+    }
+
+    .links a svg { width: 1rem; height: 1rem; }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.375rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.925rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 0.375rem;
+      height: 0.375rem;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    ul li strong { color: var(--text); font-weight: 400; }
+
+    p {
+      font-size: 0.925rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+    }
+
+    td { color: var(--text-secondary); }
+    td code { color: var(--accent); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; }
+
+    pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    @media (max-width: 639px) {
+      article { padding: 2rem 1rem 3rem; }
+      .links { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <article>
+    <h1>Masonry Layout Showcase</h1>
+    <p>A responsive masonry grid showcase built with Isotope.js, featuring a monopo saigon-inspired dark aesthetic with organic gradient backgrounds, frosted glass UI, and scroll-triggered lazy loading.</p>
+
+    <nav class="links">
+      <a href="https://huangssssx.github.io/masonry-layout/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Live Demo
+      </a>
+      <a href="https://github.com/huangssssx/huangssssx.github.io">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repository
+      </a>
+    </nav>
+
+    <h2>Features</h2>
+    <ul>
+      <li><strong>Masonry / FitRows / Grid</strong> layout modes powered by Isotope.js</li>
+      <li><strong>Responsive images</strong> with AVIF, WebP, and JPEG in 800px and 1200px variants via <code>&lt;picture&gt;</code></li>
+      <li><strong>Scroll-triggered pagination</strong> — loads content in batches of 16 as the user scrolls</li>
+      <li><strong>Ambient gradient toggle</strong> — switch between immersive gradient background and minimal dark mode</li>
+      <li><strong>Adjustable columns</strong> (2–5) via a slider control</li>
+      <li><strong>Three content modes</strong> — Gallery (images only), Cards (text only), Mixed (interleaved)</li>
+      <li><strong>Scroll-reveal animation</strong> for newly loaded items with staggered fade-up</li>
+      <li><strong>Auto-hiding header</strong> on scroll down</li>
+    </ul>
+
+    <h2>Design System</h2>
+    <p>Inspired by the <a href="https://monopo.vn">monopo saigon</a> aesthetic.</p>
+    <table>
+      <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td>Midnight Canvas</td><td><code>#000000</code></td><td>Page background</td></tr>
+        <tr><td>Frost White</td><td><code>#ffffff</code></td><td>Primary text, borders</td></tr>
+        <tr><td>Whisper Gray</td><td><code>#6d6d6d</code></td><td>Secondary text</td></tr>
+        <tr><td>Accent</td><td><code>#a0e0ab</code></td><td>Tags, active states, spinner</td></tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>No <code>box-shadow</code> — depth comes from translucent backgrounds and gradient atmosphere</li>
+      <li>Cards use <code>rgba(255, 255, 255, 0.04)</code> with <code>backdrop-filter</code> for frosted glass</li>
+      <li>Buttons use pill radius (75px) with transparent or semi-transparent fills</li>
+    </ul>
+
+    <h2>Project Structure</h2>
+<pre>masonry-layout/
+├── index.html                  # Single-file app (HTML + CSS + JS)
+├── README.md
+├── README.html
+└── assets/
+    ├── js/
+    │   ├── isotope.pkgd.min.js
+    │   └── imagesloaded.pkgd.min.js
+    └── images/
+        ├── img-1.jpg … img-48.jpg
+        └── responsive/
+            ├── img-{n}-800.avif
+            ├── img-{n}-800.webp
+            ├── img-{n}-800.jpg
+            ├── img-{n}-1200.avif
+            ├── img-{n}-1200.webp
+            └── img-{n}-1200.jpg</pre>
+
+    <h2>Content Data</h2>
+    <p>The page ships with <strong>96 items</strong> (48 images + 48 text cards) defined inline as a JavaScript array. Each image entry references responsive sources through a <code>&lt;picture&gt;</code> element with AVIF → WebP → JPEG fallback.</p>
+    <p>Text card descriptions intentionally vary in length — from single-sentence summaries to multi-paragraph case studies — to produce visual rhythm in the masonry layout.</p>
+
+    <h2>Lazy Loading</h2>
+    <table>
+      <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Page size</td><td>16 items</td></tr>
+        <tr><td>Trigger distance</td><td>300px from bottom</td></tr>
+        <tr><td>Loading delay</td><td>800ms (simulated)</td></tr>
+        <tr><td>New item animation</td><td>Staggered fade-up (<code>translateY(2rem)</code> → <code>0</code>)</td></tr>
+      </tbody>
+    </table>
+    <p>When all items are loaded, a subtle "No more content" message appears.</p>
+
+    <h2>Responsive Behavior</h2>
+    <table>
+      <thead><tr><th>Breakpoint</th><th>Columns</th><th>Gap</th></tr></thead>
+      <tbody>
+        <tr><td>&lt; 640px</td><td>2</td><td>8px</td></tr>
+        <tr><td>640–1023px</td><td>2</td><td>8px</td></tr>
+        <tr><td>≥ 1024px</td><td>User-controlled (2–5)</td><td>16px</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Accessibility</h2>
+    <ul>
+      <li><code>color-scheme: dark</code> for native dark form controls</li>
+      <li><code>aria-label</code> and <code>role="switch"</code> on the ambient toggle</li>
+      <li><code>:focus-visible</code> outlines on all interactive elements</li>
+      <li><code>prefers-reduced-motion</code> disables all animations and transitions</li>
+      <li>Semantic <code>&lt;article&gt;</code> elements for each card</li>
+    </ul>
+
+    <h2>Dependencies</h2>
+    <ul>
+      <li><a href="https://isotope.metafizzy.co/">Isotope.js</a> v3 — layout engine</li>
+      <li><a href="https://imagesloaded.desandro.com/">imagesLoaded</a> — ensures images are loaded before layout</li>
+    </ul>
+    <p>Both are bundled locally in <code>assets/js/</code>. No build step required.</p>
+
+    <h2>License</h2>
+    <p>This project is for portfolio demonstration purposes. Image assets are sourced from <a href="https://picsum.photos/">picsum.photos</a> and may be subject to their respective licenses.</p>
+  </article>
+</body>
+</html>
