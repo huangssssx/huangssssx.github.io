@@ -35,6 +35,7 @@
       --radius-pill: 75px;
       --transition: 0.3s ease;
       --font-sans: 'Roobert', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --header-height: 0px;
     }
 
     html {
@@ -178,7 +179,7 @@
 
     .masonry-grid {
       position: relative;
-      padding: 5rem 1.5rem 1.5rem;
+      padding: calc(var(--header-height) + 1rem) 1.5rem 1.5rem;
       max-width: 1400px;
       margin: 0 auto;
       overflow: hidden;
@@ -229,7 +230,7 @@
       }
 
       .masonry-grid {
-        padding: 4.375rem 0.75rem 0.75rem;
+        padding: calc(var(--header-height) + 0.75rem) 0.75rem 0.75rem;
         overflow: hidden;
       }
 
@@ -753,6 +754,19 @@
       var overlay = document.getElementById('titleOverlay');
       var lastScrollY = 0;
       var ticking = false;
+
+      function syncHeaderHeight() {
+        document.documentElement.style.setProperty('--header-height', overlay.offsetHeight + 'px');
+      }
+
+      syncHeaderHeight();
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncHeaderHeight);
+      }
+
+      window.addEventListener('load', syncHeaderHeight);
+      window.addEventListener('resize', syncHeaderHeight);
 
       window.addEventListener('scroll', function () {
         if (!ticking) {
