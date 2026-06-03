@@ -492,6 +492,61 @@
         scroll-behavior: auto !important;
       }
     }
+
+    .loading-indicator {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 0;
+      gap: 0.75rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .loading-indicator.visible {
+      display: flex;
+    }
+
+    .loading-spinner {
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 0.125rem solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .loading-indicator span {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .loading-end {
+      display: none;
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .loading-end.visible {
+      display: block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .masonry-item.reveal-pending {
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .masonry-item.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -500,6 +555,12 @@
   </header>
 
   <main class="masonry-grid" id="masonryGrid"></main>
+
+  <div class="loading-indicator" id="loadingIndicator">
+    <div class="loading-spinner"></div>
+    <span>Loading...</span>
+  </div>
+  <div class="loading-end" id="loadingEnd">No more content</div>
 
   <button class="control-toggle" id="controlToggle" aria-label="Toggle control panel">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -648,6 +709,18 @@
         { id: 'img-10', type: 'image', title: 'Alpine Sunrise', category: 'Travel', date: '2024-08-25', imageUrl: 'assets/images/img-10.jpg' },
         { id: 'img-11', type: 'image', title: 'Autumn Path', category: 'Nature', date: '2024-07-18', imageUrl: 'assets/images/img-11.jpg' },
         { id: 'img-12', type: 'image', title: 'Skyline Dusk', category: 'Architecture', date: '2024-06-05', imageUrl: 'assets/images/img-12.jpg' },
+        { id: 'img-13', type: 'image', title: 'Ocean Waves', category: 'Nature', date: '2024-05-12', imageUrl: 'assets/images/img-13.jpg' },
+        { id: 'img-14', type: 'image', title: 'Desert Dunes', category: 'Travel', date: '2024-04-18', imageUrl: 'assets/images/img-14.jpg' },
+        { id: 'img-15', type: 'image', title: 'Café Interior', category: 'Food', date: '2024-03-25', imageUrl: 'assets/images/img-15.jpg' },
+        { id: 'img-16', type: 'image', title: 'Bridge at Night', category: 'Architecture', date: '2024-02-14', imageUrl: 'assets/images/img-16.jpg' },
+        { id: 'img-17', type: 'image', title: 'Wildflower Field', category: 'Nature', date: '2024-01-22', imageUrl: 'assets/images/img-17.jpg' },
+        { id: 'img-18', type: 'image', title: 'Vintage Camera', category: 'People', date: '2023-12-30', imageUrl: 'assets/images/img-18.jpg' },
+        { id: 'img-19', type: 'image', title: 'Mountain Lake', category: 'Travel', date: '2023-11-15', imageUrl: 'assets/images/img-19.jpg' },
+        { id: 'img-20', type: 'image', title: 'City Rain', category: 'Architecture', date: '2023-10-08', imageUrl: 'assets/images/img-20.jpg' },
+        { id: 'img-21', type: 'image', title: 'Misty Valley', category: 'Nature', date: '2023-09-20', imageUrl: 'assets/images/img-21.jpg' },
+        { id: 'img-22', type: 'image', title: 'Bookshop Corner', category: 'People', date: '2023-08-10', imageUrl: 'assets/images/img-22.jpg' },
+        { id: 'img-23', type: 'image', title: 'Sunset Pier', category: 'Travel', date: '2023-07-05', imageUrl: 'assets/images/img-23.jpg' },
+        { id: 'img-24', type: 'image', title: 'Greenhouse Light', category: 'Nature', date: '2023-06-01', imageUrl: 'assets/images/img-24.jpg' },
         { id: 'card-1', type: 'card', title: 'Brand Identity System', category: 'Design', date: '2025-03-20', description: 'A complete visual identity system designed for a luxury hospitality brand, including logo, typography, color palette, and comprehensive brand guidelines.' },
         { id: 'card-2', type: 'card', title: 'E-Commerce Platform', category: 'Development', date: '2025-01-15', description: 'Full-stack e-commerce solution with real-time inventory management, secure payment processing, and a powerful analytics dashboard for business insights. Built on a microservices architecture with GraphQL API layer, supporting multi-currency transactions, dynamic pricing rules, and automated tax calculation across 40+ jurisdictions. Includes a headless CMS for content editors and a customizable storefront with A/B testing built in.' },
         { id: 'card-3', type: 'card', title: 'Startup Rebrand', category: 'Branding', date: '2025-02-10', description: 'Complete rebranding for a tech startup.' },
@@ -659,7 +732,19 @@
         { id: 'card-9', type: 'card', title: 'Fitness Brand Launch', category: 'Branding', date: '2024-07-10', description: 'Full brand launch for a premium fitness brand.' },
         { id: 'card-10', type: 'card', title: 'Task Management Tool', category: 'Development', date: '2024-06-28', description: 'Collaborative project management tool with Kanban boards, time tracking, and team analytics. Drag-and-drop interface with real-time sync across devices. Supports custom workflows, automated sprint planning, burndown chart generation, and Slack/Teams integration for status updates. The backend uses CRDTs for conflict-free offline editing, and the frontend renders complex board states in under 16ms using virtualized list rendering.' },
         { id: 'card-11', type: 'card', title: 'Music Festival Poster', category: 'Design', date: '2024-05-15', description: 'Vibrant poster series for an international music festival. Bold typography meets psychedelic illustration, inspired by vintage concert posters with a modern twist. Each poster in the 8-piece series features a different headliner rendered in a distinct color palette derived from the artist\'s album artwork, while maintaining visual cohesion through a shared grid system and typographic hierarchy. Printed as limited-edition screen prints on archival cotton paper.' },
-        { id: 'card-12', type: 'card', title: 'SaaS Product Naming', category: 'Branding', date: '2024-04-03', description: 'Strategic naming and brand positioning for a B2B SaaS product.' }
+        { id: 'card-12', type: 'card', title: 'SaaS Product Naming', category: 'Branding', date: '2024-04-03', description: 'Strategic naming and brand positioning for a B2B SaaS product.' },
+        { id: 'card-13', type: 'card', title: 'Dashboard Redesign', category: 'Design', date: '2024-03-18', description: 'Enterprise analytics dashboard redesign focusing on data density and scanability. Replaced legacy table views with sparklines, heatmap calendars, and drill-down chart hierarchies. User testing showed 40% improvement in time-to-insight for common analyst workflows. Built with D3.js and a custom theming engine supporting 12 color schemes including WCAG AAA compliant palettes.' },
+        { id: 'card-14', type: 'card', title: 'IoT Platform', category: 'Development', date: '2024-02-25', description: 'Cloud-native IoT device management platform.' },
+        { id: 'card-15', type: 'card', title: 'Winery Branding', category: 'Branding', date: '2024-01-30', description: 'Estate branding for a family-owned vineyard in Tuscany. Label design across four product lines, from entry-level table wines to reserve selections, each with distinct foil stamping and paper stock. Complemented by tasting room environmental graphics, e-commerce packaging, and a photography direction celebrating the terroir through golden-hour landscape vignettes.' },
+        { id: 'card-16', type: 'card', title: 'Chat Interface', category: 'Development', date: '2023-12-14', description: 'Real-time messaging interface with end-to-end encryption, threaded conversations, rich media previews, and markdown support. Features typing indicators, read receipts, and smart notification preferences per channel. Optimized for accessibility with full keyboard navigation and screen reader announcements for new messages.' },
+        { id: 'card-17', type: 'card', title: 'Museum Wayfinding', category: 'Design', date: '2023-11-08', description: 'Wayfinding and signage system for a contemporary art museum spanning three interconnected buildings.' },
+        { id: 'card-18', type: 'card', title: 'Podcast Platform', category: 'Development', date: '2023-10-22', description: 'Audio-first podcast platform with AI-powered transcription, chapter markers, and full-text search across episodes. Variable speed playback, offline downloads, and cross-device sync via a lightweight Rust-based native client. The recommendation engine uses collaborative filtering augmented with content-based audio feature extraction to surface relevant episodes from a catalog of 2M+ shows.' },
+        { id: 'card-19', type: 'card', title: 'Brewery Identity', category: 'Branding', date: '2023-09-05', description: 'Craft brewery visual identity inspired by retro industrial aesthetics. Custom illustration style for can labels, coasters, and merchandise.' },
+        { id: 'card-20', type: 'card', title: 'Code Editor Plugin', category: 'Development', date: '2023-08-18', description: 'VS Code extension for automated code review.' },
+        { id: 'card-21', type: 'card', title: 'Exhibition Catalog', category: 'Design', date: '2023-07-12', description: '240-page exhibition catalog for a retrospective covering five decades of Scandinavian design. Dual-language layout in English and Danish with cross-referenced plate numbers, fold-out timeline inserts, and a sewn binding that lays flat at any page. The cover uses a debossed linen wrap with blind foil typography, referencing the minimalist materiality central to the exhibited works.' },
+        { id: 'card-22', type: 'card', title: 'Travel App Redesign', category: 'Branding', date: '2023-06-25', description: 'Complete UX overhaul of a travel booking application.' },
+        { id: 'card-23', type: 'card', title: 'CI/CD Pipeline', category: 'Development', date: '2023-05-30', description: 'Zero-downtime deployment pipeline with canary releases, automated rollback on error rate thresholds, and parallel test execution across staged environments. Integrated security scanning, dependency auditing, and container image signing as mandatory gates before production promotion. Average build-to-deploy time reduced from 45 minutes to under 8 minutes through aggressive layer caching and incremental compilation strategies.' },
+        { id: 'card-24', type: 'card', title: 'Packaging Design', category: 'Design', date: '2023-04-15', description: 'Sustainable packaging system for an organic skincare line.' }
       ];
 
       window.MasonryData = DATA;
@@ -734,6 +819,13 @@
       var iso = null;
       var currentContent = 'gallery';
       var currentLayout = 'masonry';
+      var PAGE_SIZE = 16;
+      var loadedCount = 0;
+      var allFiltered = [];
+      var isLoading = false;
+      var hasMore = true;
+      var loadingEl = document.getElementById('loadingIndicator');
+      var endEl = document.getElementById('loadingEnd');
 
       function getGap() {
         return window.innerWidth < 640 ? 8 : 16;
@@ -765,10 +857,25 @@
         return result;
       }
 
+      function resetPagination() {
+        loadedCount = 0;
+        allFiltered = getFilteredItems(currentContent);
+        hasMore = allFiltered.length > PAGE_SIZE;
+        loadingEl.classList.remove('visible');
+        endEl.classList.remove('visible');
+      }
+
       function renderGrid(items) {
         grid.innerHTML = '';
         items.forEach(function (item) {
           grid.appendChild(window.createItemElement(item));
+        });
+      }
+
+      function appendItems(items) {
+        items.forEach(function (item) {
+          var el = window.createItemElement(item);
+          grid.appendChild(el);
         });
       }
 
@@ -817,7 +924,10 @@
       }
 
       function initIsotope() {
-        renderGrid(getFilteredItems(currentContent));
+        resetPagination();
+        var firstBatch = allFiltered.slice(0, PAGE_SIZE);
+        loadedCount = firstBatch.length;
+        renderGrid(firstBatch);
         applyLayoutState();
         updateColumnWidth();
 
@@ -843,6 +953,73 @@
           });
         });
       }
+
+      function loadMore() {
+        if (isLoading || !hasMore) return;
+        isLoading = true;
+        loadingEl.classList.add('visible');
+
+        var nextBatch = allFiltered.slice(loadedCount, loadedCount + PAGE_SIZE);
+        hasMore = loadedCount + PAGE_SIZE < allFiltered.length;
+
+        setTimeout(function () {
+          var startIdx = grid.children.length;
+          nextBatch.forEach(function (item) {
+            var el = window.createItemElement(item);
+            el.classList.add('reveal-pending');
+            grid.appendChild(el);
+          });
+          loadedCount += nextBatch.length;
+          applyLayoutState();
+          updateColumnWidth();
+
+          var savedTransition = iso ? iso.options.transitionDuration : '0.4s';
+          if (iso) iso.options.transitionDuration = '0s';
+
+          imagesLoaded(grid, function () {
+            if (iso) {
+              iso.reloadItems();
+              syncIsotopeOptions();
+              iso.arrange();
+            }
+
+            var newEls = Array.prototype.slice.call(grid.children, startIdx);
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                newEls.forEach(function (el, i) {
+                  setTimeout(function () {
+                    el.classList.add('revealed');
+                  }, i * 60);
+                });
+                setTimeout(function () {
+                  if (iso) iso.options.transitionDuration = savedTransition;
+                }, newEls.length * 60 + 500);
+              });
+            });
+
+            loadingEl.classList.remove('visible');
+            if (!hasMore) {
+              setTimeout(function () {
+                endEl.classList.add('visible');
+              }, newEls.length * 60 + 200);
+            }
+            isLoading = false;
+          });
+        }, 800);
+      }
+
+      function checkScrollLoad() {
+        if (isLoading || !hasMore) return;
+        var scrollBottom = window.innerHeight + window.scrollY;
+        var docHeight = document.documentElement.scrollHeight;
+        if (scrollBottom >= docHeight - 300) {
+          loadMore();
+        }
+      }
+
+      window.addEventListener('scroll', function () {
+        window.requestAnimationFrame(checkScrollLoad);
+      });
 
       window.MasonryApp = {
         iso: function () { return iso; },
