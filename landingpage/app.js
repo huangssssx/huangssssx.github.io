@@ -502,9 +502,9 @@ openModal('demoModal');
 }
 });
 document.querySelectorAll('.footer__links a').forEach(function(a) {
-a.addEventListener('click', function(e) {
-e.preventDefault();
-var text = a.textContent.trim().toLowerCase().replace(/\s+/g, '');
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    var text = a.textContent.trim().toLowerCase().replace(/\s+/g, '');
 var keyMap = {
 'features': 'features', 'templates': 'templates', 'pricing': 'pricing',
 'integrations': 'integrations', 'changelog': 'changelog',

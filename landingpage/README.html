@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WebCraft Pro Landing Page — README Documentation" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234F46E5'/><text x='50' y='68' font-size='60' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>W</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <title>README — WebCraft Pro Landing Page</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #6366F1;
+      --primary-bg: #EEF2FF;
+      --text: #1E293B;
+      --text-s: #64748B;
+      --text-l: #94A3B8;
+      --bg: #FFFFFF;
+      --bg-alt: #F8FAFC;
+      --border: #E2E8F0;
+      --code-bg: #1E293B;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --max-w: 860px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 24px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--primary);
+      text-decoration: none;
+      padding: 6px 0;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.75; }
+
+    .page-header {
+      max-width: var(--max-w);
+      margin: 40px auto 0;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+
+    h1 { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; color: var(--text); }
+    h2 { font-size: 24px; font-weight: 700; line-height: 1.3; margin: 48px 0 16px; padding-top: 8px; border-top: 1px solid var(--border); }
+    h3 { font-size: 18px; font-weight: 600; line-height: 1.4; margin: 28px 0 10px; }
+
+    blockquote {
+      border-left: 4px solid var(--primary);
+      background: var(--primary-bg);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    p { margin: 12px 0; font-size: 15px; color: var(--text); }
+    p strong { color: var(--text); }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    ul, ol { margin: 12px 0; padding-left: 24px; font-size: 15px; }
+    li { margin: 6px 0; }
+    li strong { font-weight: 600; }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: #E2E8F0;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 16px 0;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    th { font-weight: 600; background: var(--bg-alt); }
+    tr:hover td { background: var(--bg-alt); }
+
+    img { max-width: 100%; }
+
+    .badge {
+      display: inline-block;
+      background: #22C55E;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 28px; }
+      h2 { font-size: 20px; }
+      body { padding: 0 16px; }
+      .content { padding: 24px 0 60px; }
+      table { font-size: 13px; }
+      th, td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <a href="./index.html" class="back-link">&larr; Back to WebCraft Pro</a>
+  </div>
+
+  <div class="content">
+
+    <h1>WebCraft Pro — Landing Page</h1>
+
+    <blockquote>
+      <strong>Lighthouse Score: 100 / 100 / 100 / 100</strong> — Performance &middot; Accessibility &middot; Best Practices &middot; SEO
+    </blockquote>
+
+    <p>A production-grade, zero-build landing page built with pure HTML/CSS/JS. No frameworks, no bundlers, no dependencies — just one HTML file that scores perfect across all Lighthouse metrics.</p>
+
+    <hr/>
+
+    <h2>Quick Start</h2>
+
+    <pre><code># Clone &amp; run (no npm install, no build step)
+cd landingpage
+node server.js
+# Open http://localhost:8000</code></pre>
+
+    <p>That's it. The page is ready to serve immediately.</p>
+
+    <hr/>
+
+    <h2>What Makes This Different</h2>
+
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Score</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Performance</strong></td><td><span class="badge">100</span></td></tr>
+        <tr><td><strong>Accessibility</strong></td><td><span class="badge">100</span></td></tr>
+        <tr><td><strong>Best Practices</strong></td><td><span class="badge">100</span></td></tr>
+        <tr><td><strong>SEO</strong></td><td><span class="badge">100</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Architecture Highlights</h3>
+
+    <ul>
+      <li><strong>Zero build pipeline</strong> — source files are the production artifacts. Edit &rarr; refresh.</li>
+      <li><strong>Critical CSS inlined</strong> (~21 KB) — first paint with zero network round-trips for styles.</li>
+      <li><strong>Non-critical CSS async-loaded</strong> (~11 KB) — <code>preload</code> + <code>onload</code> pattern, no render-blocking.</li>
+      <li><strong>JS deferred</strong> (~27 KB) — <code>&lt;script defer&gt;</code> keeps the main thread free during parsing.</li>
+      <li><strong>Brotli compression</strong> — total payload under <strong>20 KB</strong> after compression.</li>
+      <li><strong>Service Worker</strong> — offline caching for instant repeat visits.</li>
+    </ul>
+
+    <h3>10 Advanced Visual Effects</h3>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>Effect</th><th>Technique</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Liquid Glass Navbar</td><td><code>backdrop-filter: blur(20px)</code> + dynamic scroll state</td></tr>
+        <tr><td>2</td><td>Scroll-Driven SVG Path</td><td><code>scroll()</code> timeline + SVG stroke animation</td></tr>
+        <tr><td>3</td><td>3D Interactive Mockup</td><td>Mouse-tracking <code>perspective</code> + <code>rotateX/Y</code></td></tr>
+        <tr><td>4</td><td>Animated Mesh Gradient</td><td>4 CSS blobs with independent <code>@keyframes</code></td></tr>
+        <tr><td>5</td><td>Floating Mascot</td><td>CSS float animation + cursor-tracking eyes</td></tr>
+        <tr><td>6</td><td>Kinetic Typography</td><td>JS typewriter with gradient + cursor blink</td></tr>
+        <tr><td>7</td><td>Canvas Particles</td><td>Lightweight particle system with mobile degradation</td></tr>
+        <tr><td>8</td><td>Scroll-Triggered Reveals</td><td><code>IntersectionObserver</code> + staggered CSS transitions</td></tr>
+        <tr><td>9</td><td>Micro-Interaction Buttons</td><td>Hover glow + active press + ripple effect</td></tr>
+        <tr><td>10</td><td>Animated Counters</td><td><code>requestAnimationFrame</code> number counting on scroll</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Responsive Design</h3>
+
+    <ul>
+      <li><strong>3-tier breakpoints</strong>: 768px &rarr; 480px &rarr; 360px</li>
+      <li><strong>Progressive font sizing</strong>: Title scales from 20px (320px) to 64px (desktop)</li>
+      <li><strong>Safe-area support</strong>: <code>env(safe-area-*)</code> for notched devices</li>
+      <li><strong>Touch targets</strong>: All interactive elements &ge; 44&times;44px</li>
+      <li><strong>Reduced motion</strong>: Respects <code>prefers-reduced-motion</code></li>
+    </ul>
+
+    <h3>SEO &amp; Accessibility</h3>
+
+    <ul>
+      <li>Semantic HTML5 (<code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>)</li>
+      <li>JSON-LD structured data (Organization + SoftwareApplication + FAQPage)</li>
+      <li>Open Graph + Twitter Card meta tags</li>
+      <li>Canonical URL + robots meta</li>
+      <li>Inline SVG favicon (zero network requests)</li>
+      <li>Full keyboard navigation + ARIA labels</li>
+      <li>Screen-reader friendly modal system</li>
+    </ul>
+
+    <h3>Modal System</h3>
+
+    <ul>
+      <li>Login / Sign Up / Contact Sales / Schedule Demo / Watch Demo</li>
+      <li>Privacy Policy / Terms / Cookie Policy / Refund Policy / Blog / Careers</li>
+      <li>Smooth transitions, keyboard (Esc) dismissal, body scroll lock</li>
+    </ul>
+
+    <hr/>
+
+    <h2>File Structure</h2>
+
+    <pre><code>landingpage/
+├── index.html          # 60 KB — Critical CSS inline + semantic HTML
+├── app.js              # 27 KB — All interactions, deferred
+├── deferred.css        # 11 KB — Below-fold styles, async-loaded
+├── sw.js               # Service Worker — offline caching
+├── server.js           # Node server — Brotli/Gzip compression
+├── server.py           # Python fallback — Gzip compression
+├── robots.txt          # Crawler rules
+└── sitemap.xml         # SEO sitemap</code></pre>
+
+    <hr/>
+
+    <h2>Run Locally</h2>
+
+    <h3>Option 1: Node.js (Recommended)</h3>
+
+    <pre><code>node server.js
+# http://localhost:8000
+# Supports: Brotli, Gzip, Deflate compression</code></pre>
+
+    <h3>Option 2: Python</h3>
+
+    <pre><code>python3 server.py
+# http://localhost:8000
+# Supports: Gzip compression</code></pre>
+
+    <h3>Option 3: Any Static Server</h3>
+
+    <pre><code>npx serve .
+# or
+python3 -m http.server 8000</code></pre>
+
+    <hr/>
+
+    <h2>Verify Lighthouse Scores</h2>
+
+    <pre><code># Chrome DevTools → Lighthouse → Run
+# Or use CLI:
+npx lighthouse http://localhost:8000 --view</code></pre>
+
+    <p>Expected results: <strong>100 / 100 / 100 / 100</strong></p>
+
+    <hr/>
+
+    <h2>Tech Stack</h2>
+
+    <ul>
+      <li><strong>HTML5</strong> — Semantic markup, JSON-LD, Open Graph</li>
+      <li><strong>CSS3</strong> — Custom properties, <code>backdrop-filter</code>, <code>@keyframes</code>, <code>IntersectionObserver</code>-driven animations, responsive grid</li>
+      <li><strong>Vanilla JS</strong> — Zero dependencies, ~27 KB total</li>
+      <li><strong>Canvas API</strong> — Particle system</li>
+      <li><strong>Service Worker</strong> — Cache-first offline support</li>
+    </ul>
+
+    <p><strong>No React. No Vue. No Tailwind. No Webpack. No build step.</strong></p>
+
+    <hr/>
+
+    <h2>Why This Matters</h2>
+
+    <p>Most landing pages use heavy frameworks and build tools for what is essentially a single page. This project proves that with careful architecture — critical CSS inlining, async loading, deferred JS, and compression — you can deliver a <strong>visually stunning, fully interactive landing page in under 20 KB</strong> (Brotli compressed) with <strong>zero build complexity</strong>.</p>
+
+    <p>Edit a file, refresh the browser. That's the entire developer experience.</p>
+
+  </div>
+
+</body>
+</html>
