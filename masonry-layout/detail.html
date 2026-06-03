@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masonry Layout Showcase</title>
-  <meta name="description" content="A responsive masonry layout showcase built with Isotope.js, featuring dark/light themes, multiple content types, and interactive controls.">
+  <title>Detail</title>
+  <meta name="description" content="Detail view for Masonry Layout content items.">
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <script src="assets/js/isotope.pkgd.min.js"></script>
-  <script src="assets/js/imagesloaded.pkgd.min.js"></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -19,50 +17,21 @@
       color-scheme: dark;
       --bg-primary: #000000;
       --bg-card: rgba(255, 255, 255, 0.04);
-      --bg-card-hover: rgba(255, 255, 255, 0.07);
       --text-primary: #ffffff;
       --text-secondary: #6d6d6d;
       --text-muted: #636363;
       --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.15);
       --accent: #a0e0ab;
-      --accent-hover: rgba(160, 224, 171, 0.8);
-      --panel-bg: rgba(0, 0, 0, 0.7);
-      --panel-border: rgba(255, 255, 255, 0.1);
-      --overlay-bg: rgba(0, 0, 0, 0.6);
       --gradient-deep-ocean: linear-gradient(90deg, rgb(160, 224, 171), rgb(255, 172, 46) 50%, rgb(165, 45, 37));
       --radius: 0.625rem;
-      --radius-pill: 75px;
+      --radius-pill: 4.6875rem;
       --transition: 0.3s ease;
       --font-sans: 'Roobert', system-ui, -apple-system, 'Segoe UI', sans-serif;
-      --header-height: 0px;
     }
 
     html {
       font-size: 16px;
       scroll-behavior: smooth;
-    }
-
-    html::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    html::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    html::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 3px;
-    }
-
-    html::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    html {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
     }
 
     body {
@@ -103,18 +72,30 @@
 
     @keyframes orbsFloat {
       0% { transform: translate(0, 0); }
-      33% { transform: translate(-20px, 30px); }
-      66% { transform: translate(15px, -20px); }
-      100% { transform: translate(-10px, 10px); }
+      33% { transform: translate(-1.25rem, 1.875rem); }
+      66% { transform: translate(0.9375rem, -1.25rem); }
+      100% { transform: translate(-0.625rem, 0.625rem); }
     }
 
-    body.no-gradient::before,
-    body.no-gradient::after {
-      opacity: 0 !important;
-      animation: none !important;
+    html::-webkit-scrollbar {
+      width: 0.3125rem;
     }
 
-    .title-overlay {
+    html::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    html::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 0.1875rem;
+    }
+
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+    }
+
+    .back-bar {
       position: fixed;
       top: 0;
       left: 0;
@@ -124,431 +105,195 @@
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(1.25rem);
       -webkit-backdrop-filter: blur(1.25rem);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      text-align: center;
-      transform: translateY(0);
-      transition: transform 0.4s ease;
+      border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
     }
 
-    .title-overlay.hidden {
-      transform: translateY(-100%);
-    }
-
-    .title-overlay h1 {
-      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-      font-weight: 300;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-primary);
-    }
-
-    .header-links {
-      display: flex;
-      gap: 0.625rem;
-      align-items: center;
-    }
-
-    .header-links a {
+    .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      padding: 0.25rem 0.75rem;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 0.0625rem solid rgba(255, 255, 255, 0.15);
+      background: transparent;
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       font-weight: 400;
+      font-family: var(--font-sans);
       letter-spacing: 0.04em;
+      cursor: pointer;
       transition: border-color var(--transition), color var(--transition);
     }
 
-    .header-links a:hover {
+    .back-btn:hover {
       border-color: var(--accent);
       color: var(--accent);
     }
 
-    .header-links a svg {
-      width: 0.875rem;
-      height: 0.875rem;
+    .back-btn svg {
+      width: 1rem;
+      height: 1rem;
     }
 
-    .masonry-grid {
-      position: relative;
-      padding: calc(var(--header-height) + 1rem) 1.5rem 1.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      overflow: hidden;
-    }
-
-    .masonry-item {
-      width: calc(25% - 0.75rem);
-      margin-bottom: 0.5rem;
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      transition: background var(--transition), border-color var(--transition);
-      will-change: transform;
-    }
-
-    .masonry-item:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-hover);
-    }
-
-    .masonry-item.grid-mode {
-      height: 220px;
-    }
-
-    .masonry-item.grid-mode.image-card img {
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .masonry-item.grid-mode.text-card {
+    .detail-content {
+      padding-top: 4.5rem;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      align-items: center;
+      justify-content: flex-start;
     }
 
-    .masonry-item.grid-mode.text-card p {
-      flex: 1;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
+    .detail-image-wrap {
+      width: 100%;
+      max-width: 26.25rem;
+      padding: 2rem 1.5rem 0;
+      opacity: 0;
+      transform: translateY(1.5rem);
+      animation: fadeUp 0.6s ease forwards;
     }
 
-    @media (max-width: 639px) {
-      .masonry-item.grid-mode {
-        height: 180px;
-      }
-
-      .masonry-grid {
-        padding: calc(var(--header-height) + 0.75rem) 0.75rem 0.75rem;
-        overflow: hidden;
-      }
-
-      .control-panel {
-        bottom: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        max-width: 100vw;
-        border-radius: var(--radius) var(--radius) 0 0;
-        max-height: 50vh;
-        box-sizing: border-box;
-      }
-
-      .control-toggle {
-        bottom: 1rem;
-        right: 1rem;
-      }
-    }
-
-    .masonry-item.image-card picture {
+    .detail-image-wrap picture {
       display: block;
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 0.0625rem solid var(--border);
     }
 
-    .masonry-item.image-card img {
+    .detail-image-wrap img {
       width: 100%;
       display: block;
-      transition: transform 0.6s ease, opacity 0.4s ease;
+      border-radius: var(--radius);
     }
 
-    .masonry-item.image-card:hover img {
-      transform: scale(1.04);
-    }
-
-    .masonry-item.image-card .image-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1rem;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
-      color: #fff;
+    .detail-info {
+      width: 100%;
+      max-width: 51.25rem;
+      padding: 2rem 1.5rem 4rem;
       opacity: 0;
-      transform: translateY(0.5rem);
-      transition: opacity var(--transition), transform var(--transition);
+      transform: translateY(1rem);
+      animation: fadeUp 0.6s ease 0.15s forwards;
     }
 
-    .masonry-item.image-card {
-      position: relative;
+    .detail-info h1 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
     }
 
-    .masonry-item.image-card:hover .image-overlay {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .masonry-item.image-card .image-overlay h3 {
-      font-size: 0.9rem;
-      font-weight: 400;
-      margin-bottom: 0.25rem;
-    }
-
-    .masonry-item.image-card .image-overlay .tag {
-      display: inline-block;
-      font-size: 0.65rem;
-      padding: 0.125rem 0.5rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(0.5rem);
-      -webkit-backdrop-filter: blur(0.5rem);
-    }
-
-    .masonry-item.text-card {
-      padding: 1.5rem;
-    }
-
-    .masonry-item.text-card h3 {
-      font-size: 1rem;
-      font-weight: 400;
-      margin-bottom: 0.625rem;
-      line-height: 1.3;
-      color: var(--text-primary);
-    }
-
-    .masonry-item.text-card p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 0.875rem;
-    }
-
-    .masonry-item .card-meta {
+    .detail-meta {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    .masonry-item .card-meta .tag {
-      font-size: 0.65rem;
-      padding: 0.25rem 0.75rem;
+    .detail-meta .tag {
+      font-size: 0.75rem;
+      padding: 0.3rem 1rem;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(160, 224, 171, 0.3);
+      border: 0.0625rem solid rgba(160, 224, 171, 0.3);
       color: var(--accent);
       font-weight: 400;
     }
 
-    .masonry-item .card-meta .date {
-      font-size: 0.7rem;
+    .detail-meta .date {
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
-    .control-toggle {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 200;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(1rem);
-      -webkit-backdrop-filter: blur(1rem);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      color: var(--text-primary);
-      transition: transform var(--transition), border-color var(--transition);
-    }
-
-    .control-toggle:hover {
-      transform: scale(1.08);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .control-panel {
-      position: fixed;
-      bottom: 5.25rem;
-      right: 1.5rem;
-      z-index: 200;
-      width: 17.5rem;
-      max-height: 70vh;
-      overflow-y: auto;
-      padding: 1.25rem;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(1.5rem);
-      -webkit-backdrop-filter: blur(1.5rem);
-      opacity: 0;
-      transform: translateY(1rem) scale(0.95);
-      pointer-events: none;
-      transition: opacity var(--transition), transform var(--transition);
-    }
-
-    .control-panel.open {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    .control-panel h3 {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+    .detail-info .description {
+      font-size: clamp(1rem, 2vw, 1.15rem);
       color: var(--text-secondary);
-      margin-bottom: 0.625rem;
-      margin-top: 1rem;
+      line-height: 1.8;
+      max-width: 45rem;
     }
 
-    .control-panel h3:first-child {
-      margin-top: 0;
+    .detail-text-wrap {
+      width: 100%;
+      max-width: 56.25rem;
+      padding: 4rem 1.5rem;
+      opacity: 0;
+      transform: translateY(1.5rem);
+      animation: fadeUp 0.6s ease forwards;
     }
 
-    .control-group {
+    .detail-text-wrap h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.25rem;
+      line-height: 1.15;
+    }
+
+    .detail-text-wrap .detail-meta {
+      margin-bottom: 2.5rem;
+    }
+
+    .detail-text-wrap .description {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-secondary);
+      line-height: 1.9;
+      max-width: 45rem;
+    }
+
+    .not-found {
+      text-align: center;
+      padding: 6rem 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .not-found h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--text-secondary);
       margin-bottom: 1rem;
     }
 
-    .control-group:last-child {
-      margin-bottom: 0;
-    }
-
-    .theme-switch {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .theme-switch span {
-      font-size: 0.85rem;
-      color: var(--text-primary);
-    }
-
-    .toggle-track {
-      position: relative;
-      width: 2.75rem;
-      height: 1.5rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background var(--transition);
-    }
-
-    .toggle-track.active {
-      background: rgba(160, 224, 171, 0.3);
-    }
-
-    .toggle-thumb {
-      position: absolute;
-      top: 0.125rem;
-      left: 0.125rem;
-      width: 1.25rem;
-      height: 1.25rem;
-      border-radius: 50%;
-      background: var(--text-primary);
-      transition: transform var(--transition);
-    }
-
-    .toggle-track.active .toggle-thumb {
-      transform: translateX(1.25rem);
-    }
-
-    .pill-group {
-      display: flex;
-      gap: 0.375rem;
-      flex-wrap: wrap;
-    }
-
-    .pill-btn {
-      padding: 0.3125rem 0.875rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 0.75rem;
-      font-weight: 400;
-      cursor: pointer;
-      transition: all var(--transition);
-      font-family: var(--font-sans);
-      letter-spacing: 0.02em;
-    }
-
-    .pill-btn:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      color: var(--text-primary);
-    }
-
-    .pill-btn.active {
-      background: rgba(160, 224, 171, 0.15);
-      border-color: rgba(160, 224, 171, 0.3);
+    .not-found a {
       color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 0.0625rem solid rgba(160, 224, 171, 0.3);
+      transition: border-color var(--transition);
     }
 
-    .range-slider {
-      width: 100%;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 0.125rem;
-      border-radius: 0.0625rem;
-      background: rgba(255, 255, 255, 0.1);
-      outline: none;
-      margin-top: 0.5rem;
+    .not-found a:hover {
+      border-color: var(--accent);
     }
 
-    .range-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
-      background: var(--accent);
-      cursor: pointer;
-    }
-
-    .range-slider::-moz-range-thumb {
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
-      background: var(--accent);
-      cursor: pointer;
-      border: none;
-    }
-
-    .range-value {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-top: 0.25rem;
-      text-align: right;
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 639px) {
-      .control-panel {
-        bottom: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        border-radius: var(--radius) var(--radius) 0 0;
-        max-height: 50vh;
+      .detail-content {
+        padding-top: 4rem;
       }
 
-      .control-toggle {
-        bottom: 1rem;
-        right: 1rem;
+      .detail-image-wrap {
+        padding: 0 0.75rem;
       }
-    }
 
-    :focus-visible {
-      outline: 0.0625rem solid var(--accent);
-      outline-offset: 0.0625rem;
-    }
+      .detail-info,
+      .detail-text-wrap {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
 
-    .pill-btn:focus-visible,
-    .control-toggle:focus-visible {
-      outline: 0.0625rem solid var(--accent);
-      outline-offset: 0.0625rem;
+      .detail-info {
+        padding-bottom: 3rem;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -556,239 +301,24 @@
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
       }
-    }
-
-    .loading-indicator {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 0;
-      gap: 0.75rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .loading-indicator.visible {
-      display: flex;
-    }
-
-    .loading-spinner {
-      width: 1.25rem;
-      height: 1.25rem;
-      border: 0.125rem solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    .loading-indicator span {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.05em;
-    }
-
-    .loading-end {
-      display: none;
-      text-align: center;
-      padding: 2rem 0;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .loading-end.visible {
-      display: block;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .masonry-item.reveal-pending {
-      opacity: 0;
-      transform: translateY(2rem);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .masonry-item.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .masonry-item {
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header class="title-overlay" id="titleOverlay">
-    <h1>Masonry Layout Showcase</h1>
-    <nav class="header-links">
-      <a href="https://github.com/huangssssx/huangssssx.github.io" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a href="README.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        README
-      </a>
-    </nav>
+  <header class="back-bar">
+    <button class="back-btn" id="backBtn" aria-label="Go back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back
+    </button>
   </header>
 
-  <main class="masonry-grid" id="masonryGrid"></main>
-
-  <div class="loading-indicator" id="loadingIndicator">
-    <div class="loading-spinner"></div>
-    <span>Loading...</span>
-  </div>
-  <div class="loading-end" id="loadingEnd">No more content</div>
-
-  <button class="control-toggle" id="controlToggle" aria-label="Toggle control panel">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="3"></circle>
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-    </svg>
-  </button>
-
-  <div class="control-panel" id="controlPanel">
-    <h3>Ambient</h3>
-    <div class="control-group">
-      <div class="theme-switch">
-        <span id="themeLabel">Ambient</span>
-        <div class="toggle-track active" id="themeToggle" role="switch" aria-checked="true" aria-label="Toggle ambient gradient" tabindex="0">
-          <div class="toggle-thumb"></div>
-        </div>
-      </div>
-    </div>
-
-    <h3>Content</h3>
-    <div class="control-group">
-      <div class="pill-group" id="contentPills">
-        <button class="pill-btn active" data-content="gallery">Gallery</button>
-        <button class="pill-btn" data-content="cards">Cards</button>
-        <button class="pill-btn" data-content="mixed">Mixed</button>
-      </div>
-    </div>
-
-    <h3>Columns</h3>
-    <div class="control-group">
-      <input type="range" class="range-slider" id="columnSlider" min="2" max="5" value="4" aria-label="Number of columns">
-      <div class="range-value"><span id="columnValue">4</span> columns</div>
-    </div>
-
-    <h3>Layout</h3>
-    <div class="control-group">
-      <div class="pill-group" id="layoutPills">
-        <button class="pill-btn active" data-layout="masonry">Masonry</button>
-        <button class="pill-btn" data-layout="fitRows">FitRows</button>
-        <button class="pill-btn" data-layout="grid">Grid</button>
-      </div>
-    </div>
-  </div>
+  <main class="detail-content" id="detailContent"></main>
 
   <script>
-    (function () {
-      var savedGradient = localStorage.getItem('masonry-gradient');
-      var gradientOn = savedGradient !== 'off';
-      var toggle = document.getElementById('themeToggle');
-      var label = document.getElementById('themeLabel');
-
-      function applyGradientState(on) {
-        gradientOn = on;
-        document.body.classList.toggle('no-gradient', !on);
-        if (on) {
-          toggle.classList.add('active');
-          toggle.setAttribute('aria-checked', 'true');
-          label.textContent = 'Ambient';
-        } else {
-          toggle.classList.remove('active');
-          toggle.setAttribute('aria-checked', 'false');
-          label.textContent = 'Minimal';
-        }
-      }
-
-      applyGradientState(gradientOn);
-
-      toggle.addEventListener('click', function () {
-        applyGradientState(!gradientOn);
-        localStorage.setItem('masonry-gradient', gradientOn ? 'on' : 'off');
-      });
-
-      toggle.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.click();
-        }
-      });
-    })();
-
-    (function () {
-      var toggle = document.getElementById('controlToggle');
-      var panel = document.getElementById('controlPanel');
-      var isOpen = false;
-
-      function closePanel() {
-        isOpen = false;
-        panel.classList.remove('open');
-      }
-
-      toggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        isOpen = !isOpen;
-        panel.classList.toggle('open', isOpen);
-      });
-
-      panel.addEventListener('click', function (e) {
-        e.stopPropagation();
-      });
-
-      document.addEventListener('click', function () {
-        if (isOpen) closePanel();
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && isOpen) closePanel();
-      });
-    })();
-
-    (function () {
-      var overlay = document.getElementById('titleOverlay');
-      var lastScrollY = 0;
-      var ticking = false;
-
-      function syncHeaderHeight() {
-        document.documentElement.style.setProperty('--header-height', overlay.offsetHeight + 'px');
-      }
-
-      syncHeaderHeight();
-
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(syncHeaderHeight);
-      }
-
-      window.addEventListener('load', syncHeaderHeight);
-      window.addEventListener('resize', syncHeaderHeight);
-
-      window.addEventListener('scroll', function () {
-        if (!ticking) {
-          window.requestAnimationFrame(function () {
-            var currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 80) {
-              overlay.classList.add('hidden');
-            } else {
-              overlay.classList.remove('hidden');
-            }
-            lastScrollY = currentScrollY;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-    })();
-
     (function () {
       var DATA = [
         { id: 'img-1', type: 'image', title: 'Mountain Vista', category: 'Nature', date: '2025-05-10', imageUrl: 'assets/images/img-1.jpg', description: 'A sweeping panoramic view captured at an elevation of 3,200 meters, where layers of mountain ridges fade into atmospheric haze. The foreground reveals alpine meadows dotted with wildflowers, while distant peaks retain traces of seasonal snow. Shot during the golden hour when warm sidelight sculpted every ridge and valley with long, soft shadows, lending the scene a quiet grandeur that shifts minute by minute as the sun descends.' },
@@ -889,10 +419,6 @@
         { id: 'card-48', type: 'card', title: 'Wayfinding App', category: 'Design', date: '2021-04-01', description: 'Indoor navigation app for a mixed-use cultural complex housing galleries, retail, and a performance hall.' }
       ];
 
-      window.MasonryData = DATA;
-    })();
-
-    (function () {
       function getResponsiveImageSources(imageUrl) {
         var lastDot = imageUrl.lastIndexOf('.');
         var basePath = imageUrl.slice(0, lastDot);
@@ -908,398 +434,91 @@
         };
       }
 
-      function createResponsiveImageMarkup(item) {
-        var sources = getResponsiveImageSources(item.imageUrl);
-        var sizes = '(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 25vw';
-        return (
-          '<picture>' +
-            '<source type="image/avif" srcset="' + sources.avif800 + ' 800w, ' + sources.avif1200 + ' 1200w" sizes="' + sizes + '">' +
-            '<source type="image/webp" srcset="' + sources.webp800 + ' 800w, ' + sources.webp1200 + ' 1200w" sizes="' + sizes + '">' +
-            '<img src="' + sources.jpg1200 + '" srcset="' + sources.jpg800 + ' 800w, ' + sources.jpg1200 + ' 1200w" sizes="' + sizes + '" alt="' + item.title + '" loading="lazy" decoding="async">' +
-          '</picture>'
-        );
-      }
-
-      function createItemElement(item) {
-        var article = document.createElement('article');
-        article.className = 'masonry-item ' + (item.type === 'image' ? 'image-card' : 'text-card');
-        article.setAttribute('data-type', item.type);
-        article.setAttribute('data-category', item.category.toLowerCase());
-
-        if (item.type === 'image') {
-          article.innerHTML =
-            createResponsiveImageMarkup(item) +
-            '<div class="image-overlay">' +
-            '<h3>' + item.title + '</h3>' +
-            '<span class="tag">' + item.category + '</span>' +
-            '</div>';
-        } else {
-          article.innerHTML =
-            '<h3>' + item.title + '</h3>' +
-            '<p>' + item.description + '</p>' +
-            '<div class="card-meta">' +
-            '<span class="tag">' + item.category + '</span>' +
-            '<span class="date">' + formatDate(item.date) + '</span>' +
-            '</div>';
-        }
-
-        article.addEventListener('click', function () {
-          window.location.href = 'detail.html?id=' + encodeURIComponent(item.id);
-        });
-
-        return article;
-      }
-
       function formatDate(dateStr) {
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var parts = dateStr.split('-');
         return months[parseInt(parts[1], 10) - 1] + ' ' + parts[0];
       }
 
-      window.createItemElement = createItemElement;
-    })();
+      function render() {
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get('id');
+        var container = document.getElementById('detailContent');
 
-    (function () {
-      var grid = document.getElementById('masonryGrid');
-      var data = window.MasonryData;
-      var iso = null;
-      var currentContent = 'gallery';
-      var currentLayout = 'masonry';
-      var PAGE_SIZE = 16;
-      var loadedCount = 0;
-      var allFiltered = [];
-      var isLoading = false;
-      var hasMore = true;
-      var loadingEl = document.getElementById('loadingIndicator');
-      var endEl = document.getElementById('loadingEnd');
-
-      function getGap() {
-        return window.innerWidth < 640 ? 8 : 16;
-      }
-
-      function getIsotopeLayoutMode(layoutMode) {
-        return layoutMode === 'grid' ? 'fitRows' : layoutMode;
-      }
-
-      function getColumnWidth() {
-        var slider = document.getElementById('columnSlider');
-        var cols = parseInt(slider.value, 10);
-        var gap = 16;
-        return (grid.offsetWidth - gap * (cols - 1)) / cols;
-      }
-
-      function getFilteredItems(mode) {
-        if (mode === 'gallery') return data.filter(function (d) { return d.type === 'image'; });
-        if (mode === 'cards') return data.filter(function (d) { return d.type === 'card'; });
-        var images = data.filter(function (d) { return d.type === 'image'; });
-        var cards = data.filter(function (d) { return d.type === 'card'; });
-        var result = [];
-        var i = 0;
-        while (i < images.length || i < cards.length) {
-          if (i < images.length) result.push(images[i]);
-          if (i < cards.length) result.push(cards[i]);
-          i++;
+        if (!id) {
+          renderNotFound(container);
+          return;
         }
-        return result;
-      }
 
-      function resetPagination() {
-        loadedCount = 0;
-        allFiltered = getFilteredItems(currentContent);
-        hasMore = allFiltered.length > PAGE_SIZE;
-        loadingEl.classList.remove('visible');
-        endEl.classList.remove('visible');
-      }
+        var item = DATA.find(function (d) { return d.id === id; });
+        if (!item) {
+          renderNotFound(container);
+          return;
+        }
 
-      function renderGrid(items) {
-        grid.innerHTML = '';
-        items.forEach(function (item) {
-          grid.appendChild(window.createItemElement(item));
-        });
-      }
+        document.title = item.title;
 
-      function appendItems(items) {
-        items.forEach(function (item) {
-          var el = window.createItemElement(item);
-          grid.appendChild(el);
-        });
-      }
-
-      function applyLayoutState() {
-        grid.classList.remove('layout-masonry', 'layout-fitRows', 'layout-grid');
-        grid.classList.add('layout-' + currentLayout);
-
-        var items = grid.querySelectorAll('.masonry-item');
-        if (currentLayout === 'grid') {
-          items.forEach(function (el) { el.classList.add('grid-mode'); });
+        if (item.type === 'image') {
+          renderImageDetail(container, item);
         } else {
-          items.forEach(function (el) { el.classList.remove('grid-mode'); });
+          renderCardDetail(container, item);
         }
       }
 
-      function syncIsotopeOptions() {
-        if (!iso) return;
-        iso.options.layoutMode = getIsotopeLayoutMode(currentLayout);
-        iso.options.masonry.gutter = getGap();
-        iso.options.fitRows.gutter = getGap();
+      function renderNotFound(container) {
+        container.innerHTML =
+          '<div class="not-found">' +
+            '<h2>Item not found</h2>' +
+            '<a href="index.html">Return to gallery</a>' +
+          '</div>';
+        container.style.justifyContent = 'center';
       }
 
-      function updateColumnWidth() {
-        var slider = document.getElementById('columnSlider');
-        var cols = parseInt(slider.value, 10);
-        var items = grid.querySelectorAll('.masonry-item');
-        var gap = getGap();
+      function renderImageDetail(container, item) {
+        var sources = getResponsiveImageSources(item.imageUrl);
+        var sizes = '100vw';
 
-        if (window.innerWidth < 640) {
-          cols = 2;
-        } else if (window.innerWidth < 1024) {
-          cols = 2;
-        }
-
-        var gridStyle = window.getComputedStyle(grid);
-        var gridPadLeft = parseFloat(gridStyle.paddingLeft);
-        var gridPadRight = parseFloat(gridStyle.paddingRight);
-        var availableWidth = grid.offsetWidth - gridPadLeft - gridPadRight;
-
-        var width = Math.floor((availableWidth - gap * (cols - 1)) / cols);
-
-        items.forEach(function (el) {
-          el.style.width = width + 'px';
-          el.style.marginBottom = gap + 'px';
-        });
+        container.innerHTML =
+          '<div class="detail-image-wrap">' +
+            '<picture>' +
+              '<source type="image/avif" srcset="' + sources.avif800 + ' 800w, ' + sources.avif1200 + ' 1200w" sizes="' + sizes + '">' +
+              '<source type="image/webp" srcset="' + sources.webp800 + ' 800w, ' + sources.webp1200 + ' 1200w" sizes="' + sizes + '">' +
+              '<img src="' + sources.jpg1200 + '" srcset="' + sources.jpg800 + ' 800w, ' + sources.jpg1200 + ' 1200w" sizes="' + sizes + '" alt="' + item.title + '">' +
+            '</picture>' +
+          '</div>' +
+          '<div class="detail-info">' +
+            '<h1>' + item.title + '</h1>' +
+            '<div class="detail-meta">' +
+              '<span class="tag">' + item.category + '</span>' +
+              '<span class="date">' + formatDate(item.date) + '</span>' +
+            '</div>' +
+            (item.description ? '<p class="description">' + item.description + '</p>' : '') +
+          '</div>';
       }
 
-      var relayoutFrame = null;
-
-      function scheduleRelayout() {
-        if (!iso) return;
-        if (relayoutFrame !== null) {
-          cancelAnimationFrame(relayoutFrame);
-        }
-        relayoutFrame = requestAnimationFrame(function () {
-          relayoutFrame = null;
-          updateColumnWidth();
-          syncIsotopeOptions();
-          iso.reloadItems();
-          iso.arrange();
-        });
+      function renderCardDetail(container, item) {
+        container.style.justifyContent = 'flex-start';
+        container.innerHTML =
+          '<div class="detail-text-wrap">' +
+            '<h1>' + item.title + '</h1>' +
+            '<div class="detail-meta">' +
+              '<span class="tag">' + item.category + '</span>' +
+              '<span class="date">' + formatDate(item.date) + '</span>' +
+            '</div>' +
+            '<p class="description">' + item.description + '</p>' +
+          '</div>';
       }
 
-      function bindImageRelayout(scope) {
-        var root = scope || grid;
-        var images = root.querySelectorAll('img');
-        images.forEach(function (img) {
-          if (img.dataset.masonryBound === 'true') return;
-          img.dataset.masonryBound = 'true';
-
-          if (img.complete) {
-            scheduleRelayout();
-            return;
-          }
-
-          var handleReady = function () {
-            img.removeEventListener('load', handleReady);
-            img.removeEventListener('error', handleReady);
-            scheduleRelayout();
-          };
-
-          img.addEventListener('load', handleReady, { once: true });
-          img.addEventListener('error', handleReady, { once: true });
-        });
-      }
-
-      function initIsotope() {
-        resetPagination();
-        var firstBatch = allFiltered.slice(0, PAGE_SIZE);
-        loadedCount = firstBatch.length;
-        renderGrid(firstBatch);
-        applyLayoutState();
-        updateColumnWidth();
-        bindImageRelayout(grid);
-
-        imagesLoaded(grid, function () {
-          if (iso) {
-            iso.reloadItems();
-            syncIsotopeOptions();
-            iso.arrange();
-            return;
-          }
-          iso = new Isotope(grid, {
-            itemSelector: '.masonry-item',
-            layoutMode: getIsotopeLayoutMode(currentLayout),
-            masonry: {
-              columnWidth: '.masonry-item',
-              gutter: getGap()
-            },
-            fitRows: {
-              gutter: getGap()
-            },
-            percentPosition: false,
-            transitionDuration: '0.4s'
-          });
-        });
-      }
-
-      function loadMore() {
-        if (isLoading || !hasMore) return;
-        isLoading = true;
-        loadingEl.classList.add('visible');
-
-        var nextBatch = allFiltered.slice(loadedCount, loadedCount + PAGE_SIZE);
-        hasMore = loadedCount + PAGE_SIZE < allFiltered.length;
-
-        setTimeout(function () {
-          var startIdx = grid.children.length;
-          nextBatch.forEach(function (item) {
-            var el = window.createItemElement(item);
-            el.classList.add('reveal-pending');
-            grid.appendChild(el);
-          });
-          loadedCount += nextBatch.length;
-          applyLayoutState();
-          updateColumnWidth();
-          bindImageRelayout(grid);
-
-          var savedTransition = iso ? iso.options.transitionDuration : '0.4s';
-          if (iso) iso.options.transitionDuration = '0s';
-
-          imagesLoaded(grid, function () {
-            if (iso) {
-              iso.reloadItems();
-              syncIsotopeOptions();
-              iso.arrange();
-            }
-
-            var newEls = Array.prototype.slice.call(grid.children, startIdx);
-            requestAnimationFrame(function () {
-              requestAnimationFrame(function () {
-                newEls.forEach(function (el, i) {
-                  setTimeout(function () {
-                    el.classList.add('revealed');
-                  }, i * 60);
-                });
-                setTimeout(function () {
-                  if (iso) iso.options.transitionDuration = savedTransition;
-                }, newEls.length * 60 + 500);
-              });
-            });
-
-            loadingEl.classList.remove('visible');
-            if (!hasMore) {
-              setTimeout(function () {
-                endEl.classList.add('visible');
-              }, newEls.length * 60 + 200);
-            }
-            isLoading = false;
-          });
-        }, 800);
-      }
-
-      function checkScrollLoad() {
-        if (isLoading || !hasMore) return;
-        var scrollBottom = window.innerHeight + window.scrollY;
-        var docHeight = document.documentElement.scrollHeight;
-        if (scrollBottom >= docHeight - 300) {
-          loadMore();
-        }
-      }
-
-      window.addEventListener('scroll', function () {
-        window.requestAnimationFrame(checkScrollLoad);
-      });
-
-      window.MasonryApp = {
-        iso: function () { return iso; },
-        grid: grid,
-        data: data,
-        getCurrentContent: function () { return currentContent; },
-        getCurrentLayout: function () { return currentLayout; },
-        getColumnWidth: getColumnWidth,
-        getFilteredItems: getFilteredItems,
-        renderGrid: renderGrid,
-        applyLayoutState: applyLayoutState,
-        syncIsotopeOptions: syncIsotopeOptions,
-        updateColumnWidth: updateColumnWidth,
-        initIsotope: initIsotope,
-        setContent: function (c) { currentContent = c; },
-        setLayout: function (l) { currentLayout = l; },
-        setIso: function (i) { iso = i; }
-      };
-
-      initIsotope();
-    })();
-
-    (function () {
-      var pills = document.querySelectorAll('#contentPills .pill-btn');
-
-      pills.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          pills.forEach(function (b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-
-          var mode = btn.getAttribute('data-content');
-          var app = window.MasonryApp;
-          app.setContent(mode);
-          app.initIsotope();
-        });
-      });
-    })();
-
-    (function () {
-      var slider = document.getElementById('columnSlider');
-      var valueDisplay = document.getElementById('columnValue');
-
-      slider.addEventListener('input', function () {
-        valueDisplay.textContent = slider.value;
-        var app = window.MasonryApp;
-        app.updateColumnWidth();
-        var iso = app.iso();
-        if (iso) {
-          app.syncIsotopeOptions();
-          iso.arrange();
+      document.getElementById('backBtn').addEventListener('click', function () {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html';
         }
       });
+
+      render();
     })();
-
-    (function () {
-      var pills = document.querySelectorAll('#layoutPills .pill-btn');
-
-      pills.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          pills.forEach(function (b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-
-          var layoutMode = btn.getAttribute('data-layout');
-          var app = window.MasonryApp;
-          app.setLayout(layoutMode);
-          app.applyLayoutState();
-          app.updateColumnWidth();
-          app.syncIsotopeOptions();
-          var iso = app.iso();
-          if (iso) {
-            iso.arrange();
-          }
-        });
-      });
-    })();
-    (function () {
-  var app = window.MasonryApp;
-
-  function handleResize() {
-    app.updateColumnWidth();
-    var iso = app.iso();
-    if (iso) {
-      app.syncIsotopeOptions();
-      iso.arrange();
-    }
-  }
-
-  var resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(handleResize, 200);
-  });
-})();
   </script>
 </body>
 </html>
