@@ -1,6 +1,11 @@
 const form = document.getElementById("contactForm");
 
 (function () {
+  var saved = localStorage.getItem("theme");
+  if (saved === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+
   var toggle = document.querySelector(".theme-toggle");
   if (toggle) {
     toggle.addEventListener("click", function () {
