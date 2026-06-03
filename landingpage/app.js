@@ -2,6 +2,13 @@
 var heroEl = document.getElementById('hero');
 var navbar = document.getElementById('navbar');
 var scrollTimeout;
+function scrollToHashTarget(href) {
+if (!href || href === '#' || href.length < 2) return false;
+var t = document.querySelector(href);
+if (!t) return false;
+t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+return true;
+}
 window.addEventListener('scroll', function() {
 navbar.classList.toggle('scrolled', window.scrollY > 10);
 document.documentElement.classList.add('scrolling');
@@ -13,9 +20,8 @@ document.documentElement.classList.remove('scrolling');
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 a.addEventListener('click', function(e) {
 var href = this.getAttribute('href');
-if (href === '#' || href.length < 2) return;
-var t = document.querySelector(href);
-if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+if (this.hasAttribute('data-modal')) return;
+if (scrollToHashTarget(href)) e.preventDefault();
 });
 });
 document.querySelectorAll('.faq-item__question').forEach(function(btn) {
@@ -268,7 +274,18 @@ if (mobileMenu.classList.contains('open')) closeMobileMenu();
 else openMobileMenu();
 });
 mobileMenuLinks.forEach(function(link) {
-link.addEventListener('click', function() { closeMobileMenu(); });
+link.addEventListener('click', function(e) {
+var href = link.getAttribute('href');
+var target = href ? document.querySelector(href) : null;
+if (!target) return;
+e.preventDefault();
+closeMobileMenu();
+requestAnimationFrame(function() {
+requestAnimationFrame(function() {
+target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+});
+});
 });
 document.querySelectorAll('.mobile-menu__cta .btn').forEach(function(btn) {
 btn.addEventListener('click', function() { closeMobileMenu(); });
