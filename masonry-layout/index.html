@@ -16,38 +16,25 @@
     }
 
     :root {
-      color-scheme: light dark;
-      --bg-primary: #ffffff;
-      --bg-secondary: #f5f5f5;
-      --bg-card: #ffffff;
-      --text-primary: #1a1a1a;
-      --text-secondary: #666666;
-      --accent: #4a90d9;
-      --accent-hover: #357abd;
-      --border: rgba(0, 0, 0, 0.08);
-      --shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.08);
-      --panel-bg: rgba(255, 255, 255, 0.85);
-      --panel-border: rgba(0, 0, 0, 0.1);
-      --overlay-bg: rgba(0, 0, 0, 0.5);
-      --radius: 0.75rem;
-      --radius-sm: 0.5rem;
-      --transition: 0.3s ease;
-      --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    }
-
-    [data-theme="dark"] {
-      --bg-primary: #0f0f1a;
-      --bg-secondary: #1a1a2e;
-      --bg-card: rgba(255, 255, 255, 0.06);
-      --text-primary: #f0f0f0;
-      --text-secondary: #a0a0b0;
-      --accent: #6c9fd8;
-      --accent-hover: #5a8dc0;
+      color-scheme: dark;
+      --bg-primary: #000000;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-hover: rgba(255, 255, 255, 0.07);
+      --text-primary: #ffffff;
+      --text-secondary: #6d6d6d;
+      --text-muted: #636363;
       --border: rgba(255, 255, 255, 0.08);
-      --shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.3);
-      --panel-bg: rgba(30, 30, 50, 0.85);
+      --border-hover: rgba(255, 255, 255, 0.15);
+      --accent: #a0e0ab;
+      --accent-hover: rgba(160, 224, 171, 0.8);
+      --panel-bg: rgba(0, 0, 0, 0.7);
       --panel-border: rgba(255, 255, 255, 0.1);
-      --overlay-bg: rgba(0, 0, 0, 0.7);
+      --overlay-bg: rgba(0, 0, 0, 0.6);
+      --gradient-deep-ocean: linear-gradient(90deg, rgb(160, 224, 171), rgb(255, 172, 46) 50%, rgb(165, 45, 37));
+      --radius: 0.625rem;
+      --radius-pill: 75px;
+      --transition: 0.3s ease;
+      --font-sans: 'Roobert', system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
 
     html {
@@ -56,7 +43,7 @@
     }
 
     html::-webkit-scrollbar {
-      width: 6px;
+      width: 5px;
     }
 
     html::-webkit-scrollbar-track {
@@ -64,27 +51,66 @@
     }
 
     html::-webkit-scrollbar-thumb {
-      background: rgba(128, 128, 128, 0.3);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 3px;
     }
 
     html::-webkit-scrollbar-thumb:hover {
-      background: rgba(128, 128, 128, 0.5);
+      background: rgba(255, 255, 255, 0.25);
     }
 
     html {
       scrollbar-width: thin;
-      scrollbar-color: rgba(128, 128, 128, 0.3) transparent;
+      scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
     }
 
     body {
       font-family: var(--font-sans);
-      background-color: var(--bg-primary);
       color: var(--text-primary);
-      transition: background-color var(--transition), color var(--transition);
       min-height: 100vh;
       max-width: 100vw;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--gradient-deep-ocean);
+      opacity: 0.15;
+      z-index: -2;
+      animation: gradientShift 20s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(160, 224, 171, 0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(255, 172, 46, 0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 90%, rgba(165, 45, 37, 0.06) 0%, transparent 50%);
+      z-index: -1;
+      animation: orbsFloat 25s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% { opacity: 0.12; transform: scale(1) rotate(0deg); }
+      50% { opacity: 0.2; transform: scale(1.05) rotate(1deg); }
+      100% { opacity: 0.15; transform: scale(1) rotate(-1deg); }
+    }
+
+    @keyframes orbsFloat {
+      0% { transform: translate(0, 0); }
+      33% { transform: translate(-20px, 30px); }
+      66% { transform: translate(15px, -20px); }
+      100% { transform: translate(-10px, 10px); }
+    }
+
+    body.no-gradient::before,
+    body.no-gradient::after {
+      opacity: 0 !important;
+      animation: none !important;
     }
 
     .title-overlay {
@@ -94,10 +120,10 @@
       right: 0;
       z-index: 100;
       padding: 1rem 1.5rem;
-      background: var(--panel-bg);
-      backdrop-filter: blur(0.75rem);
-      -webkit-backdrop-filter: blur(0.75rem);
-      border-bottom: 1px solid var(--panel-border);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(1.25rem);
+      -webkit-backdrop-filter: blur(1.25rem);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       text-align: center;
       transform: translateY(0);
       transition: transform 0.4s ease;
@@ -108,9 +134,11 @@
     }
 
     .title-overlay h1 {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      font-weight: 600;
-      letter-spacing: 0.02em;
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-primary);
     }
 
     .masonry-grid {
@@ -128,13 +156,13 @@
       overflow: hidden;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: box-shadow var(--transition), background-color var(--transition);
+      transition: background var(--transition), border-color var(--transition);
       will-change: transform;
     }
 
     .masonry-item:hover {
-      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
     }
 
     .masonry-item.grid-mode {
@@ -194,11 +222,11 @@
     .masonry-item.image-card img {
       width: 100%;
       display: block;
-      transition: transform 0.5s ease;
+      transition: transform 0.6s ease, opacity 0.4s ease;
     }
 
     .masonry-item.image-card:hover img {
-      transform: scale(1.03);
+      transform: scale(1.04);
     }
 
     .masonry-item.image-card .image-overlay {
@@ -207,7 +235,7 @@
       left: 0;
       right: 0;
       padding: 1rem;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
       color: #fff;
       opacity: 0;
       transform: translateY(0.5rem);
@@ -224,34 +252,38 @@
     }
 
     .masonry-item.image-card .image-overlay h3 {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      font-weight: 400;
       margin-bottom: 0.25rem;
     }
 
     .masonry-item.image-card .image-overlay .tag {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       padding: 0.125rem 0.5rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(0.25rem);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(0.5rem);
+      -webkit-backdrop-filter: blur(0.5rem);
     }
 
     .masonry-item.text-card {
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
 
     .masonry-item.text-card h3 {
       font-size: 1rem;
-      margin-bottom: 0.5rem;
+      font-weight: 400;
+      margin-bottom: 0.625rem;
       line-height: 1.3;
+      color: var(--text-primary);
     }
 
     .masonry-item.text-card p {
       font-size: 0.85rem;
       color: var(--text-secondary);
       line-height: 1.6;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.875rem;
     }
 
     .masonry-item .card-meta {
@@ -262,17 +294,17 @@
     }
 
     .masonry-item .card-meta .tag {
-      font-size: 0.7rem;
-      padding: 0.1875rem 0.625rem;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 500;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(160, 224, 171, 0.3);
+      color: var(--accent);
+      font-weight: 400;
     }
 
     .masonry-item .card-meta .date {
       font-size: 0.7rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
     }
 
     .control-toggle {
@@ -283,23 +315,22 @@
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
-      border: 1px solid var(--panel-border);
-      background: var(--panel-bg);
-      backdrop-filter: blur(0.75rem);
-      -webkit-backdrop-filter: blur(0.75rem);
-      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(1rem);
+      -webkit-backdrop-filter: blur(1rem);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
       color: var(--text-primary);
-      transition: transform var(--transition), box-shadow var(--transition);
+      transition: transform var(--transition), border-color var(--transition);
     }
 
     .control-toggle:hover {
       transform: scale(1.08);
-      box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
     .control-panel {
@@ -312,11 +343,10 @@
       overflow-y: auto;
       padding: 1.25rem;
       border-radius: var(--radius);
-      border: 1px solid var(--panel-border);
-      background: var(--panel-bg);
-      backdrop-filter: blur(1rem);
-      -webkit-backdrop-filter: blur(1rem);
-      box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(1.5rem);
+      -webkit-backdrop-filter: blur(1.5rem);
       opacity: 0;
       transform: translateY(1rem) scale(0.95);
       pointer-events: none;
@@ -330,9 +360,9 @@
     }
 
     .control-panel h3 {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       color: var(--text-secondary);
       margin-bottom: 0.625rem;
       margin-top: 1rem;
@@ -358,20 +388,21 @@
 
     .theme-switch span {
       font-size: 0.85rem;
+      color: var(--text-primary);
     }
 
     .toggle-track {
       position: relative;
       width: 2.75rem;
       height: 1.5rem;
-      background: var(--border);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 999px;
       cursor: pointer;
       transition: background var(--transition);
     }
 
     .toggle-track.active {
-      background: var(--accent);
+      background: rgba(160, 224, 171, 0.3);
     }
 
     .toggle-thumb {
@@ -381,9 +412,8 @@
       width: 1.25rem;
       height: 1.25rem;
       border-radius: 50%;
-      background: #fff;
+      background: var(--text-primary);
       transition: transform var(--transition);
-      box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.2);
     }
 
     .toggle-track.active .toggle-thumb {
@@ -397,35 +427,37 @@
     }
 
     .pill-btn {
-      padding: 0.3125rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      padding: 0.3125rem 0.875rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       background: transparent;
       color: var(--text-secondary);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
+      font-weight: 400;
       cursor: pointer;
       transition: all var(--transition);
       font-family: var(--font-sans);
+      letter-spacing: 0.02em;
     }
 
     .pill-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--text-primary);
     }
 
     .pill-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
+      background: rgba(160, 224, 171, 0.15);
+      border-color: rgba(160, 224, 171, 0.3);
+      color: var(--accent);
     }
 
     .range-slider {
       width: 100%;
       -webkit-appearance: none;
       appearance: none;
-      height: 0.25rem;
-      border-radius: 0.125rem;
-      background: var(--border);
+      height: 0.125rem;
+      border-radius: 0.0625rem;
+      background: rgba(255, 255, 255, 0.1);
       outline: none;
       margin-top: 0.5rem;
     }
@@ -438,7 +470,6 @@
       border-radius: 50%;
       background: var(--accent);
       cursor: pointer;
-      box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.2);
     }
 
     .range-slider::-moz-range-thumb {
@@ -451,7 +482,7 @@
     }
 
     .range-value {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
       margin-top: 0.25rem;
       text-align: right;
@@ -474,14 +505,14 @@
     }
 
     :focus-visible {
-      outline: 0.125rem solid var(--accent);
-      outline-offset: 0.125rem;
+      outline: 0.0625rem solid var(--accent);
+      outline-offset: 0.0625rem;
     }
 
     .pill-btn:focus-visible,
     .control-toggle:focus-visible {
-      outline: 0.125rem solid var(--accent);
-      outline-offset: 0.125rem;
+      outline: 0.0625rem solid var(--accent);
+      outline-offset: 0.0625rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -510,7 +541,7 @@
     .loading-spinner {
       width: 1.25rem;
       height: 1.25rem;
-      border: 0.125rem solid var(--border);
+      border: 0.125rem solid rgba(255, 255, 255, 0.1);
       border-top-color: var(--accent);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
@@ -519,14 +550,17 @@
     .loading-indicator span {
       font-size: 0.85rem;
       color: var(--text-secondary);
+      letter-spacing: 0.05em;
     }
 
     .loading-end {
       display: none;
       text-align: center;
       padding: 2rem 0;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .loading-end.visible {
@@ -570,11 +604,11 @@
   </button>
 
   <div class="control-panel" id="controlPanel">
-    <h3>Theme</h3>
+    <h3>Ambient</h3>
     <div class="control-group">
       <div class="theme-switch">
-        <span id="themeLabel">Light</span>
-        <div class="toggle-track" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" tabindex="0">
+        <span id="themeLabel">Ambient</span>
+        <div class="toggle-track active" id="themeToggle" role="switch" aria-checked="true" aria-label="Toggle ambient gradient" tabindex="0">
           <div class="toggle-thumb"></div>
         </div>
       </div>
@@ -607,36 +641,33 @@
 
   <script>
     (function () {
-      var html = document.documentElement;
-      var savedTheme = localStorage.getItem('masonry-theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+      var savedGradient = localStorage.getItem('masonry-gradient');
+      var gradientOn = savedGradient !== 'off';
+      var toggle = document.getElementById('themeToggle');
+      var label = document.getElementById('themeLabel');
 
-      function applyTheme(theme) {
-        html.setAttribute('data-theme', theme);
-        currentTheme = theme;
-        var toggle = document.getElementById('themeToggle');
-        var label = document.getElementById('themeLabel');
-        if (theme === 'dark') {
+      function applyGradientState(on) {
+        gradientOn = on;
+        document.body.classList.toggle('no-gradient', !on);
+        if (on) {
           toggle.classList.add('active');
           toggle.setAttribute('aria-checked', 'true');
-          label.textContent = 'Dark';
+          label.textContent = 'Ambient';
         } else {
           toggle.classList.remove('active');
           toggle.setAttribute('aria-checked', 'false');
-          label.textContent = 'Light';
+          label.textContent = 'Minimal';
         }
       }
 
-      applyTheme(currentTheme);
+      applyGradientState(gradientOn);
 
-      document.getElementById('themeToggle').addEventListener('click', function () {
-        var next = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-        localStorage.setItem('masonry-theme', next);
+      toggle.addEventListener('click', function () {
+        applyGradientState(!gradientOn);
+        localStorage.setItem('masonry-gradient', gradientOn ? 'on' : 'off');
       });
 
-      document.getElementById('themeToggle').addEventListener('keydown', function (e) {
+      toggle.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           this.click();
@@ -721,6 +752,30 @@
         { id: 'img-22', type: 'image', title: 'Bookshop Corner', category: 'People', date: '2023-08-10', imageUrl: 'assets/images/img-22.jpg' },
         { id: 'img-23', type: 'image', title: 'Sunset Pier', category: 'Travel', date: '2023-07-05', imageUrl: 'assets/images/img-23.jpg' },
         { id: 'img-24', type: 'image', title: 'Greenhouse Light', category: 'Nature', date: '2023-06-01', imageUrl: 'assets/images/img-24.jpg' },
+        { id: 'img-25', type: 'image', title: 'Harbor Reflections', category: 'Architecture', date: '2023-05-18', imageUrl: 'assets/images/img-25.jpg' },
+        { id: 'img-26', type: 'image', title: 'Lavender Fields', category: 'Nature', date: '2023-04-22', imageUrl: 'assets/images/img-26.jpg' },
+        { id: 'img-27', type: 'image', title: 'Rooftop View', category: 'Architecture', date: '2023-03-14', imageUrl: 'assets/images/img-27.jpg' },
+        { id: 'img-28', type: 'image', title: 'Spice Market', category: 'Food', date: '2023-02-28', imageUrl: 'assets/images/img-28.jpg' },
+        { id: 'img-29', type: 'image', title: 'Coral Reef', category: 'Travel', date: '2023-01-15', imageUrl: 'assets/images/img-29.jpg' },
+        { id: 'img-30', type: 'image', title: 'Neon Alley', category: 'People', date: '2022-12-20', imageUrl: 'assets/images/img-30.jpg' },
+        { id: 'img-31', type: 'image', title: 'Waterfall Mist', category: 'Nature', date: '2022-11-08', imageUrl: 'assets/images/img-31.jpg' },
+        { id: 'img-32', type: 'image', title: 'Train Platform', category: 'Travel', date: '2022-10-25', imageUrl: 'assets/images/img-32.jpg' },
+        { id: 'img-33', type: 'image', title: 'Pottery Studio', category: 'Food', date: '2022-09-12', imageUrl: 'assets/images/img-33.jpg' },
+        { id: 'img-34', type: 'image', title: 'Snow Peak', category: 'Nature', date: '2022-08-05', imageUrl: 'assets/images/img-34.jpg' },
+        { id: 'img-35', type: 'image', title: 'Vintage Train', category: 'Travel', date: '2022-07-18', imageUrl: 'assets/images/img-35.jpg' },
+        { id: 'img-36', type: 'image', title: 'Silk Weaving', category: 'People', date: '2022-06-30', imageUrl: 'assets/images/img-36.jpg' },
+        { id: 'img-37', type: 'image', title: 'Lighthouse Dawn', category: 'Architecture', date: '2022-05-14', imageUrl: 'assets/images/img-37.jpg' },
+        { id: 'img-38', type: 'image', title: 'Bamboo Grove', category: 'Nature', date: '2022-04-22', imageUrl: 'assets/images/img-38.jpg' },
+        { id: 'img-39', type: 'image', title: 'Street Food', category: 'Food', date: '2022-03-08', imageUrl: 'assets/images/img-39.jpg' },
+        { id: 'img-40', type: 'image', title: 'Canal Houses', category: 'Architecture', date: '2022-02-16', imageUrl: 'assets/images/img-40.jpg' },
+        { id: 'img-41', type: 'image', title: 'Foggy Bridge', category: 'Travel', date: '2022-01-25', imageUrl: 'assets/images/img-41.jpg' },
+        { id: 'img-42', type: 'image', title: 'Ceramic Bowls', category: 'Food', date: '2021-12-10', imageUrl: 'assets/images/img-42.jpg' },
+        { id: 'img-43', type: 'image', title: 'Cliff Walk', category: 'Nature', date: '2021-11-05', imageUrl: 'assets/images/img-43.jpg' },
+        { id: 'img-44', type: 'image', title: 'Night Market', category: 'People', date: '2021-10-18', imageUrl: 'assets/images/img-44.jpg' },
+        { id: 'img-45', type: 'image', title: 'Terraced Fields', category: 'Nature', date: '2021-09-22', imageUrl: 'assets/images/img-45.jpg' },
+        { id: 'img-46', type: 'image', title: 'Abstract Light', category: 'Architecture', date: '2021-08-30', imageUrl: 'assets/images/img-46.jpg' },
+        { id: 'img-47', type: 'image', title: 'Rain Window', category: 'People', date: '2021-07-14', imageUrl: 'assets/images/img-47.jpg' },
+        { id: 'img-48', type: 'image', title: 'Golden Temple', category: 'Travel', date: '2021-06-01', imageUrl: 'assets/images/img-48.jpg' },
         { id: 'card-1', type: 'card', title: 'Brand Identity System', category: 'Design', date: '2025-03-20', description: 'A complete visual identity system designed for a luxury hospitality brand, including logo, typography, color palette, and comprehensive brand guidelines.' },
         { id: 'card-2', type: 'card', title: 'E-Commerce Platform', category: 'Development', date: '2025-01-15', description: 'Full-stack e-commerce solution with real-time inventory management, secure payment processing, and a powerful analytics dashboard for business insights. Built on a microservices architecture with GraphQL API layer, supporting multi-currency transactions, dynamic pricing rules, and automated tax calculation across 40+ jurisdictions. Includes a headless CMS for content editors and a customizable storefront with A/B testing built in.' },
         { id: 'card-3', type: 'card', title: 'Startup Rebrand', category: 'Branding', date: '2025-02-10', description: 'Complete rebranding for a tech startup.' },
@@ -744,7 +799,31 @@
         { id: 'card-21', type: 'card', title: 'Exhibition Catalog', category: 'Design', date: '2023-07-12', description: '240-page exhibition catalog for a retrospective covering five decades of Scandinavian design. Dual-language layout in English and Danish with cross-referenced plate numbers, fold-out timeline inserts, and a sewn binding that lays flat at any page. The cover uses a debossed linen wrap with blind foil typography, referencing the minimalist materiality central to the exhibited works.' },
         { id: 'card-22', type: 'card', title: 'Travel App Redesign', category: 'Branding', date: '2023-06-25', description: 'Complete UX overhaul of a travel booking application.' },
         { id: 'card-23', type: 'card', title: 'CI/CD Pipeline', category: 'Development', date: '2023-05-30', description: 'Zero-downtime deployment pipeline with canary releases, automated rollback on error rate thresholds, and parallel test execution across staged environments. Integrated security scanning, dependency auditing, and container image signing as mandatory gates before production promotion. Average build-to-deploy time reduced from 45 minutes to under 8 minutes through aggressive layer caching and incremental compilation strategies.' },
-        { id: 'card-24', type: 'card', title: 'Packaging Design', category: 'Design', date: '2023-04-15', description: 'Sustainable packaging system for an organic skincare line.' }
+        { id: 'card-24', type: 'card', title: 'Packaging Design', category: 'Design', date: '2023-04-15', description: 'Sustainable packaging system for an organic skincare line.' },
+        { id: 'card-25', type: 'card', title: 'Analytics Engine', category: 'Development', date: '2023-03-28', description: 'Real-time event streaming analytics with sub-second aggregation windows, anomaly detection powered by exponential weighted moving averages, and a query engine that compiles SQL-like expressions down to WebAssembly for in-browser execution at 10M events per second. Supports time-series rollups, funnel analysis, and cohort retention out of the box with pluggable enrichment pipelines for custom event metadata.' },
+        { id: 'card-26', type: 'card', title: 'Hotel Branding', category: 'Branding', date: '2023-02-10', description: 'Boutique hotel identity inspired by mid-century tropical modernism.' },
+        { id: 'card-27', type: 'card', title: 'Editorial Layout', category: 'Design', date: '2023-01-22', description: 'Long-form editorial platform for an investigative journalism outlet. Multi-column article layouts with sticky sidebars for context and annotations, embedded data visualizations that respond to scroll position, and a reading progress system that saves position across sessions. Supports bilingual side-by-side presentation for translated investigations.' },
+        { id: 'card-28', type: 'card', title: 'Auth System', category: 'Development', date: '2022-12-15', description: 'Passwordless authentication service with WebAuthn, magic links, and social provider federation. Session management via rotating refresh tokens with configurable TTL and device fingerprinting for suspicious login detection.' },
+        { id: 'card-29', type: 'card', title: 'Festival Branding', category: 'Branding', date: '2022-11-08', description: 'Identity system for a three-day electronic music and digital arts festival. Generative logo that mutates daily using weather and ticket sales data as seeds, applied across lanyards, stage visuals, AR wayfinding overlays, and a companion app with personalized schedule building and proximity-based social features.' },
+        { id: 'card-30', type: 'card', title: 'Icon System', category: 'Design', date: '2022-10-20', description: 'Custom icon library of 400+ glyphs on a 24px grid.' },
+        { id: 'card-31', type: 'card', title: 'Search Engine', category: 'Development', date: '2022-09-12', description: 'Full-text search service built on an inverted index with BM25 ranking, faceted navigation, typo-tolerant query expansion using character n-gram matching, and real-time index updates via a write-ahead log. Handles 50K documents with sub-100ms p99 latency on a single node, with horizontal scaling through partitioned shards and a distributed merge scheduler.' },
+        { id: 'card-32', type: 'card', title: 'Tea Branding', category: 'Branding', date: '2022-08-25', description: 'Premium tea brand identity drawing from East Asian ink wash painting traditions.' },
+        { id: 'card-33', type: 'card', title: 'Portfolio Redesign', category: 'Design', date: '2022-07-18', description: 'Architecture firm portfolio with full-bleed project imagery, minimal navigation overlay, and case study pages that interleave measured drawings with on-site photography at a 1:1 scroll ratio, giving the impression of walking through the actual space. Each project includes metadata for location, area, materials, and a timeline from concept to completion.' },
+        { id: 'card-34', type: 'card', title: 'GraphQL Gateway', category: 'Development', date: '2022-06-30', description: 'API gateway that stitches 8 microservices into a unified GraphQL schema with automatic persisted queries, query complexity analysis and rate limiting, and a federation v2 gateway supporting @shareable and @inaccessible directives. Includes a sandbox playground with mocked data for frontend development.' },
+        { id: 'card-35', type: 'card', title: 'Cosmetics Rebrand', category: 'Branding', date: '2022-05-12', description: 'Luxury cosmetics rebrand.' },
+        { id: 'card-36', type: 'card', title: 'Magazine Template', category: 'Design', date: '2022-04-28', description: 'Modular magazine template system with 12 reusable layout blocks that combine into unlimited page compositions. Built on a baseline grid with optical margin alignment, hanging punctuation, and automatic pull-quote extraction based on sentence sentiment scoring. Exports to print-ready PDF via Puppeteer with CMYK color conversion.' },
+        { id: 'card-37', type: 'card', title: 'Payment SDK', category: 'Development', date: '2022-03-15', description: 'Lightweight payment SDK supporting card tokenization, 3D Secure 2.0, Apple Pay, Google Pay, and bank redirects across 35 countries. The entire integration surface is a single 18KB gzipped JavaScript bundle with zero runtime dependencies, tree-shakeable modules, and automatic fallback from the modern Payment Request API to custom card form rendering.' },
+        { id: 'card-38', type: 'card', title: 'Coffee Packaging', category: 'Branding', date: '2022-02-08', description: 'Single-origin coffee packaging with a rotational illustration system where each bag features a different artist interpreting the terroir of the beans inside, creating a collectible series. The structural design uses a compostable plant-based film with a resealable ziplock, and the inner pouch is printed with brewing instructions specific to each roast profile.' },
+        { id: 'card-39', type: 'card', title: 'Design Tokens', category: 'Development', date: '2022-01-20', description: 'Design token pipeline that transforms a single source of truth YAML into platform-specific outputs: CSS custom properties, Swift UIColor extensions, Kotlin color resources, and Figma plugin variables. Supports semantic aliasing, theme overrides, and automatic documentation generation with rendered previews for each token.' },
+        { id: 'card-40', type: 'card', title: 'Type Specimen', category: 'Design', date: '2021-12-10', description: 'Interactive type specimen website for an independent type foundry.' },
+        { id: 'card-41', type: 'card', title: 'Monitoring Stack', category: 'Development', date: '2021-11-25', description: 'Observability platform combining metrics, traces, and logs into a single correlated timeline view. Distributed tracing with automatic context propagation across HTTP and message queue boundaries, span-based log attachment, and a custom high-cardinality metrics engine built on top of a delta-encoded time-series database with configurable roll-up windows from 10 seconds to 1 year.' },
+        { id: 'card-42', type: 'card', title: 'Fashion Rebrand', category: 'Branding', date: '2021-10-08', description: 'Sustainable fashion brand repositioning from mass-market to premium artisanal. New identity centered on hand-drawn botanical illustrations, a muted earth-tone palette derived from natural dyes, and packaging made from recycled cotton rag paper with soy-based inks. The tag system uses garment-specific care symbols redesigned as minimalist line art.' },
+        { id: 'card-43', type: 'card', title: 'Map Component', category: 'Development', date: '2021-09-15', description: 'GPU-accelerated map rendering component.' },
+        { id: 'card-44', type: 'card', title: 'Annual Gallery', category: 'Design', date: '2021-08-22', description: 'Digital annual report for a contemporary art gallery, designed as a scrollable exhibition with each section dedicated to a featured artist. Full-bleed artwork images alternate with curatorial essays in a two-column layout with asymmetric margins. The color scheme shifts subtly per artist section, drawing from dominant hues in their exhibited works, while maintaining overall cohesion through a shared serif typeface and consistent caption styling.' },
+        { id: 'card-45', type: 'card', title: 'CRM Dashboard', category: 'Development', date: '2021-07-10', description: 'Sales CRM with pipeline visualization, contact timeline, and AI-powered lead scoring using gradient-boosted decision trees trained on historical conversion data. The activity feed aggregates emails, calls, and meeting notes into a unified chronological view with entity extraction for automatic deal field updates. Real-time collaboration via operational transform on shared deal records.' },
+        { id: 'card-46', type: 'card', title: 'Spirit Branding', category: 'Branding', date: '2021-06-28', description: 'Craft gin brand identity inspired by botanical illustration.' },
+        { id: 'card-47', type: 'card', title: 'Form Builder', category: 'Development', date: '2021-05-15', description: 'Drag-and-drop form builder with conditional logic branching, field-level validation rules, file upload with virus scanning, and webhook integrations to 20+ services including Slack, Notion, and Airtable. Submissions are stored with end-to-end encryption and support GDPR-compliant export and deletion workflows. The rendering engine generates accessible markup with ARIA labels and keyboard navigation out of the box.' },
+        { id: 'card-48', type: 'card', title: 'Wayfinding App', category: 'Design', date: '2021-04-01', description: 'Indoor navigation app for a mixed-use cultural complex housing galleries, retail, and a performance hall.' }
       ];
 
       window.MasonryData = DATA;
@@ -923,6 +1002,45 @@
         });
       }
 
+      var relayoutFrame = null;
+
+      function scheduleRelayout() {
+        if (!iso) return;
+        if (relayoutFrame !== null) {
+          cancelAnimationFrame(relayoutFrame);
+        }
+        relayoutFrame = requestAnimationFrame(function () {
+          relayoutFrame = null;
+          updateColumnWidth();
+          syncIsotopeOptions();
+          iso.reloadItems();
+          iso.arrange();
+        });
+      }
+
+      function bindImageRelayout(scope) {
+        var root = scope || grid;
+        var images = root.querySelectorAll('img');
+        images.forEach(function (img) {
+          if (img.dataset.masonryBound === 'true') return;
+          img.dataset.masonryBound = 'true';
+
+          if (img.complete) {
+            scheduleRelayout();
+            return;
+          }
+
+          var handleReady = function () {
+            img.removeEventListener('load', handleReady);
+            img.removeEventListener('error', handleReady);
+            scheduleRelayout();
+          };
+
+          img.addEventListener('load', handleReady, { once: true });
+          img.addEventListener('error', handleReady, { once: true });
+        });
+      }
+
       function initIsotope() {
         resetPagination();
         var firstBatch = allFiltered.slice(0, PAGE_SIZE);
@@ -930,6 +1048,7 @@
         renderGrid(firstBatch);
         applyLayoutState();
         updateColumnWidth();
+        bindImageRelayout(grid);
 
         imagesLoaded(grid, function () {
           if (iso) {
@@ -972,6 +1091,7 @@
           loadedCount += nextBatch.length;
           applyLayoutState();
           updateColumnWidth();
+          bindImageRelayout(grid);
 
           var savedTransition = iso ? iso.options.transitionDuration : '0.4s';
           if (iso) iso.options.transitionDuration = '0s';
