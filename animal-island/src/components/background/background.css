@@ -1,0 +1,45 @@
+.bg-animations {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.parallax-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.bg-animation {
+  position: absolute;
+  inset: 0;
+}
+
+.lottie-layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lottie-sparkles {
+  bottom: 0;
+  height: 40%;
+}
+
+.sakura-layer .sakura-petal {
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+.firefly-layer .firefly {
+  position: absolute;
+  will-change: transform, opacity;
+  border-radius: 50%;
+}
+
+.snowflake-layer .snowflake {
+  position: absolute;
+  will-change: transform;
+}

@@ -1,0 +1,27 @@
+.creature {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+.creature-bird {
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.creature-butterfly {
+  right: 10%;
+  top: 15%;
+}
+
+.creature-snail {
+  bottom: 20%;
+  left: 5%;
+}
+
+.creature-fish {
+  right: 15%;
+  bottom: 10%;
+}
