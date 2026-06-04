@@ -4,9 +4,11 @@
 !landingpage/
 !e-commerce-websit/
 !animal-island/
+!inspect-file/
 !masonry-layout/**
 !main-websit/**
 !landingpage/**
 !e-commerce-websit/**
 !animal-island/**
+!inspect-file/**
 !.gitignore
