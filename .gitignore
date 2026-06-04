@@ -1,0 +1,12 @@
+*
+!masonry-layout/
+!main-websit/
+!landingpage/
+!e-commerce-websit/
+!animal-island/
+!masonry-layout/**
+!main-websit/**
+!landingpage/**
+!e-commerce-websit/**
+!animal-island/**
+!.gitignore
