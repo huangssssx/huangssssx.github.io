@@ -5,6 +5,7 @@
 !e-commerce-websit/
 !animal-island/
 !inspect-file/
+!MERN-project/
 !masonry-layout/**
 !main-websit/**
 !landingpage/**
@@ -13,3 +14,4 @@
 !inspect-file/**
 !MERN-project/**
 !.gitignore
+MERN-project/api/node_modules/undici-types/mock-agent.d.ts
