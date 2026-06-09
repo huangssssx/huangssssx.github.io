@@ -5,6 +5,10 @@ export interface IUser extends Document {
   email: string;
   password: string;
   name: string;
+  avatar: string;
+  provider: 'local' | 'google';
+  providerId: string;
+  role: 'admin' | 'user';
   createdAt: Date;
   comparePassword(candidate: string): Promise<boolean>;
 }
@@ -13,6 +17,10 @@ const UserSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: true },
   name: { type: String, required: true, trim: true },
+  avatar: { type: String, default: '' },
+  provider: { type: String, enum: ['local', 'google'], default: 'local' },
+  providerId: { type: String, default: '' },
+  role: { type: String, enum: ['admin', 'user'], default: 'admin' },
   createdAt: { type: Date, default: Date.now },
 });
 
