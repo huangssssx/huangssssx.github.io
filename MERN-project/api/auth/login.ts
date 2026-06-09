@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import dbConnect from '../_lib/db';
-import User from '../_lib/models/User';
-import { signToken } from '../_lib/auth';
+import dbConnect from '../_lib/db.js';
+import User from '../_lib/models/User.js';
+import { signToken } from '../_lib/auth.js';
 
 export default async function handler(req: Request, res: Response) {
   if (req.method !== 'POST') {

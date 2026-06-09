@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import dbConnect from '../_lib/db';
-import Item from '../_lib/models/Item';
-import { requireAuth } from '../_lib/auth';
+import dbConnect from '../_lib/db.js';
+import Item from '../_lib/models/Item.js';
+import { requireAuth } from '../_lib/auth.js';
 
 export default async function handler(req: Request, res: Response) {
   try {
