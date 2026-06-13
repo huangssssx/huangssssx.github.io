@@ -1,0 +1,34 @@
+/* =====================================================================
+   variables.css — 设计令牌 + JS 可写的动态变量
+   ===================================================================== */
+:root {
+  /* 色彩 */
+  --bg:        #05060f;
+  --bg-grad-a: #0b1030;
+  --bg-grad-b: #05060f;
+  --fg:        #e8ecf5;
+  --muted:     #8b93a7;
+  --accent:    #6cc6ff;
+  --accent-2:  #ffb43a;
+  --danger:    #ff6b6b;
+
+  /* 面板 / 玻璃拟态 */
+  --panel:        rgba(16, 20, 38, 0.72);
+  --panel-strong: rgba(16, 20, 38, 0.92);
+  --panel-border: rgba(130, 150, 210, 0.22);
+  --shadow:       0 10px 40px rgba(0, 0, 0, 0.5);
+
+  /* 轨道 */
+  --orbit-color:    rgba(130, 155, 220, 0.16);
+  --orbit-hi:       rgba(108, 198, 255, 0.65);
+
+  /* —— JS 实时写入的动态变量 —— */
+  --tilt-x:     66deg;   /* 俯仰角：轨道平面倾角 */
+  --spin:       0deg;    /* 偏航角：整体绕 Z 旋转 */
+  --zoom:       1;       /* 缩放 */
+  --time-scale: 1;       /* 速度倍率（供 CSS 动画参考） */
+
+  /* 字体 */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+          "Hiragino Sans GB", "Microsoft YaHei", Roboto, Helvetica, Arial, sans-serif;
+}
