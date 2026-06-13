@@ -13,5 +13,6 @@
 !animal-island/**
 !inspect-file/**
 !MERN-project/**
+!glm-test/**
 !.gitignore
 MERN-project/api/node_modules/undici-types/mock-agent.d.ts
