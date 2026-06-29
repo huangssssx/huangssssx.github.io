@@ -3,11 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      try {
+        var lang = localStorage.getItem('site-lang') || (navigator.language && navigator.language.toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en');
+        document.documentElement.setAttribute('data-lang', lang);
+        document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+      } catch (e) {
+        document.documentElement.setAttribute('data-lang', 'en');
+      }
+    })();
+  </script>
 <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  <title>Huangssssx — Front-End Portfolio</title>
-  <meta name="description" content="Front-end development portfolio showcasing masonry layouts, landing pages, and e-commerce experiences.">
-  <meta property="og:title" content="Huangssssx — Front-End Portfolio">
-  <meta property="og:description" content="Front-end development portfolio showcasing masonry layouts, landing pages, and e-commerce experiences.">
+  <title data-i18n="meta.title">Huangssssx — Front-End Portfolio</title>
+  <meta name="description" data-i18n-attr="meta.description" content="Front-end development portfolio showcasing masonry layouts, landing pages, and e-commerce experiences.">
+  <meta property="og:title" data-i18n-attr="meta.title" content="Huangssssx — Front-End Portfolio">
+  <meta property="og:description" data-i18n-attr="meta.description" content="Front-end development portfolio showcasing masonry layouts, landing pages, and e-commerce experiences.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,6 +115,44 @@
     }
 
     .nav-links a:hover { opacity: 0.7; }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 4px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.003em;
+      color: var(--color-ink);
+      background: transparent;
+      border: 1px solid var(--color-silver-mist);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), opacity var(--transition);
+      font-family: inherit;
+    }
+
+    .lang-toggle:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--color-graphite);
+    }
+
+    .lang-toggle:focus-visible {
+      outline: 2px solid var(--color-azure);
+      outline-offset: 2px;
+    }
+
+    .lang-toggle svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .lang-option { padding: 0 2px; }
+    .lang-option.active { color: var(--color-ink); font-weight: 600; }
+    .lang-option:not(.active) { color: var(--color-graphite); }
+    .lang-sep { color: var(--color-silver-mist); }
 
     .hero {
       padding: 140px 0 var(--section-gap);
@@ -438,8 +487,20 @@
     <div class="nav-inner">
       <a href="#" class="nav-brand">H.</a>
       <ul class="nav-links">
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li>
+          <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <span class="lang-option active" data-lang="en">EN</span>
+            <span class="lang-sep">/</span>
+            <span class="lang-option" data-lang="zh">中</span>
+          </button>
+        </li>
         <li>
           <a href="https://github.com/huangssssx/huangssssx.github.io" target="_blank" rel="noopener" aria-label="GitHub">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -450,36 +511,36 @@
   </nav>
 
   <section class="hero container">
-    <p class="hero-overline">Front-End Developer</p>
-    <h1>Crafted<br>with care.</h1>
-    <p class="hero-sub">Three projects exploring layout systems, performance optimization, and e-commerce interface design.</p>
+    <p class="hero-overline" data-i18n="hero.overline">Front-End Developer</p>
+    <h1 data-i18n-html="hero.title">Crafted<br>with care.</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Three projects exploring layout systems, performance optimization, and e-commerce interface design.</p>
   </section>
 
   <section class="projects-section container" id="projects">
     <div class="projects-header fade-in">
-      <p class="section-label">Selected Work</p>
-      <h2 class="section-title">Projects</h2>
-      <p class="section-desc">Each project is self-contained — a single idea pushed to completion with no frameworks, no build steps, no shortcuts.</p>
+      <p class="section-label" data-i18n="projects.label">Selected Work</p>
+      <h2 class="section-title" data-i18n="projects.title">Projects</h2>
+      <p class="section-desc" data-i18n="projects.desc">Each project is self-contained — a single idea pushed to completion with no frameworks, no build steps, no shortcuts.</p>
     </div>
 
     <div class="projects-grid">
 
       <a class="project-card fade-in" href="../masonry-layout/index.html">
         <div class="project-card-image">
-          <img src="../masonry-layout/demonstrate/cover.png" alt="Masonry Layout Showcase — dark-themed responsive masonry grid" loading="lazy">
+          <img src="../masonry-layout/demonstrate/cover.png" data-i18n-alt="project1.alt" alt="Masonry Layout Showcase — dark-themed responsive masonry grid" loading="lazy">
         </div>
         <div class="project-card-body">
-          <span class="project-tag">Layout System</span>
-          <h3>Masonry Layout</h3>
-          <p>A responsive masonry grid showcase with Isotope.js, dark aesthetic, frosted glass UI, scroll-triggered pagination, and adjustable column controls.</p>
+          <span class="project-tag" data-i18n="project1.tag">Layout System</span>
+          <h3 data-i18n="project1.title">Masonry Layout</h3>
+          <p data-i18n="project1.desc">A responsive masonry grid showcase with Isotope.js, dark aesthetic, frosted glass UI, scroll-triggered pagination, and adjustable column controls.</p>
           <div class="tech-chips">
-            <span class="tech-chip">Isotope.js</span>
-            <span class="tech-chip">Responsive Images</span>
-            <span class="tech-chip">AVIF / WebP</span>
-            <span class="tech-chip">Lazy Loading</span>
+            <span class="tech-chip" data-i18n="project1.chip1">Isotope.js</span>
+            <span class="tech-chip" data-i18n="project1.chip2">Responsive Images</span>
+            <span class="tech-chip" data-i18n="project1.chip3">AVIF / WebP</span>
+            <span class="tech-chip" data-i18n="project1.chip4">Lazy Loading</span>
           </div>
           <span class="project-link">
-            View Project
+            <span data-i18n="project.view">View Project</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </span>
         </div>
@@ -487,20 +548,20 @@
 
       <a class="project-card fade-in" href="../landingpage/index.html">
         <div class="project-card-image">
-          <img src="../landingpage/demonstrate/cover.png" alt="WebCraft Pro landing page with perfect Lighthouse scores" loading="lazy">
+          <img src="../landingpage/demonstrate/cover.png" data-i18n-alt="project2.alt" alt="WebCraft Pro landing page with perfect Lighthouse scores" loading="lazy">
         </div>
         <div class="project-card-body">
-          <span class="project-tag">Performance</span>
-          <h3>Landing Page</h3>
-          <p>A production-grade landing page scoring 100/100/100/100 on Lighthouse. Zero frameworks, zero build steps — 10 advanced visual effects in under 20 KB compressed.</p>
+          <span class="project-tag" data-i18n="project2.tag">Performance</span>
+          <h3 data-i18n="project2.title">Landing Page</h3>
+          <p data-i18n="project2.desc">A production-grade landing page scoring 100/100/100/100 on Lighthouse. Zero frameworks, zero build steps — 10 advanced visual effects in under 20 KB compressed.</p>
           <div class="tech-chips">
-            <span class="tech-chip">Lighthouse 100</span>
-            <span class="tech-chip">Service Worker</span>
-            <span class="tech-chip">Critical CSS</span>
-            <span class="tech-chip">Canvas Particles</span>
+            <span class="tech-chip" data-i18n="project2.chip1">Lighthouse 100</span>
+            <span class="tech-chip" data-i18n="project2.chip2">Service Worker</span>
+            <span class="tech-chip" data-i18n="project2.chip3">Critical CSS</span>
+            <span class="tech-chip" data-i18n="project2.chip4">Canvas Particles</span>
           </div>
           <span class="project-link">
-            View Project
+            <span data-i18n="project.view">View Project</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </span>
         </div>
@@ -508,20 +569,20 @@
 
       <a class="project-card fade-in" href="../e-commerce-websit/index.html">
         <div class="project-card-image">
-          <img src="../e-commerce-websit/demonstrate/cover.png" alt="Northstar e-commerce website with dark mode support" loading="lazy">
+          <img src="../e-commerce-websit/demonstrate/cover.png" data-i18n-alt="project3.alt" alt="Northstar e-commerce website with dark mode support" loading="lazy">
         </div>
         <div class="project-card-body">
-          <span class="project-tag">E-Commerce</span>
-          <h3>Northstar</h3>
-          <p>A premium home and living e-commerce front-end with multi-page navigation, dark mode toggle, product showcase, and working contact flow — no frameworks, pure HTML/CSS/JS.</p>
+          <span class="project-tag" data-i18n="project3.tag">E-Commerce</span>
+          <h3 data-i18n="project3.title">Northstar</h3>
+          <p data-i18n="project3.desc">A premium home and living e-commerce front-end with multi-page navigation, dark mode toggle, product showcase, and working contact flow — no frameworks, pure HTML/CSS/JS.</p>
           <div class="tech-chips">
-            <span class="tech-chip">Multi-Page</span>
-            <span class="tech-chip">Dark Mode</span>
-            <span class="tech-chip">Responsive</span>
-            <span class="tech-chip">Form Validation</span>
+            <span class="tech-chip" data-i18n="project3.chip1">Multi-Page</span>
+            <span class="tech-chip" data-i18n="project3.chip2">Dark Mode</span>
+            <span class="tech-chip" data-i18n="project3.chip3">Responsive</span>
+            <span class="tech-chip" data-i18n="project3.chip4">Form Validation</span>
           </div>
           <span class="project-link">
-            View Project
+            <span data-i18n="project.view">View Project</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </span>
         </div>
@@ -532,10 +593,10 @@
 
   <section class="cta-section container">
     <div class="dark-card fade-in">
-      <h2>Every pixel, intentional.</h2>
-      <p>No frameworks. No build steps. Just HTML, CSS, and JavaScript — engineered to perform.</p>
+      <h2 data-i18n="cta.title">Every pixel, intentional.</h2>
+      <p data-i18n="cta.desc">No frameworks. No build steps. Just HTML, CSS, and JavaScript — engineered to perform.</p>
       <a href="https://github.com/huangssssx/huangssssx.github.io" target="_blank" rel="noopener" class="cta-button">
-        View on GitHub
+        <span data-i18n="cta.button">View on GitHub</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
       </a>
     </div>
@@ -544,26 +605,26 @@
   <section class="about-section container" id="about">
     <div class="about-grid fade-in">
       <div>
-        <p class="section-label">About</p>
-        <h2 class="section-title">Approach</h2>
+        <p class="section-label" data-i18n="about.label">About</p>
+        <h2 class="section-title" data-i18n="about.title">Approach</h2>
         <div class="about-stats">
           <div>
             <div class="stat-number">0</div>
-            <div class="stat-label">Dependencies</div>
+            <div class="stat-label" data-i18n="about.stat1">Dependencies</div>
           </div>
           <div>
             <div class="stat-number">0</div>
-            <div class="stat-label">Build Steps</div>
+            <div class="stat-label" data-i18n="about.stat2">Build Steps</div>
           </div>
           <div>
             <div class="stat-number">3</div>
-            <div class="stat-label">Projects</div>
+            <div class="stat-label" data-i18n="about.stat3">Projects</div>
           </div>
         </div>
       </div>
       <div class="about-body">
-        <p>These projects share a common philosophy: the web platform is powerful enough on its own. No React, no Vue, no Tailwind, no Webpack. Just semantic HTML, modern CSS, and vanilla JavaScript — written with the same care a craftsperson brings to their work.</p>
-        <p>Each project explores a different dimension of front-end development. The masonry layout tackles complex responsive grid systems with image optimization. The landing page pushes performance engineering to its theoretical limit. The e-commerce site demonstrates multi-page architecture with accessible, production-ready patterns.</p>
+        <p data-i18n="about.p1">These projects share a common philosophy: the web platform is powerful enough on its own. No React, no Vue, no Tailwind, no Webpack. Just semantic HTML, modern CSS, and vanilla JavaScript — written with the same care a craftsperson brings to their work.</p>
+        <p data-i18n="about.p2">Each project explores a different dimension of front-end development. The masonry layout tackles complex responsive grid systems with image optimization. The landing page pushes performance engineering to its theoretical limit. The e-commerce site demonstrates multi-page architecture with accessible, production-ready patterns.</p>
       </div>
     </div>
   </section>
@@ -571,15 +632,188 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <span class="footer-text">2026 Huangssssx</span>
+        <span class="footer-text" data-i18n="footer.copyright">2026 Huangssssx</span>
         <ul class="footer-links">
-          <li><a href="https://github.com/huangssssx/huangssssx.github.io" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="https://github.com/huangssssx/huangssssx.github.io" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a></li>
+          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
         </ul>
       </div>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var i18n = {
+        en: {
+          'meta.title': 'Huangssssx \u2014 Front-End Portfolio',
+          'meta.description': 'Front-end development portfolio showcasing masonry layouts, landing pages, and e-commerce experiences.',
+          'nav.projects': 'Projects',
+          'nav.about': 'About',
+          'nav.github': 'GitHub',
+          'hero.overline': 'Front-End Developer',
+          'hero.title': 'Crafted<br>with care.',
+          'hero.sub': 'Three projects exploring layout systems, performance optimization, and e-commerce interface design.',
+          'projects.label': 'Selected Work',
+          'projects.title': 'Projects',
+          'projects.desc': 'Each project is self-contained \u2014 a single idea pushed to completion with no frameworks, no build steps, no shortcuts.',
+          'project.view': 'View Project',
+          'project1.tag': 'Layout System',
+          'project1.title': 'Masonry Layout',
+          'project1.desc': 'A responsive masonry grid showcase with Isotope.js, dark aesthetic, frosted glass UI, scroll-triggered pagination, and adjustable column controls.',
+          'project1.chip1': 'Isotope.js',
+          'project1.chip2': 'Responsive Images',
+          'project1.chip3': 'AVIF / WebP',
+          'project1.chip4': 'Lazy Loading',
+          'project1.alt': 'Masonry Layout Showcase \u2014 dark-themed responsive masonry grid',
+          'project2.tag': 'Performance',
+          'project2.title': 'Landing Page',
+          'project2.desc': 'A production-grade landing page scoring 100/100/100/100 on Lighthouse. Zero frameworks, zero build steps \u2014 10 advanced visual effects in under 20 KB compressed.',
+          'project2.chip1': 'Lighthouse 100',
+          'project2.chip2': 'Service Worker',
+          'project2.chip3': 'Critical CSS',
+          'project2.chip4': 'Canvas Particles',
+          'project2.alt': 'WebCraft Pro landing page with perfect Lighthouse scores',
+          'project3.tag': 'E-Commerce',
+          'project3.title': 'Northstar',
+          'project3.desc': 'A premium home and living e-commerce front-end with multi-page navigation, dark mode toggle, product showcase, and working contact flow \u2014 no frameworks, pure HTML/CSS/JS.',
+          'project3.chip1': 'Multi-Page',
+          'project3.chip2': 'Dark Mode',
+          'project3.chip3': 'Responsive',
+          'project3.chip4': 'Form Validation',
+          'project3.alt': 'Northstar e-commerce website with dark mode support',
+          'cta.title': 'Every pixel, intentional.',
+          'cta.desc': 'No frameworks. No build steps. Just HTML, CSS, and JavaScript \u2014 engineered to perform.',
+          'cta.button': 'View on GitHub',
+          'about.label': 'About',
+          'about.title': 'Approach',
+          'about.stat1': 'Dependencies',
+          'about.stat2': 'Build Steps',
+          'about.stat3': 'Projects',
+          'about.p1': 'These projects share a common philosophy: the web platform is powerful enough on its own. No React, no Vue, no Tailwind, no Webpack. Just semantic HTML, modern CSS, and vanilla JavaScript \u2014 written with the same care a craftsperson brings to their work.',
+          'about.p2': 'Each project explores a different dimension of front-end development. The masonry layout tackles complex responsive grid systems with image optimization. The landing page pushes performance engineering to its theoretical limit. The e-commerce site demonstrates multi-page architecture with accessible, production-ready patterns.',
+          'footer.copyright': '2026 Huangssssx'
+        },
+        zh: {
+          'meta.title': 'Huangssssx \u2014 \u524d\u7aef\u4e2a\u4eba\u4f5c\u54c1\u96c6',
+          'meta.description': '\u524d\u7aef\u5f00\u53d1\u4e2a\u4eba\u4f5c\u54c1\u96c6\uff0c\u5c55\u793a\u7011\u5e03\u5e03\u5c40\u3001\u540c\u9875\u4ee53\u4e2a\u4ee3\u8868\u9879\u76ee\u4e0e\u7535\u5546\u754c\u9762\u8bbe\u8ba1\u3002',
+          'nav.projects': '\u9879\u76ee',
+          'nav.about': '\u5173\u4e8e',
+          'nav.github': 'GitHub',
+          'hero.overline': '\u524d\u7aef\u5f00\u53d1\u8005',
+          'hero.title': '\u7528\u5fc3\u6253\u9020<br>\u6bcf\u4e00\u4e2a\u50cf\u7d20\u3002',
+          'hero.sub': '\u4e09\u4e2a\u9879\u76ee\uff0c\u63a2\u7d22\u5e03\u5c40\u7cfb\u7edf\u3001\u6027\u80fd\u4f18\u5316\u4e0e\u7535\u5546\u4ea4\u4e92\u8bbe\u8ba1\u3002',
+          'projects.label': '\u4ee3\u8868\u4f5c\u54c1',
+          'projects.title': '\u9879\u76ee',
+          'projects.desc': '\u6bcf\u4e2a\u9879\u76ee\u90fd\u662f\u72ec\u7acb\u5b8c\u6574\u7684\u2014\u2014 \u4e0d\u4f9d\u8d56\u6846\u67b6\u3001\u4e0d\u9700\u6784\u5efa\u6b65\u9aa4\u3001\u4e0d\u8d70\u6377\u5f84\uff0c\u4e00\u4e2a\u601d\u60f3\u4ece\u5934\u505a\u5230\u5c3e\u3002',
+          'project.view': '\u67e5\u770b\u9879\u76ee',
+          'project1.tag': '\u5e03\u5c40\u7cfb\u7edf',
+          'project1.title': '\u7011\u5e03\u5e03\u5c40',
+          'project1.desc': '\u4e00\u4e2a\u54cd\u5e94\u5f0f\u7011\u5e03\u5e03\u5c40\u5c55\u793a\u9875\u9762\uff0c\u4f7f\u7528 Isotope.js\uff0c\u91d1\u4e3a\u4e3b\u9898\u3001\u73bb\u7483\u7ec6\u80fd\u5316\u754c\u9762\u3001\u6eda\u52a8\u89e6\u53d1\u5206\u9875\u4e0e\u53ef\u8c03\u8282\u7684\u5217\u63a7\u4ef6\u3002',
+          'project1.chip1': 'Isotope.js',
+          'project1.chip2': '\u54cd\u5e94\u5f0f\u56fe\u50cf',
+          'project1.chip3': 'AVIF / WebP',
+          'project1.chip4': '\u60f0\u6027\u52a0\u8f7d',
+          'project1.alt': '\u7011\u5e03\u5e03\u5c40\u5c55\u793a\u2014\u2014\u6df1\u8272\u4e3b\u9898\u54cd\u5e94\u5f0f\u7011\u5e03\u5e03\u5c40',
+          'project2.tag': '\u6027\u80fd',
+          'project2.title': '\u540c\u9875',
+          'project2.desc': '\u4e00\u4e2a\u751f\u4ea7\u7ea7\u522b\u7684\u540c\u9875\uff0cLighthouse \u8bc4\u5206 100/100/100/100\u3002\u96f6\u6846\u67b6\u3001\u96f6\u6784\u5efa\u2014\u2014 \u4ee5\u538b\u7f29\u540e\u4e0d\u8db3 20KB \u5b9e\u73b0 10 \u4e2a\u9ad8\u7ea7\u89c6\u89c9\u6548\u679c\u3002',
+          'project2.chip1': 'Lighthouse 100',
+          'project2.chip2': 'Service Worker',
+          'project2.chip3': '\u5173\u952e CSS',
+          'project2.chip4': 'Canvas \u7c92\u5b50',
+          'project2.alt': 'WebCraft Pro \u540c\u9875\uff0cLighthouse \u8bc4\u5206\u8d85\u9ad8',
+          'project3.tag': '\u7535\u5546',
+          'project3.title': 'Northstar',
+          'project3.desc': '\u4e00\u6b3e\u4e2d\u9ad8\u7aef\u5bb6\u5c45\u4e0e\u751f\u6d3b\u7535\u5546\u524d\u7aef\uff0c\u5305\u542b\u591a\u9875\u5bfc\u822a\u3001\u6df1\u8272\u6a21\u5f0f\u5207\u6362\u3001\u4ea7\u54c1\u5c55\u793a\u4e0e\u5b8c\u6574\u8054\u7cfb\u8868\u5355\u6d41\u7a0b\u2014\u2014 \u96f6\u6846\u67b6\uff0c\u7eaf HTML/CSS/JS\u3002',
+          'project3.chip1': '\u591a\u9875\u9762',
+          'project3.chip2': '\u6df1\u8272\u6a21\u5f0f',
+          'project3.chip3': '\u54cd\u5e94\u5f0f',
+          'project3.chip4': '\u8868\u5355\u6821\u9a8c',
+          'project3.alt': 'Northstar \u7535\u5546\u7f51\u7ad9\uff0c\u652f\u6301\u6df1\u8272\u6a21\u5f0f',
+          'cta.title': '\u6bcf\u4e00\u4e2a\u50cf\u7d20\uff0c\u90fd\u662f\u4e3b\u52a8\u8bbe\u8ba1\u3002',
+          'cta.desc': '\u4e0d\u7528\u6846\u67b6\u3001\u4e0d\u7528\u6784\u5efa\u3002\u53ea\u7528 HTML\u3001CSS \u4e0e JavaScript\uff0c\u4e3a\u6027\u80fd\u800c\u751f\u3002',
+          'cta.button': 'GitHub \u4e0a\u67e5\u770b',
+          'about.label': '\u5173\u4e8e',
+          'about.title': '\u8bbe\u8ba1\u7406\u5ff5',
+          'about.stat1': '\u4f9d\u8d56',
+          'about.stat2': '\u6784\u5efa\u6b65\u9aa4',
+          'about.stat3': '\u9879\u76ee',
+          'about.p1': '\u8fd9\u4e9b\u9879\u76ee\u5171\u4eab\u540c\u4e00\u4e2a\u7406\u5ff5\uff1aWeb \u5e73\u53f0\u672c\u8eab\u5df2\u7ecf\u8db3\u591f\u5f3a\u5927\u3002\u4e0d\u7528 React\u3001\u4e0d\u7528 Vue\u3001\u4e0d\u7528 Tailwind\u3001\u4e0d\u7528 Webpack\u3002\u53ea\u7528\u8bed\u4e49\u5316\u7684 HTML\u3001\u73b0\u4ee3 CSS \u4e0e\u539f\u751f JavaScript\uff0c\u4ee5\u624b\u4f5c\u8005\u7684\u70bc\u91d1\u4e4b\u5fc3\u51e0\u4e2a\u4e00\u884c\u3002',
+          'about.p2': '\u6bcf\u4e2a\u9879\u76ee\u63a2\u7d22\u524d\u7aef\u5f00\u53d1\u4e0d\u540c\u7684\u7ef4\u5ea6\uff1a\u7011\u5e03\u5e03\u5c40\u5904\u7406\u590d\u6742\u54cd\u5e94\u5f0f\u7f51\u683c\u4e0e\u56fe\u50cf\u4f18\u5316\uff0c\u540c\u9875\u63a8\u7eaf\u6027\u80fd\u5230\u6781\u9650\uff0c\u7535\u5546\u7ad9\u5b9e\u73b0\u591a\u9875\u67b6\u6784\u4e0e\u53ef\u8bbf\u95ee\u3001\u53ef\u4e0a\u7ebf\u7684\u4ea7\u54c1\u7ea7\u6a21\u5f0f\u3002',
+          'footer.copyright': '2026 Huangssssx'
+        }
+      };
+
+      var STORAGE_KEY = 'site-lang';
+      function getInitialLang() {
+        var stored = null;
+        try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+        if (stored === 'en' || stored === 'zh') return stored;
+        var fromDoc = document.documentElement.getAttribute('data-lang');
+        if (fromDoc === 'en' || fromDoc === 'zh') return fromDoc;
+        return 'en';
+      }
+
+      var currentLang = getInitialLang();
+
+      function applyLang(lang) {
+        var dict = i18n[lang] || i18n.en;
+        var nodes = document.querySelectorAll('[data-i18n]');
+        Array.prototype.forEach.call(nodes, function (el) {
+          var key = el.getAttribute('data-i18n');
+          if (dict[key] != null) el.innerHTML = dict[key];
+        });
+        var htmlNodes = document.querySelectorAll('[data-i18n-html]');
+        Array.prototype.forEach.call(htmlNodes, function (el) {
+          var key = el.getAttribute('data-i18n-html');
+          if (dict[key] != null) el.innerHTML = dict[key];
+        });
+        var attrNodes = document.querySelectorAll('[data-i18n-attr]');
+        Array.prototype.forEach.call(attrNodes, function (el) {
+          var key = el.getAttribute('data-i18n-attr');
+          if (dict[key] != null) el.setAttribute('content', dict[key]);
+        });
+        var altNodes = document.querySelectorAll('[data-i18n-alt]');
+        Array.prototype.forEach.call(altNodes, function (el) {
+          var key = el.getAttribute('data-i18n-alt');
+          if (dict[key] != null) el.setAttribute('alt', dict[key]);
+        });
+        var opts = document.querySelectorAll('.lang-option');
+        Array.prototype.forEach.call(opts, function (el) {
+          if (el.getAttribute('data-lang') === lang) el.classList.add('active');
+          else el.classList.remove('active');
+        });
+        document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+        document.documentElement.setAttribute('data-lang', lang);
+      }
+
+      function setLang(lang) {
+        if (lang !== 'en' && lang !== 'zh') return;
+        currentLang = lang;
+        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+        applyLang(lang);
+      }
+
+      function bindToggle() {
+        var btn = document.getElementById('langToggle');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          setLang(currentLang === 'en' ? 'zh' : 'en');
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          applyLang(currentLang);
+          bindToggle();
+        });
+      } else {
+        applyLang(currentLang);
+        bindToggle();
+      }
+    })();
+  </script>
 
   <script>
     (function () {
